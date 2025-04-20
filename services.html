@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجز الخدمات - شركة تنظيف محترفة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2A5C82;
+            --secondary: #FFC857;
+            --accent: #E63946;
+            --text: #333;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--light-bg);
+        }
+
+        .booking-section {
+            padding: 3rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* تحسين صناديق الخدمات */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-color: var(--secondary);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            color: var(--primary);
+            margin: 1rem 0;
+            font-size: 1.3rem;
+        }
+
+        .service-description {
+            color: var(--text);
+            font-size: 0.95rem;
+            min-height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .service-price {
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        /* تحسينات إضافية */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary);
+            margin: 0.5rem auto;
+        }
+
+        /* عناصر جديدة مضافة */
+        .service-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .service-duration {
+            color: var(--primary);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            text-align: right;
+        }
+
+        .service-features li {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .service-features li::before {
+            content: "✓";
+            color: var(--secondary);
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="booking-section">
+        <div class="section-header">
+            <h2 class="section-title">اختر خدمة التنظيف</h2>
+        </div>
+
+        <div class="services-grid">
+            <!-- تنظيف المدارس -->
+            <div class="service-card">
+                <span class="service-badge">الأكثر طلبًا</span>
+                <i class="fas fa-school service-icon"></i>
+                <h3 class="service-title">تنظيف المدارس</h3>
+                <p class="service-description">
+                    تنظيف وتعقيم شامل للفصول الدراسية، الممرات، والمرافق الصحية
+                </p>
+                <ul class="service-features">
+                    <li>تعقيم الأسطح</li>
+                    <li>إزالة الكتابات</li>
+                    <li>تنظيف الساحات</li>
+                </ul>
+                <div class="service-price">300 ر.س</div>
+                <div class="service-duration">مدة الخدمة: 4-6 ساعات</div>
+            </div>
+
+            <!-- تنظيف الفنادق -->
+            <div class="service-card">
+                <i class="fas fa-hotel service-icon"></i>
+                <h3 class="service-title">تنظيف الفنادق</h3>
+                <p class="service-description">
+                    خدمات تنظيف متكاملة لغرف النزلاء والمناطق العامة
+                </p>
+                <ul class="service-features">
+                    <li>تنظيف المفروشات</li>
+                    <li>تعقيم الحمامات</li>
+                    <li>تلميع الأرضيات</li>
+                </ul>
+                <div class="service-price">500 ر.س</div>
+                <div class="service-duration">مدة الخدمة: 6-8 ساعات</div>
+            </div>
+
+            <!-- تنظيف المطاعم -->
+            <div class="service-card">
+                <i class="fas fa-utensils service-icon"></i>
+                <h3 class="service-title">تنظيف المطاعم</h3>
+                <p class="service-description">
+                    تنظيف عميق للمطابخ وطاولات الطعام وفق معايير الصحة العامة
+                </p>
+                <ul class="service-features">
+                    <li>إزالة الدهون</li>
+                    <li>تعقيم الأسطح</li>
+                    <li>تنظيف الثلاجات</li>
+                </ul>
+                <div class="service-price">400 ر.س</div>
+                <div class="service-duration">مدة الخدمة: 5-7 ساعات</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

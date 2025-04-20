@@ -1,0 +1,177 @@
+.services-page .service-card {
+    box-shadow: 0 10px 20px rgba(42,92,130,0.1);
+    transition: all 0.3s ease;
+}
+
+.services-page .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(42,92,130,0.2);
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+        /* إضافة الأنماط الجديدة */
+        .centered-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .centered-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            margin: 2rem auto;
+            transition: transform 0.3s ease;
+        }
+
+        .centered-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .centered-content h2 {
+            color: #2A5C82;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+
+        .centered-content p {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .centered-content .cta-button {
+            background: #FFC857;
+            color: #2A5C82;
+            padding: 1rem 2.5rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .centered-content .cta-button:hover {
+            background: #2A5C82;
+            color: white;
+        }
+    /* خدمات.css */
+.service-card {
+    position: relative;
+    background: #fff;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(42, 92, 130, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1rem 2rem rgba(42, 92, 130, 0.15);
+}
+
+.card-icon__wrapper {
+    width: 5rem;
+    height: 5rem;
+    background: rgba(42, 92, 130, 0.1);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 1.5rem;
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.highlight-text {
+    display: block;
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-top: 0.5rem;
+    font-size: 0.9em;
+}
+
+.service-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.service-badge {
+    background: var(--light-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.price-tag {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.25rem;
+}
+
+.price-note {
+    font-size: 0.8em;
+    color: #666;
+    display: block;
+}
+    
+    @media (max-width: 768px) {
+    .service-card {
+        padding: 1.5rem;
+    }
+    
+    .service-meta {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: start;
+    }
+}
+    .logo {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-svg {
+    fill: var(--primary-color);
+}
+
+.logo-image {
+    max-width: 180px;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .logo-image {
+        max-width: 120px;
+    }
+}
+

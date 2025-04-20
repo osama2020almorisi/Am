@@ -1,0 +1,36 @@
+/* About Section */
+.about-section {
+    padding: 100px 0;
+    background: var(--light-bg);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.highlight-text {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.advantages {
+    margin: 30px 0;
+    display: grid;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}

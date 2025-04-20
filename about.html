@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن - شركة تنظيف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        :root {
+            --primary: #2A5C82;
+            --secondary: #FFC857;
+            --dark: #1A2E40;
+            --light: #F8F9FA;
+        }
+
+        .about-page {
+            background: var(--light);
+        }
+
+        .about-section {
+            padding: 6rem 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-content {
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem 0;
+        }
+
+        .highlight-text {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .advantage-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid #eee;
+        }
+
+        .advantage-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+        }
+
+        .advantage-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(42, 92, 130, 0.3);
+        }
+
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                order: 2;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .about-section {
+                padding: 3rem 0;
+            }
+
+            .advantages {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="about-page">
+    <!-- الهيدر هنا -->
+
+    <main class="container">
+        <section class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <!-- الصورة -->
+                    <div class="about-image" data-aos="zoom-in">
+                        <img src="assets/images/about-team.jpg" alt="فريق العمل">
+                    </div>
+
+                    <!-- المحتوى -->
+                    <div class="about-content" data-aos="fade-left">
+                        <h2 class="section-title">من نحن؟</h2>
+                        <p class="highlight-text">خبرة 10+ سنوات في تقديم حلول التنظيف الذكية</p>
+                        <p class="description">نحن فريق من المحترفين المدربين على أحدث تقنيات التنظيف، نؤمن بأن النظافة جزء أساسي من جودة الحياة. نقدم خدماتنا بأعلى معايير الجودة باستخدام تقنيات مبتكرة ومواد صديقة للبيئة.</p>
+                        
+                        <!-- مزايا الشركة -->
+                        <div class="advantages">
+                            <div class="advantage-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>ضمان الجودة 100%</span>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-clock"></i>
+                                <span>خدمة 24/7</span>
+                            </div>
+                            <div class="advantage-item">
+                                <i class="fas fa-award"></i>
+                                <span>شهادات معتمدة</span>
+                            </div>
+                        </div>
+
+                        <a href="contact.html" class="cta-button">
+                            <span>تعرف علينا أكثر</span>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- الفوتر هنا -->
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+</body>
+</html>

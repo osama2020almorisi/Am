@@ -1,0 +1,79 @@
+/* ======================
+   #BOOKING - صفحة الحجز
+   ====================== */
+
+/* أنماط عامة */
+.booking-section {
+  padding: 2rem 0;
+}
+
+/* تحسينات للجوال */
+@media (max-width: 767px) {
+  .booking-steps {
+    padding: 1rem;
+  }
+
+  .step {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+  }
+
+  .calendar-day {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .time-slots {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  input[type="text"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .step-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* تحسينات للشاشات الصغيرة جدًا */
+@media (max-width: 480px) {
+  .calendar-day {
+    height: 2.5rem;
+  }
+
+  .time-slot {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .current-month {
+    font-size: 1rem;
+  }
+}

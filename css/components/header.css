@@ -1,0 +1,92 @@
+/* Header Styles */
+.main-header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+}
+
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: block;
+    }
+}
+.main-header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+}
+
+
+
+
+
+.main-header {
+         background: rgba(255, 255, 255, 0.95);
+         backdrop-filter: blur(10px);
+         position: fixed;
+         width: 100%;
+         top: 0;
+         z-index: 1000;
+         transition: all 0.3s ease;
+     }
+
+
+.hero {
+         background: linear-gradient(45deg, var(--primary), var(--dark)),
+                     url('assets/images/hero-bg.jpg');
+         background-size: cover;
+         background-attachment: fixed;
+         padding: 15rem 0 8rem;
+         color: white;
+         position: relative;
+         overflow: hidden;
+     }
