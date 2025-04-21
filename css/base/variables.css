@@ -1,6 +1,14 @@
 :root {
-    --primary-color: #2A5C82;
-    --secondary-color: #FFC857;
-    --text-color: #333;
-    --light-bg: #f9f9f9;
+    /* الألوان */
+    --primary: #2A5C82;
+    --secondary: #FFC857;
+    --dark: #1A2E40;
+    --light: #F8F9FA;
+    
+    /* الخطوط */
+    --font-primary: 'Cairo', sans-serif;
+    
+    /* الظلال */
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.1);
+    --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
 }
