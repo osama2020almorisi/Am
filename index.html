@@ -1,333 +1,597 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-    <!-- ... (الجزء العلوي من head كما هو في الكود الأصلي) ... -->
-    
-       <link rel="stylesheet" href="css/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SchoonmaakProMax - تنظيف محترف</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- تحسينات SEO -->
-    <meta name="description" content="شركة تنظيف محترفة في هولندا - خدمات تنظيف المنازل والمكاتب بأسعار منافسة وجودة عالية">
-    <meta name="keywords" content="تنظيف، شركة تنظيف، تنظيف منازل، تنظيف مكاتب، هولندا">
-    <meta property="og:title" content="SchoonmaakProMax - تنظيف محترف">
-    <meta property="og:description" content="شركة تنظيف محترفة في هولندا">
-    <meta property="og:image" content="assets/images/og-image.jpg">
-    <meta property="og:url" content="https://schoonmaakpromax.nl/">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <!-- إضافة Favicon -->
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    
-    <!-- Preconnect لموارد خارجية -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- تحميل خط Cairo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
-    
-    <!-- إضافة مكتبة AOS للتحريك -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <style>
-        :root {
-            --primary: #2A5C82;
-            --secondary: #FFC857;
-            --accent: #E63946;
-            --dark: #1A2E40;
-            --light: #F8F9FA;
-        }
-
-        /* تحسينات الهيدر */
-        .main-header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        .main-header.scrolled {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* تحسينات القسم الرئيسي */
-        .hero {
-            background: linear-gradient(45deg, var(--primary), var(--dark)),
-                        url('assets/images/hero-bg.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            padding: 15rem 0 8rem;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            animation: slideUp 1s ease;
-        }
-
-        /* بطاقات المميزات */
-        .feature-card {
-            background: white;
-            border-radius: 1.5rem;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: var(--secondary);
-            transform: rotate(45deg);
-            transition: all 0.4s ease;
-            opacity: 0;
-        }
-        .feature-card:hover::before {
-            opacity: 0.1;
-            bottom: -30%;
-            left: -30%;
-        }
-
-        /* تأثيرات التمرير */
-        [data-aos] {
-            transition: all 0.6s ease;
-        }
-        .aos-fade {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        .aos-fade.aos-animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* تأثيرات الأزرار */
-        .cta-button {
-            background: linear-gradient(45deg, var(--primary), var(--dark));
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.8s ease;
-        }
-        .cta-button:hover::after {
-            left: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+    <head>
+        <!-- Meta Tags الأساسية -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- تحسينات SEO -->
+        <title>SchoonmaakProMax - تنظيف محترف</title>
+        <meta name="description" content="شركة تنظيف محترفة في هولندا - خدمات تنظيف المنازل والمكاتب بأسعار منافسة وجودة عالية">
+        <meta name="keywords" content="تنظيف، شركة تنظيف، تنظيف منازل، تنظيف مكاتب، هولندا">
+        <meta property="og:title" content="SchoonmaakProMax - تنظيف محترف">
+        <meta property="og:description" content="شركة تنظيف محترفة في هولندا">
+        <meta property="og:image" content="assets/images/og-image.jpg">
+        <meta property="og:url" content="https://schoonmaakpromax.nl/">
+        <meta name="twitter:card" content="summary_large_image">
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="assets/favicon.png">
+        
+        <!-- Preconnect لتحسين أداء التحميل -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <!-- خطوط Google -->
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+        
+        <!-- مكتبة Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <!-- مكتبة AOS للتحريك -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        
+        <!-- ملفات CSS الخاصة بالمشروع -->
+        <link rel="stylesheet" href="css/base/reset.css">
+        <link rel="stylesheet" href="css/base/variables.css">
+        <link rel="stylesheet" href="css/components/header.css">
+        <link rel="stylesheet" href="css/main.css">
+        <style>
+            :root {
+                --primary: #2A5C82;
+                --secondary: #FFC857;
             }
-        }
-    </style>
-</head>
+            
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            html, body {
+                width: 100%;
+                min-height: 100vh;
+                overflow-x: hidden;
+                font-family: 'Cairo', sans-serif;
+            }
+            
+            .main-container {
+                width: 100vw;
+                overflow: hidden;
+            }
+            
+            section {
+                width: 100vw;
+                padding: 4rem 0;
+                overflow: hidden;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+        </style>
+    </head>
 <body class="home-page">
     <!-- الهيدر المعدل -->
     <header class="main-header">
-        <!-- ... (نفس محتوى الهيدر الأصلي) ... -->
-                <div class="container">
-            <a href="#" class="logo">
-                <img src="assets/images/logo.png" alt="SchoonmaakProMax - شركة تنظيف محترفة" loading="lazy">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="SchoonmaakProMax" loading="lazy" width="180" height="60">
             </a>
+            
+            <button class="hamburger-menu" aria-expanded="false" aria-label="قائمة الجوال">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
             <nav class="main-nav" aria-label="القائمة الرئيسية">
                 <ul class="nav-links">
-                    <li><a href="index.html" class="nav-link">الرئيسية</a></li>
-                    <li><a href="services.html" class="nav-link">الخدمات</a></li>
-                    <li><a href="about.html" class="nav-link">من نحن</a></li>
-                    <li><a href="contact.html" class="nav-link">اتصل بنا</a></li>
+                    <li><a href="index.html" class="nav-link active" data-link="home">الرئيسية</a></li>
+                    <li><a href="services.html" class="nav-link" data-link="services">الخدمات</a></li>
+                    <li><a href="about.html" class="nav-link" data-link="about">من نحن</a></li>
+                    <li><a href="contact.html" class="nav-link" data-link="contact">اتصل بنا</a></li>
+                    <li class="mobile-only">
+                        <a href="tel:+31123456789" class="cta-button mobile-cta">
+                            <i class="fas fa-phone"></i> اتصل الآن
+                        </a>
+                    </li>
                 </ul>
-                <div class="hamburger-menu" aria-label="قائمة الجوال">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
             </nav>
+            
+            <a href="tel:+31123456789" class="desktop-cta cta-button">
+                <i class="fas fa-phone"></i> اتصل بنا
+            </a>
         </div>
     </header>
-
+    
+    <style>
+    :root {
+        --primary: #2A5C82;
+        --secondary: #FFC857;
+        --text: #333;
+        --light-bg: #f8f9fa;
+    }
+    
+    .main-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    
+    /* القائمة الرئيسية لسطح المكتب */
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 600;
+        position: relative;
+        padding: 0.5rem 0;
+    }
+    
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+    
+    /* تصميم قائمة الجوال */
+    .hamburger-menu {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        z-index: 1001;
+    }
+    
+    .hamburger-line {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background: var(--primary);
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+    
+    /* أنماط الجوال */
+    @media (max-width: 992px) {
+        .hamburger-menu {
+            display: block;
+        }
+        
+        .main-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            padding-top: 80px;
+        }
+        
+        .main-nav.active {
+            right: 0;
+        }
+        
+        .nav-links {
+            flex-direction: column;
+            padding: 0 1.5rem;
+        }
+        
+        .nav-link {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: block;
+        }
+        
+        .desktop-cta {
+            display: none;
+        }
+        
+        .mobile-only {
+            display: block;
+            margin-top: 1rem;
+        }
+        
+        /* تحريك الخطوط عند النقر */
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+    }
+    </style>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.querySelector('.hamburger-menu');
+        const nav = document.querySelector('.main-nav');
+        
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            nav.classList.toggle('active');
+            
+            // إضافة أو إزالة scroll للbody عند فتح القائمة
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // إغلاق القائمة عند النقر على أي رابط
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    });
+    </script>
     <!-- قسم البطل مع التأثيرات -->
     <section class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <h1>نظافة تعكس <span class="hero-highlight">الكمال</span></h1>
-            <p class="hero-subtitle">خدمات تنظيف شاملة بمعايير عالمية</p>
-            <div class="hero-cta">
-                 <a href="services.html" class="cta-button">الخدمات</a>
-                <a href="booking.html" class="cta-button">احجز الآن</a>
-               
-<a href="contact.html" class="cta-button">تواصل معنا</a>            </div>
-        </div>
-    </div>
-</section>
-
-<style>
-.hero {
-    position: relative;
-    min-height: 80vh;
-    background: 
-        linear-gradient(rgba(42, 92, 130, 0.7), 
-        rgba(42, 92, 130, 0.7)),
-        url('assets/images/hero-bg.jpg') center/cover fixed;
-    display: flex;
-    align-items: center;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    color: white;
-    text-align: center;
-}
-    .hero {
-    min-height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-}
-</style>
-
-    <!-- باقي الأقسام مع إضافة data-aos -->
-    <section class="features section--light">
         <div class="container">
-            <h2 class="section-title aos-fade" data-aos="fade-up">تميزنا في التفاصيل</h2>
-            <!-- ... (المحتوى) ... -->
-                       <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>ضمان الجودة</h3>
-                    <p>ضمان استرداد الأموال إذا لم تكن راضيًا</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-clock"></i>
-                    <h3>خدمة 24/7</h3>
-                    <p>دعم فني على مدار الساعة</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-certificate"></i>
-                    <h3>شهادات معتمدة</h3>
-                    <p>فريق مدرب ومعتمد دوليًا</p>
-                </div>
+            <div class="hero-content">
+                <h1>نظافة تعكس <span class="hero-highlight">الكمال</span></h1>
+                <p class="hero-subtitle">خدمات تنظيف شاملة بمعايير عالمية</p>
+                <div class="hero-cta">
+                <a href="services.html" class="cta-button">الخدمات</a>
+                <a href="booking.html" class="cta-button">احجز الآن</a>
+                <a href="contact.html" class="cta-button">تواصل معنا</a>            </div>
             </div>
         </div>
     </section>
 
+    <style>
+    .hero {
+        position: relative;
+        min-height: 80vh;
+        background: 
+            linear-gradient(rgba(42, 92, 130, 0.7), 
+            rgba(42, 92, 130, 0.7)),
+            url('assets/images/hero-bg2.jpg') center/cover fixed;
+        display: flex;
+        align-items: center;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        color: white;
+        text-align: center;
+    }
+        .hero {
+        min-height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+    </style>
+
+    <!-- باقي الأقسام مع إضافة data-aos -->
+    <section class="features section--light" aria-label="مميزاتنا">
+        <h2 class="section-title" data-aos="fade-up">تميزنا في التفاصيل</h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">نقدم خدمات تتجاوز توقعاتك بمعايير عالمية</p>
+        
+        <div class="container">
+
+            <div class="features-grid">
+                <!-- بطاقة الميزة 1 -->
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="feature-icon__wrapper">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                    </div>
+                    <h3>ضمان الجودة</h3>
+                    <p>ضمان استرداد الأموال إذا لم تكن راضيًا بنسبة 100%</p>
+                    <div class="feature-badge">الأكثر طلباً</div>
+                </div>
+                
+                <!-- بطاقة الميزة 2 -->
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="feature-icon__wrapper">
+                        <i class="fas fa-clock feature-icon"></i>
+                    </div>
+                    <h3>خدمة 24/7</h3>
+                    <p>دعم فني متاح على مدار الساعة طوال أيام الأسبوع</p>
+                </div>
+                
+                <!-- بطاقة الميزة 3 -->
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="feature-icon__wrapper">
+                        <i class="fas fa-certificate feature-icon"></i>
+                    </div>
+                    <h3>شهادات معتمدة</h3>
+                    <p>فريق مدرب ومعتمد من أفضل المؤسسات العالمية</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+    :root {
+        --primary: #2A5C82;
+        --secondary: #FFC857;
+        --accent: #E63946;
+        --light: #F8F9FA;
+        --text: #333;
+    }
+    
+    .features {
+        padding: 6rem 0;
+        background: var(--light);
+        position: relative;
+    }
+    
+    .features::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('assets/images/pattern-bg.png') center/cover;
+        opacity: 0.05;
+        z-index: 0;
+    }
+    
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        position: relative;
+    }
+    
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: var(--secondary);
+        margin: 1rem auto;
+    }
+    
+    .section-subtitle {
+        text-align: center;
+        color: var(--text);
+        max-width: 700px;
+        margin: 0 auto 3rem;
+        font-size: 1.2rem;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .feature-card {
+        background: white;
+        border-radius: 1.5rem;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        border-color: var(--primary);
+    }
+    
+    .feature-icon__wrapper {
+        width: 80px;
+        height: 80px;
+        background: rgba(42, 92, 130, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover .feature-icon__wrapper {
+        background: var(--primary);
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+        color: var(--primary);
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover .feature-icon {
+        color: white;
+    }
+    
+    .feature-card h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+    
+    .feature-card p {
+        color: var(--text);
+        line-height: 1.8;
+    }
+    
+    .feature-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: var(--accent);
+        color: white;
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+        .features {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .features-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+    </style>
+
     <!-- إضافة السكريبتات -->
+    <section class="featured-services" aria-label="الخدمات المميزة">
+        <h2 class="section-title">✨ خدماتنا الرائعة</h2>
+        <p class="section-subtitle">حلول تنظيف متكاملة تلبي جميع احتياجاتك</p>
+
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+            </div>
     
+            <div class="services-grid">
+                <!-- خدمة 1 -->
+                <article class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="service-badge">الأكثر طلبًا</div>
+                    <div class="service-image">
+                        <img src="assets/images/home-cleaning.jpg" alt="تنظيف منازل" loading="lazy">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>تنظيف المنازل</h3>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> تنظيف شامل لكل الغرف</li>
+                            <li><i class="fas fa-check"></i> تعقيم الأسطح</li>
+                            <li><i class="fas fa-check"></i> مواد صديقة للبيئة</li>
+                        </ul>
+                        <div class="service-footer">
+                            <div class="price-box">
+                                <span class="price">249</span>
+                                <span class="duration">/ للجلسة</span>
+                            </div>
+                            <a href="#" class="cta-button">
+                                <span></span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
     
+                <!-- خدمة 2 -->
+                <article class="service-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="service-badge">عرض خاص</div>
+                    <div class="service-image">
+                        <img src="assets/images/office-cleaning.jpg" alt="تنظيف مكاتب" loading="lazy">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3>تنظيف المكاتب</h3>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> تنظيف يومي/أسبوعي</li>
+                            <li><i class="fas fa-check"></i> صيانة الأرضيات</li>
+                            <li><i class="fas fa-check"></i> خدمة 24/7</li>
+                        </ul>
+                        <div class="service-footer">
+                            <div class="price-box">
+                                <span class="price">179</span>
+                                <span class="duration">/ شهريًا</span>
+                            </div>
+                            <a href="#" class="cta-button">
+                                <span></span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+    
+                <!-- خدمة 3 -->
+                <article class="service-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="service-image">
+                        <img src="assets/images/deep-cleaning.jpg" alt="تنظيف عميق" loading="lazy">
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <h3>تنظيف عميق</h3>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> إزالة البقع الصعبة</li>
+                            <li><i class="fas fa-check"></i> تنظيف السجاد</li>
+                            <li><i class="fas fa-check"></i> ضمان 48 ساعة</li>
+                        </ul>
+                        <div class="service-footer">
+                            <div class="price-box">
+                                <span class="price">399</span>
+                                <span class="duration">/ شامل المواد</span>
+                            </div>
+                            <a href="#" class="cta-button">
+                                <span></span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    
+
     
     
     <!-- قسم الخدمات المميزة -->
-<section class="featured-services section--light" aria-label="الخدمات المميزة">
-            <h2 class="section-title" data-aos="fade-up">✨ خدماتنا الرائعة</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="200">حلول تنظيف متكاملة تلبي جميع احتياجاتك</p>
 
-    <div class="container">
-        
-        <div class="services-grid">
-            <!-- خدمة 1 -->
-            <article class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                <div class="service-badge">الأكثر طلبًا</div>
-                <img src="assets/images/home-cleaning.jpg" alt="تنظيف منازل" loading="lazy">
-                <div class="service-content">
-                    <div class="service-icon">
-                        <i class="fas fa-home fa-3x"></i>
-                    </div>
-                    <h3>تنظيف المنازل</h3>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> تنظيف شامل لكل الغرف</li>
-                        <li><i class="fas fa-check-circle"></i> تعقيم الأسطح</li>
-                        <li><i class="fas fa-check-circle"></i> مواد صديقة للبيئة</li>
-                    </ul>
-                    <div class="price-box">
-                        <span class="price">249 ر.س</span>
-                        <span class="duration">/ للجلسة</span>
-                    </div>
-                    <a href="#" class="cta-button hover-effect">
-                        <span>اختر الخدمة</span>
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- خدمة 2 -->
-            <article class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                <div class="service-badge">عرض خاص</div>
-                <img src="assets/images/office-cleaning.jpg" alt="تنظيف مكاتب" loading="lazy">
-                <div class="service-content">
-                    <div class="service-icon">
-                        <i class="fas fa-building fa-3x"></i>
-                    </div>
-                    <h3>تنظيف المكاتب</h3>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> تنظيف يومي/أسبوعي</li>
-                        <li><i class="fas fa-check-circle"></i> صيانة الأرضيات</li>
-                        <li><i class="fas fa-check-circle"></i> خدمة 24/7</li>
-                    </ul>
-                    <div class="price-box">
-                        <span class="price">179 ر.س</span>
-                        <span class="duration">/ شهريًا</span>
-                    </div>
-                    <a href="#" class="cta-button hover-effect">
-                        <span>اختر الخدمة</span>
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-            </article>
-
-            <!-- خدمة 3 -->
-            <article class="service-card" data-aos="zoom-in" data-aos-delay="500">
-                <img src="assets/images/deep-cleaning.jpg" alt="تنظيف عميق" loading="lazy">
-                <div class="service-content">
-                    <div class="service-icon">
-                        <i class="fas fa-broom fa-3x"></i>
-                    </div>
-                    <h3>تنظيف عميق</h3>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> إزالة البقع الصعبة</li>
-                        <li><i class="fas fa-check-circle"></i> تنظيف السجاد</li>
-                        <li><i class="fas fa-check-circle"></i> ضمان 48 ساعة</li>
-                    </ul>
-                    <div class="price-box">
-                        <span class="price">399 ر.س</span>
-                        <span class="duration">/ شامل المواد</span>
-                    </div>
-                    <a href="#" class="cta-button hover-effect">
-                        <span>اختر الخدمة</span>
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-                </div>
-            </article>
-        </div>
-    </div>
-</section>
 
 <!-- الأنماط المخصصة -->
 <style>
@@ -563,269 +827,440 @@ blockquote {
     margin-top: 3rem;
 }
 </style>
-    
-    
-    
-    
     <!-- الفوتر -->
-<footer class="main-footer">
-    <div class="footer-wave">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="var(--primary)" fill-opacity="1" 
-                  d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,144C672,139,768,181,864,202.7C960,224,1056,224,1152,218.7C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
+    <footer class="main-footer">
+        <!-- موجة الفوتر المتحركة -->
+        <div class="footer-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="var(--primary)" 
+                      d="M0,256L48,261.3C96,267,192,277,288,266.7C384,256,480,224,576,218.7C672,213,768,235,864,250.7C960,267,1056,277,1152,272C1248,267,1344,245,1392,234.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="footer-grid">
+                <!-- معلومات الشركة -->
+                <div class="footer-col" data-aos="fade-up">
+                    <div class="footer-brand">
+                        <img src="assets/images/logo-light.png" alt="شعار الشركة" class="footer-logo" loading="lazy">
+                        <p class="footer-description">
+                            شركة تنظيف محترفة بمعايير جودة عالمية
+                        </p>
+                    </div>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>أمستردام، هولندا</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+31123456789">+31 123 456 789</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@schoonmaakpromax.nl">info@schoonmaakpromax.nl</a>
+                        </div>
+                    </div>
+                </div>
     
-    <div class="container">
-        <div class="footer-grid">
-            <!-- العمود 1 - معلومات الشركة -->
-            <div class="footer-col" data-aos="fade-up">
-                <img src="assets/images/logo-light.png" alt="شعار الشركة" class="footer-logo">
-                <p class="footer-description">
-                    شركة تنظيف محترفة بمعايير جودة عالمية
-                </p>
-                <div class="footer-contact">
-                    <p><i class="fas fa-map-marker-alt"></i> أمستردام، هولندا</p>
-                    <p><i class="fas fa-phone"></i> +31 123 456 789</p>
-                    <p><i class="fas fa-envelope"></i> info@schoonmaakpromax.nl</p>
+                <!-- روابط سريعة -->
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="150">
+                    <h4 class="footer-title">روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="about.html">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>من نحن</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="services.html">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>الخدمات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>اتصل بنا</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="privacy.html">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>سياسة الخصوصية</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+    
+                <!-- وسائل التواصل -->
+                <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="footer-title">تواصل معنا</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" aria-label="تويتر" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" aria-label="إنستجرام" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/31123456789" aria-label="واتساب" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- نموذج النشرة البريدية -->
+                    <form class="newsletter-form">
+                        <div class="form-group">
+                            <input type="email" placeholder="بريدك الإلكتروني" required>
+                            <button type="submit" class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>اشتراك</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <!-- العمود 2 - روابط سريعة -->
-            <div class="footer-col" data-aos="fade-up" data-aos-delay="150">
-                <h4 class="footer-title">روابط سريعة</h4>
-                <ul class="footer-links">
-                    <li><a href="about.html"><i class="fas fa-chevron-left"></i> من نحن</a></li>
-                    <li><a href="services.html"><i class="fas fa-chevron-left"></i> الخدمات</a></li>
-                    <li><a href="contact.html"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
-                    <li><a href="privacy.html"><i class="fas fa-chevron-left"></i> سياسة الخصوصية</a></li>
-                </ul>
-            </div>
-
-            <!-- العمود 3 - وسائل التواصل -->
-            <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
-                <h4 class="footer-title">تواصل معنا</h4>
-                <div class="social-links">
-                    <a href="#" aria-label="فيسبوك">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" aria-label="تويتر">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" aria-label="إنستجرام">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" aria-label="واتساب">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
+    
+            <!-- حقوق النشر -->
+            <div class="copyright" data-aos="fade-up">
+                <div class="copyright-content">
+                    <p>&copy; <span id="year"></span> SchoonmaakProMax. جميع الحقوق محفوظة</p>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-visa" title="فيزا"></i>
+                        <i class="fab fa-cc-mastercard" title="ماستركارد"></i>
+                        <i class="fab fa-cc-paypal" title="باي بال"></i>
+                    </div>
                 </div>
-                
-                <!-- نموذج الاشتراك -->
-                <form class="newsletter-form">
-                    <input type="email" placeholder="بريدك الإلكتروني" required>
-                    <button type="submit">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
             </div>
         </div>
-
-        <!-- حقوق النشر -->
-        <div class="copyright" data-aos="fade-up">
-            <p>© 2023 SchoonmaakProMax. جميع الحقوق محفوظة</p>
-            <div class="payment-methods">
-                <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-                <i class="fab fa-cc-paypal"></i>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- أنماط الفوتر -->
-<style>
-.main-footer {
-    background: var(--dark);
-    color: white;
-    position: relative;
-    margin-top: 8rem;
-}
-
-.footer-wave {
-    position: absolute;
-    top: -100px;
-    left: 0;
-    width: 100%;
-    height: 100px;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 3rem;
-    padding: 4rem 0;
-}
-
-.footer-col {
-    padding: 1.5rem;
-}
-
-.footer-logo {
-    width: 180px;
-    margin-bottom: 1.5rem;
-}
-
-.footer-contact p {
-    margin: 1rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.footer-title {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--secondary);
-    display: inline-block;
-}
-
-.footer-links li {
-    margin: 1rem 0;
-    transition: transform 0.3s ease;
-}
-
-.footer-links li:hover {
-    transform: translateX(-10px);
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
-.social-links a {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.social-links a:hover {
-    background: var(--secondary);
-    transform: translateY(-3px);
-}
-
-.newsletter-form {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 2rem;
-}
-
-.newsletter-form input {
-    flex: 1;
-    padding: 0.8rem;
-    border-radius: 30px;
-    border: none;
-}
-
-.newsletter-form button {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: none;
-    background: var(--secondary);
-    color: white;
-    cursor: pointer;
-}
-
-.copyright {
-    text-align: center;
-    padding: 2rem 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.payment-methods {
-    margin-top: 1rem;
-    font-size: 2rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-    .section-title {
-    margin: 2rem 0;
-    padding: 0 1rem;
-}
-    img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-    .testimonials-grid,
-.services-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    width: 100%;
-    padding: 0 1rem;
-}
-
-    .whatsapp-float {
-    right: 30px;
-    bottom: 30px;
-    left: auto; /* إصلاح مشكلة التموضع */
-}
+    </footer>
+    
+    <style>
+    :root {
+        --primary: #2A5C82;
+        --secondary: #FFC857;
+        --dark: #1A2E40;
+        --light: #F8F9FA;
+        --text-light: rgba(255,255,255,0.8);
+    }
+    
+    .main-footer {
+        background: var(--dark);
+        color: white;
+        position: relative;
+        padding-top: 6rem;
+        overflow: hidden;
+    }
+    
+    .footer-wave {
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        transform: rotate(180deg);
+    }
+    
+    .footer-wave svg {
+        width: 100%;
+        height: 100%;
+    }
     
     .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-section {
-    padding: 4rem 0;
-    width: 100%;
-}
-    .main-footer {
-    width: 100vw;
-    overflow: hidden;
-    padding: 0 2rem;
-}
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
     
-@media (max-width: 768px) {
     .footer-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        padding: 3rem 0;
     }
     
-    .footer-links li {
-        margin: 0.8rem 0;
-    }
-}
-    @media (max-width: 768px) {
-    html {
-        font-size: 14px;
+    .footer-col {
+        padding: 1rem;
     }
     
-    .hero h1 {
+    .footer-brand {
+        margin-bottom: 2rem;
+    }
+    
+    .footer-logo {
+        width: 180px;
+        height: auto;
+        margin-bottom: 1.5rem;
+        filter: brightness(0) invert(1);
+        transition: transform 0.3s ease;
+    }
+    
+    .footer-logo:hover {
+        transform: scale(1.05);
+    }
+    
+    .footer-description {
+        color: var(--text-light);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+    
+    .footer-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        position: relative;
+        color: white;
+    }
+    
+    .footer-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--secondary);
+    }
+    
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: var(--text-light);
+    }
+    
+    .contact-item i {
+        color: var(--secondary);
+        width: 20px;
+        text-align: center;
+    }
+    
+    .contact-item a {
+        color: var(--text-light);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .contact-item a:hover {
+        color: var(--secondary);
+    }
+    
+    .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .footer-links a {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        color: var(--text-light);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        padding: 0.5rem 0;
+    }
+    
+    .footer-links a:hover {
+        color: var(--secondary);
+        transform: translateX(-10px);
+    }
+    
+    .footer-links i {
+        color: var(--secondary);
+        font-size: 0.8rem;
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+    
+    .social-link {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+        background: var(--secondary);
+        color: var(--dark);
+        transform: translateY(-5px);
+    }
+    
+    .newsletter-form {
+        margin-top: 2rem;
+    }
+    
+    .form-group {
+        position: relative;
+        display: flex;
+    }
+    
+    .newsletter-form input {
+        flex: 1;
+        padding: 1rem;
+        border-radius: 50px;
+        border: none;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        padding-right: 120px;
+    }
+    
+    .newsletter-form input::placeholder {
+        color: rgba(255,255,255,0.7);
+    }
+    
+    .newsletter-form input:focus {
+        outline: 2px solid var(--secondary);
+    }
+    
+    .newsletter-btn {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        bottom: 5px;
+        background: var(--secondary);
+        color: var(--dark);
+        border: none;
+        border-radius: 50px;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .newsletter-btn:hover {
+        background: white;
+        transform: scale(1.05);
+    }
+    
+    .copyright {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding: 2rem 0;
+        margin-top: 2rem;
+    }
+    
+    .copyright-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+    
+    .payment-methods {
+        display: flex;
+        gap: 1.5rem;
         font-size: 2rem;
-        padding: 0 1rem;
+        color: white;
     }
-}
-    .nav-links {
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-}
-</style>
     
+    .payment-methods i {
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
     
+    .payment-methods i:hover {
+        transform: translateY(-5px);
+        color: var(--secondary);
+    }
     
+    @media (max-width: 992px) {
+        .footer-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .newsletter-btn span {
+            display: none;
+        }
+        
+        .newsletter-btn {
+            padding: 0 0.8rem;
+        }
+    }
     
+    @media (max-width: 768px) {
+        .footer-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .footer-col {
+            text-align: center;
+        }
+        
+        .footer-title::after {
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        .footer-links a {
+            justify-content: center;
+        }
+        
+        .social-links {
+            justify-content: center;
+        }
+        
+        .contact-item {
+            justify-content: center;
+        }
+        
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
     
+    @media (max-width: 576px) {
+        .footer-wave {
+            height: 60px;
+        }
+        
+        .newsletter-form input {
+            padding-right: 50px;
+        }
+    }
+    </style>
+    
+    <script>
+    // تحديث سنة حقوق النشر تلقائياً
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // تأثيرات AOS للعناصر
+    document.querySelectorAll('.footer-col, .copyright').forEach(el => {
+        el.setAttribute('data-aos', 'fade-up');
+    });
+    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -842,3 +1277,4 @@ section {
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </body>
 </html>
+
