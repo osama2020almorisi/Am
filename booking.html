@@ -20,6 +20,8 @@
         }
 
         .booking-section {
+            width: 100%;
+            max-width: 100vw;
             padding: 4rem 0;
             background: var(--light-bg);
             min-height: 100vh;
@@ -232,10 +234,16 @@
             }
         }
     /* إضافة أيقونات فريدة */
+.fa-house { color: #444b94; }
 .fa-school { color: #4CAF50; }
 .fa-hotel { color: #9C27B0; }
 .fa-utensils { color: #FF5722; }
 
+
+
+.service-card:nth-child(1) {
+    border: 2px solid #121b81; /* Updated border color for the first service card */
+}
 .service-card:nth-child(2) {
     border: 2px solid #4CAF5050;
 }
@@ -245,6 +253,7 @@
 .service-card:nth-child(4) {
     border: 2px solid #FF572250;
 }
+
 
 .service-card:hover {
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
