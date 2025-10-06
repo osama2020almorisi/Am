@@ -1,1280 +1,1969 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-    <head>
-        <!-- Meta Tags الأساسية -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- تحسينات SEO -->
-        <title>SchoonmaakProMax - تنظيف محترف</title>
-        <meta name="description" content="شركة تنظيف محترفة في هولندا - خدمات تنظيف المنازل والمكاتب بأسعار منافسة وجودة عالية">
-        <meta name="keywords" content="تنظيف، شركة تنظيف، تنظيف منازل، تنظيف مكاتب، هولندا">
-        <meta property="og:title" content="SchoonmaakProMax - تنظيف محترف">
-        <meta property="og:description" content="شركة تنظيف محترفة في هولندا">
-        <meta property="og:image" content="assets/images/og-image.jpg">
-        <meta property="og:url" content="https://schoonmaakpromax.nl/">
-        <meta name="twitter:card" content="summary_large_image">
-        
-        <!-- Favicon -->
-        <link rel="icon" type="image/png" href="assets/favicon.png">
-        
-        <!-- Preconnect لتحسين أداء التحميل -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-        <!-- خطوط Google -->
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-        
-        <!-- مكتبة Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        
-        <!-- مكتبة AOS للتحريك -->
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        
-        <!-- ملفات CSS الخاصة بالمشروع -->
-        <link rel="stylesheet" href="css/base/reset.css">
-        <link rel="stylesheet" href="css/base/variables.css">
-        <link rel="stylesheet" href="css/components/header.css">
-        <link rel="stylesheet" href="css/main.css">
-        <style>
-            :root {
-                --primary: #2A5C82;
-                --secondary: #FFC857;
-            }
-            
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            
-            html, body {
-                width: 100%;
-                min-height: 100vh;
-                overflow-x: hidden;
-                font-family: 'Cairo', sans-serif;
-            }
-            
-            .main-container {
-                width: 100vw;
-                overflow: hidden;
-            }
-            
-            section {
-                width: 100vw;
-                padding: 4rem 0;
-                overflow: hidden;
-            }
-            
-            .container {
-                width: 100%;
-                max-width: 1400px;
-                margin: 0 auto;
-                padding: 0 20px;
-            }
-        </style>
-    </head>
-<body class="home-page">
-    <!-- الهيدر المعدل -->
-    <header class="main-header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="assets/images/logo.png" alt="SchoonmaakProMax" loading="lazy" width="180" height="60">
-            </a>
-            
-            <button class="hamburger-menu" aria-expanded="false" aria-label="قائمة الجوال">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            
-            <nav class="main-nav" aria-label="القائمة الرئيسية">
-                <ul class="nav-links">
-                    <li><a href="index.html" class="nav-link active" data-link="home">الرئيسية</a></li>
-                    <li><a href="services.html" class="nav-link" data-link="services">الخدمات</a></li>
-                    <li><a href="about.html" class="nav-link" data-link="about">من نحن</a></li>
-                    <li><a href="contact.html" class="nav-link" data-link="contact">اتصل بنا</a></li>
-                    <li class="mobile-only">
-                        <a href="tel:+31123456789" class="cta-button mobile-cta">
-                            <i class="fas fa-phone"></i> اتصل الآن
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            
-            <a href="tel:+31123456789" class="desktop-cta cta-button">
-                <i class="fas fa-phone"></i> اتصل بنا
-            </a>
-        </div>
-    </header>
-    
-    <style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>أمان - لوحة التحكم</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <style>
     :root {
-        --primary: #2A5C82;
-        --secondary: #FFC857;
-        --text: #333;
-        --light-bg: #f8f9fa;
+      --primary: #2c5aa0;
+      --primary-light: #3a6bc0;
+      --primary-dark: #1e3d72;
+      --secondary: #f8a31b;
+      --secondary-light: #f9b84d;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --border-radius: 10px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
     }
-    
-    .main-header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.98);
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        backdrop-filter: blur(10px);
-        padding: 1rem 0;
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    
+
+    body {
+      background-color: #f5f7fb;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ========== الهيدر المحسّن للجوال ========== */
+    .topbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .logo-text h1 {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .nav-container {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .topbar-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .topbar-nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .topbar-nav a:hover, .topbar-nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ========== المحتوى الرئيسي ========== */
     .container {
-        display: flex;
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid var(--gray-light);
+      padding-bottom: 10px;
+    }
+
+    /* ========== الشبكات والتخطيط ========== */
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .main-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .actions-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .backup-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* ========== البطاقات والإحصائيات ========== */
+    .stat-card {
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      transition: var(--transition);
+      border-left: 4px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card i {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: rgba(44, 90, 160, 0.1);
+      font-size: 40px;
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 10px;
+    }
+
+    .stat-card small {
+      color: var(--gray);
+      font-size: 12px;
+    }
+
+    /* ========== التنبيهات ========== */
+    .alert {
+      padding: 15px;
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .alert-warning {
+      background: #fff3cd;
+      border-left: 4px solid var(--warning);
+      color: #856404;
+    }
+
+    .alert-danger {
+      background: #f8d7da;
+      border-left: 4px solid var(--danger);
+      color: #721c24;
+    }
+
+    .alert-info {
+      background: #d1ecf1;
+      border-left: 4px solid var(--info);
+      color: #0c5460;
+    }
+
+    .alert-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ========== الإشعارات ========== */
+    .notification-item {
+      padding: 15px;
+      border-radius: var(--border-radius);
+      margin-bottom: 12px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--warning);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .notification-item.urgent {
+      border-left-color: var(--danger);
+      animation: pulse 2s infinite;
+    }
+
+    .notification-item.info {
+      border-left-color: var(--info);
+    }
+
+    .notification-item.success {
+      border-left-color: var(--success);
+    }
+
+    .notification-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .notification-content h4 {
+      margin-bottom: 5px;
+      color: var(--dark);
+      font-size: 15px;
+    }
+
+    .notification-content p {
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .notification-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .notification-time {
+      font-size: 11px;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    .notification-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    /* ========== الأزرار ========== */
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .btn-icon {
+      padding: 8px;
+      width: 36px;
+      height: 36px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* ========== المخططات ========== */
+    .chart-container {
+      height: 250px;
+      position: relative;
+    }
+
+    /* ========== النسخ الاحتياطي ========== */
+    .backup-card {
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      border: 1px solid var(--gray-light);
+      transition: var(--transition);
+    }
+
+    .backup-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .backup-card h3 {
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    .backup-card p {
+      margin-bottom: 15px;
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .file-input-container {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .file-input-container input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-input-label {
+      display: block;
+      padding: 10px 15px;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 13px;
+    }
+
+    .file-input-label:hover {
+      background: var(--primary-light);
+    }
+
+    /* ========== القوائم ========== */
+    .list {
+      list-style: none;
+    }
+
+    .list li {
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--gray-light);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .list li:last-child {
+      border-bottom: none;
+    }
+
+    .list li i {
+      color: var(--primary);
+      width: 16px;
+      flex-shrink: 0;
+    }
+
+    .list-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .list-time {
+      font-size: 11px;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    /* ========== التقدم والتحميل ========== */
+    .progress-bar {
+      height: 6px;
+      background: var(--gray-light);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    .loading-spinner {
+      display: none;
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(44, 90, 160, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      margin: 15px auto;
+    }
+
+    /* ========== تأثيرات الحركة ========== */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(220, 53, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .5s, opacity 1s;
+    }
+
+    .ripple:active:after {
+      transform: scale(0, 0);
+      opacity: .2;
+      transition: 0s;
+    }
+
+    /* ========== وسائط الاستعلام للجوال ========== */
+    @media (max-width: 768px) {
+      .topbar-content {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .logo-section {
         justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-    }
-    
-    /* القائمة الرئيسية لسطح المكتب */
-    .nav-links {
-        display: flex;
-        gap: 1.5rem;
-    }
-    
-    .nav-link {
-        color: var(--text);
-        text-decoration: none;
-        font-weight: 600;
-        position: relative;
-        padding: 0.5rem 0;
-    }
-    
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 0;
-        height: 2px;
-        background: var(--primary);
-        transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover::after,
-    .nav-link.active::after {
-        width: 100%;
-    }
-    
-    /* تصميم قائمة الجوال */
-    .hamburger-menu {
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .nav-container {
         display: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0.5rem;
-        z-index: 1001;
-    }
-    
-    .hamburger-line {
+        margin-top: 10px;
+      }
+      
+      .nav-container.active {
         display: block;
-        width: 25px;
-        height: 3px;
-        background: var(--primary);
-        margin: 5px 0;
-        transition: all 0.3s ease;
-    }
-    
-    /* أنماط الجوال */
-    @media (max-width: 992px) {
-        .hamburger-menu {
-            display: block;
-        }
-        
-        .main-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            transition: right 0.3s ease;
-            padding-top: 80px;
-        }
-        
-        .main-nav.active {
-            right: 0;
-        }
-        
-        .nav-links {
-            flex-direction: column;
-            padding: 0 1.5rem;
-        }
-        
-        .nav-link {
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
-            display: block;
-        }
-        
-        .desktop-cta {
-            display: none;
-        }
-        
-        .mobile-only {
-            display: block;
-            margin-top: 1rem;
-        }
-        
-        /* تحريك الخطوط عند النقر */
-        .hamburger-menu.active .hamburger-line:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-        
-        .hamburger-menu.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger-menu.active .hamburger-line:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-    }
-    </style>
-    
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const hamburger = document.querySelector('.hamburger-menu');
-        const nav = document.querySelector('.main-nav');
-        
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            nav.classList.toggle('active');
-            
-            // إضافة أو إزالة scroll للbody عند فتح القائمة
-            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
-        });
-        
-        // إغلاق القائمة عند النقر على أي رابط
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                nav.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-    });
-    </script>
-    <!-- قسم البطل مع التأثيرات -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>نظافة تعكس <span class="hero-highlight">الكمال</span></h1>
-                <p class="hero-subtitle">خدمات تنظيف شاملة بمعايير عالمية</p>
-                <div class="hero-cta">
-                <a href="services.html" class="cta-button">الخدمات</a>
-                <a href="booking.html" class="cta-button">احجز الآن</a>
-                <a href="contact.html" class="cta-button">تواصل معنا</a>            </div>
-            </div>
-        </div>
-    </section>
-
-    <style>
-    .hero {
-        position: relative;
-        min-height: 80vh;
-        background: 
-            linear-gradient(rgba(42, 92, 130, 0.7), 
-            rgba(42, 92, 130, 0.7)),
-            url('assets/images/hero-bg2.jpg') center/cover fixed;
-        display: flex;
-        align-items: center;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        color: white;
+      }
+      
+      .topbar-nav {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .topbar-nav a {
         text-align: center;
-    }
-        .hero {
-        min-height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-    }
-    </style>
-
-    <!-- باقي الأقسام مع إضافة data-aos -->
-    <section class="features section--light" aria-label="مميزاتنا">
-        <h2 class="section-title" data-aos="fade-up">تميزنا في التفاصيل</h2>
-        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">نقدم خدمات تتجاوز توقعاتك بمعايير عالمية</p>
-        
-        <div class="container">
-
-            <div class="features-grid">
-                <!-- بطاقة الميزة 1 -->
-                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="feature-icon__wrapper">
-                        <i class="fas fa-shield-alt feature-icon"></i>
-                    </div>
-                    <h3>ضمان الجودة</h3>
-                    <p>ضمان استرداد الأموال إذا لم تكن راضيًا بنسبة 100%</p>
-                    <div class="feature-badge">الأكثر طلباً</div>
-                </div>
-                
-                <!-- بطاقة الميزة 2 -->
-                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="feature-icon__wrapper">
-                        <i class="fas fa-clock feature-icon"></i>
-                    </div>
-                    <h3>خدمة 24/7</h3>
-                    <p>دعم فني متاح على مدار الساعة طوال أيام الأسبوع</p>
-                </div>
-                
-                <!-- بطاقة الميزة 3 -->
-                <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="feature-icon__wrapper">
-                        <i class="fas fa-certificate feature-icon"></i>
-                    </div>
-                    <h3>شهادات معتمدة</h3>
-                    <p>فريق مدرب ومعتمد من أفضل المؤسسات العالمية</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <style>
-    :root {
-        --primary: #2A5C82;
-        --secondary: #FFC857;
-        --accent: #E63946;
-        --light: #F8F9FA;
-        --text: #333;
-    }
-    
-    .features {
-        padding: 6rem 0;
-        background: var(--light);
-        position: relative;
-    }
-    
-    .features::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
+        padding: 10px;
+      }
+      
+      .container {
+        margin: 15px auto;
+        padding: 0 10px;
+      }
+      
+      .card {
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      
+      .main-grid, .actions-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .backup-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      
+      .stat-card {
+        padding: 15px 10px;
+      }
+      
+      .stat-card span {
+        font-size: 24px;
+      }
+      
+      .chart-container {
+        height: 200px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
         width: 100%;
-        height: 100%;
-        background: url('assets/images/pattern-bg.png') center/cover;
-        opacity: 0.05;
-        z-index: 0;
+        justify-content: center;
+      }
+      
+      .notification-item {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .notification-meta {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+      }
     }
-    
-    .section-title {
-        text-align: center;
-        font-size: 2.5rem;
-        color: var(--primary);
-        margin-bottom: 1rem;
-        position: relative;
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stat-card {
+        padding: 15px;
+      }
     }
-    
-    .section-title::after {
-        content: '';
+
+    /* ========== رسائل النظام ========== */
+    .message {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 15px 20px;
+      border-radius: var(--border-radius);
+      color: white;
+      font-weight: 600;
+      z-index: 10000;
+      box-shadow: var(--shadow);
+      animation: slideIn 0.3s ease;
+      max-width: calc(100vw - 40px);
+    }
+
+    .message.success {
+      background: var(--success);
+    }
+
+    .message.error {
+      background: var(--danger);
+    }
+
+    .message.info {
+      background: var(--info);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-100%); opacity: 0; }
+    }
+  </style>
+  <style>
+    :root {
+      --primary: #2c5aa0;
+      --primary-light: #3a6bc0;
+      --primary-dark: #1e3d72;
+      --secondary: #f8a31b;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+      --border-radius: 10px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fb;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ========== الهيدر المحسّن للجوال ========== */
+    .topbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+
+    .topbar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 18px;
+    }
+
+    .logo-text h1 {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .mobile-menu-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      flex: 1;
+    }
+
+    .topbar-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .topbar-nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .topbar-nav a:hover, .topbar-nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ========== وسائط الاستعلام للجوال ========== */
+    @media (max-width: 768px) {
+      .topbar-content {
+        flex-wrap: wrap;
+      }
+      
+      .logo-section {
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 0;
+      }
+      
+      .mobile-menu-btn {
         display: block;
-        width: 80px;
-        height: 4px;
-        background: var(--secondary);
-        margin: 1rem auto;
+      }
+      
+      .nav-container {
+        display: none;
+        width: 100%;
+        margin-top: 15px;
+      }
+      
+      .nav-container.active {
+        display: block;
+        animation: slideDown 0.3s ease;
+      }
+      
+      .topbar-nav {
+        flex-direction: column;
+        gap: 5px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius);
+        padding: 10px;
+      }
+      
+      .topbar-nav a {
+        text-align: right;
+        padding: 12px 15px;
+        border-radius: 6px;
+      }
+      
+      .topbar-nav a:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
     }
-    
-    .section-subtitle {
-        text-align: center;
-        color: var(--text);
-        max-width: 700px;
-        margin: 0 auto 3rem;
-        font-size: 1.2rem;
-    }
-    
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .feature-card {
-        background: white;
-        border-radius: 1.5rem;
-        padding: 2.5rem 2rem;
-        text-align: center;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        border: 1px solid rgba(0,0,0,0.05);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .feature-card:hover {
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
         transform: translateY(-10px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        border-color: var(--primary);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    
-    .feature-icon__wrapper {
-        width: 80px;
-        height: 80px;
-        background: rgba(42, 92, 130, 0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover .feature-icon__wrapper {
-        background: var(--primary);
-    }
-    
-    .feature-icon {
-        font-size: 2rem;
-        color: var(--primary);
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover .feature-icon {
-        color: white;
-    }
-    
-    .feature-card h3 {
-        color: var(--primary);
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-    }
-    
-    .feature-card p {
-        color: var(--text);
-        line-height: 1.8;
-    }
-    
-    .feature-badge {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        background: var(--accent);
-        color: white;
-        padding: 0.3rem 1rem;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: bold;
-    }
-    
-    @media (max-width: 768px) {
-        .features {
-            padding: 4rem 0;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-        }
-        
-        .features-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-    }
-    </style>
 
-    <!-- إضافة السكريبتات -->
-    <section class="featured-services" aria-label="الخدمات المميزة">
-        <h2 class="section-title">✨ خدماتنا الرائعة</h2>
-        <p class="section-subtitle">حلول تنظيف متكاملة تلبي جميع احتياجاتك</p>
-
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-            </div>
-    
-            <div class="services-grid">
-                <!-- خدمة 1 -->
-                <article class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="service-badge">الأكثر طلبًا</div>
-                    <div class="service-image">
-                        <img src="assets/images/home-cleaning.jpg" alt="تنظيف منازل" loading="lazy">
-                        <div class="service-overlay"></div>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h3>تنظيف المنازل</h3>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check"></i> تنظيف شامل لكل الغرف</li>
-                            <li><i class="fas fa-check"></i> تعقيم الأسطح</li>
-                            <li><i class="fas fa-check"></i> مواد صديقة للبيئة</li>
-                        </ul>
-                        <div class="service-footer">
-                            <div class="price-box">
-                                <span class="price">249</span>
-                                <span class="duration">/ للجلسة</span>
-                            </div>
-                            <a href="#" class="cta-button">
-                                <span></span>
-                                <i class="fas fa-arrow-left"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-    
-                <!-- خدمة 2 -->
-                <article class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="service-badge">عرض خاص</div>
-                    <div class="service-image">
-                        <img src="assets/images/office-cleaning.jpg" alt="تنظيف مكاتب" loading="lazy">
-                        <div class="service-overlay"></div>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <h3>تنظيف المكاتب</h3>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check"></i> تنظيف يومي/أسبوعي</li>
-                            <li><i class="fas fa-check"></i> صيانة الأرضيات</li>
-                            <li><i class="fas fa-check"></i> خدمة 24/7</li>
-                        </ul>
-                        <div class="service-footer">
-                            <div class="price-box">
-                                <span class="price">179</span>
-                                <span class="duration">/ شهريًا</span>
-                            </div>
-                            <a href="#" class="cta-button">
-                                <span></span>
-                                <i class="fas fa-arrow-left"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-    
-                <!-- خدمة 3 -->
-                <article class="service-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="service-image">
-                        <img src="assets/images/deep-cleaning.jpg" alt="تنظيف عميق" loading="lazy">
-                        <div class="service-overlay"></div>
-                    </div>
-                    <div class="service-content">
-                        <div class="service-icon">
-                            <i class="fas fa-broom"></i>
-                        </div>
-                        <h3>تنظيف عميق</h3>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check"></i> إزالة البقع الصعبة</li>
-                            <li><i class="fas fa-check"></i> تنظيف السجاد</li>
-                            <li><i class="fas fa-check"></i> ضمان 48 ساعة</li>
-                        </ul>
-                        <div class="service-footer">
-                            <div class="price-box">
-                                <span class="price">399</span>
-                                <span class="duration">/ شامل المواد</span>
-                            </div>
-                            <a href="#" class="cta-button">
-                                <span></span>
-                                <i class="fas fa-arrow-left"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-    
-
-    
-    
-    <!-- قسم الخدمات المميزة -->
-
-
-<!-- الأنماط المخصصة -->
-<style>
-.featured-services {
-    padding: 6rem 0;
-    background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
-}
-
-.service-card {
-    border-radius: 1.5rem;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-}
-
-.service-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: var(--accent);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    z-index: 2;
-}
-
-.service-content {
-    padding: 2rem;
-    background: white;
-}
-
-.service-icon {
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-}
-
-.service-features li {
-    margin-bottom: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    color: #555;
-}
-
-.price-box {
-    background: var(--light-bg);
-    border-radius: 1rem;
-    padding: 1.2rem;
-    margin: 1.5rem 0;
-    text-align: center;
-}
-
-.price {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-.duration {
-    color: #666;
-    font-size: 0.9rem;
-}
-</style>
-    
-    
-    
-    
-    
-    
-    
-    
-    <!-- قسم آراء العملاء -->
-<section class="testimonials section--light" aria-label="آراء العملاء">
-     <h2 class="section-title">📣 آراء عملائنا</h2>
-     <p class="section-subtitle">الثقة التي كسبناها من آلاف العملاء</p>
-
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-        </div>
-
-        <div class="testimonials-grid">
-            <!-- الشهادة 1 -->
-            <article class="testimonial-card" data-aos="zoom-in" data-aos-delay="200">
-                <div class="client-meta">
-                    <img src="assets/images/client1.jpg" alt="عميل أحمد" class="client-avatar" loading="lazy">
-                    <div class="client-info">
-                        <h4>أحمد السيد</h4>
-                        <span>عميل منذ 2022</span>
-                    </div>
-                </div>
-                <div class="testimonial-body">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-right"></i>
-                    </div>
-                    <blockquote>
-                        "أفضل تجربة تنظيف مررت بها! الدقة في المواعيد والاهتمام بالتفاصيل الصغيرة"
-                    </blockquote>
-                    <div class="rating-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </article>
-
-            <!-- الشهادة 2 -->
-            <article class="testimonial-card" data-aos="zoom-in" data-aos-delay="300">
-                <div class="client-meta">
-                    <img src="assets/images/client2.jpg" alt="عميل مريم" class="client-avatar" loading="lazy">
-                    <div class="client-info">
-                        <h4>مريم عبدالله</h4>
-                        <span>عميلة منذ 2023</span>
-                    </div>
-                </div>
-                <div class="testimonial-body">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-right"></i>
-                    </div>
-                    <blockquote>
-                        "الفريق محترف جدًا والأسعار مناسبة للجودة المقدمة، أنصح بهم الجميع"
-                    </blockquote>
-                    <div class="rating-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
-            </article>
-
-            <!-- الشهادة 3 -->
-            <article class="testimonial-card" data-aos="zoom-in" data-aos-delay="400">
-                <div class="client-meta">
-                    <img src="assets/images/client3.jpg" alt="عميل خالد" class="client-avatar" loading="lazy">
-                    <div class="client-info">
-                        <h4>خالد محمد</h4>
-                        <span>عميل منذ 2021</span>
-                    </div>
-                </div>
-                <div class="testimonial-body">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-right"></i>
-                    </div>
-                    <blockquote>
-                        "النتائج تفوق التوقعات، خاصة في تنظيف السجاد والأثاث"
-                    </blockquote>
-                    <div class="rating-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </div>
-</section>
-
-<!-- الأنماط المخصصة للشهادات -->
-<style>
-.testimonials {
-    padding: 6rem 0;
-    background: linear-gradient(45deg, #f8f9fa 0%, #ffffff 100%);
-}
-
-.testimonial-card {
-    background: white;
-    border-radius: 1.5rem;
-    padding: 2.5rem;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.testimonial-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-}
-
-.client-meta {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.client-avatar {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--primary);
-}
-
-.quote-icon {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    color: var(--primary);
-    opacity: 0.1;
-    font-size: 4rem;
-}
-
-.rating-stars {
-    color: #FFD700;
-    margin-top: 1.5rem;
-}
-
-blockquote {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #444;
-    position: relative;
-    z-index: 1;
-}
-
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-</style>
-    <!-- الفوتر -->
-    <footer class="main-footer">
-        <!-- موجة الفوتر المتحركة -->
-        <div class="footer-wave">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                <path fill="var(--primary)" 
-                      d="M0,256L48,261.3C96,267,192,277,288,266.7C384,256,480,224,576,218.7C672,213,768,235,864,250.7C960,267,1056,277,1152,272C1248,267,1344,245,1392,234.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                </path>
-            </svg>
-        </div>
-        
-        <div class="container">
-            <div class="footer-grid">
-                <!-- معلومات الشركة -->
-                <div class="footer-col" data-aos="fade-up">
-                    <div class="footer-brand">
-                        <img src="assets/images/logo-light.png" alt="شعار الشركة" class="footer-logo" loading="lazy">
-                        <p class="footer-description">
-                            شركة تنظيف محترفة بمعايير جودة عالمية
-                        </p>
-                    </div>
-                    <div class="footer-contact">
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>أمستردام، هولندا</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <a href="tel:+31123456789">+31 123 456 789</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:info@schoonmaakpromax.nl">info@schoonmaakpromax.nl</a>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- روابط سريعة -->
-                <div class="footer-col" data-aos="fade-up" data-aos-delay="150">
-                    <h4 class="footer-title">روابط سريعة</h4>
-                    <ul class="footer-links">
-                        <li>
-                            <a href="about.html">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>من نحن</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="services.html">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>الخدمات</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="contact.html">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>اتصل بنا</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="privacy.html">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>سياسة الخصوصية</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-    
-                <!-- وسائل التواصل -->
-                <div class="footer-col" data-aos="fade-up" data-aos-delay="300">
-                    <h4 class="footer-title">تواصل معنا</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="فيسبوك" class="social-link">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" aria-label="تويتر" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" aria-label="إنستجرام" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://wa.me/31123456789" aria-label="واتساب" class="social-link">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                    
-                    <!-- نموذج النشرة البريدية -->
-                    <form class="newsletter-form">
-                        <div class="form-group">
-                            <input type="email" placeholder="بريدك الإلكتروني" required>
-                            <button type="submit" class="newsletter-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                <span>اشتراك</span>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    
-            <!-- حقوق النشر -->
-            <div class="copyright" data-aos="fade-up">
-                <div class="copyright-content">
-                    <p>&copy; <span id="year"></span> SchoonmaakProMax. جميع الحقوق محفوظة</p>
-                    <div class="payment-methods">
-                        <i class="fab fa-cc-visa" title="فيزا"></i>
-                        <i class="fab fa-cc-mastercard" title="ماستركارد"></i>
-                        <i class="fab fa-cc-paypal" title="باي بال"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <style>
-    :root {
-        --primary: #2A5C82;
-        --secondary: #FFC857;
-        --dark: #1A2E40;
-        --light: #F8F9FA;
-        --text-light: rgba(255,255,255,0.8);
-    }
-    
-    .main-footer {
-        background: var(--dark);
-        color: white;
-        position: relative;
-        padding-top: 6rem;
-        overflow: hidden;
-    }
-    
-    .footer-wave {
-        position: absolute;
-        top: -1px;
-        left: 0;
-        width: 100%;
-        height: 100px;
-        transform: rotate(180deg);
-    }
-    
-    .footer-wave svg {
-        width: 100%;
-        height: 100%;
-    }
-    
+    /* ========== المحتوى الرئيسي ========== */
     .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 15px;
     }
-    
-    .footer-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 3rem;
-        padding: 3rem 0;
-    }
-    
-    .footer-col {
-        padding: 1rem;
-    }
-    
-    .footer-brand {
-        margin-bottom: 2rem;
-    }
-    
-    .footer-logo {
-        width: 180px;
-        height: auto;
-        margin-bottom: 1.5rem;
-        filter: brightness(0) invert(1);
-        transition: transform 0.3s ease;
-    }
-    
-    .footer-logo:hover {
-        transform: scale(1.05);
-    }
-    
-    .footer-description {
-        color: var(--text-light);
-        line-height: 1.8;
-        margin-bottom: 1.5rem;
-    }
-    
-    .footer-title {
-        font-size: 1.5rem;
-        margin-bottom: 1.5rem;
-        padding-bottom: 0.5rem;
-        position: relative;
-        color: white;
-    }
-    
-    .footer-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 50px;
-        height: 3px;
-        background: var(--secondary);
-    }
-    
-    .footer-contact {
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-    
-    .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        color: var(--text-light);
-    }
-    
-    .contact-item i {
-        color: var(--secondary);
-        width: 20px;
-        text-align: center;
-    }
-    
-    .contact-item a {
-        color: var(--text-light);
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-    
-    .contact-item a:hover {
-        color: var(--secondary);
-    }
-    
-    .footer-links {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .footer-links a {
-        display: flex;
-        align-items: center;
-        gap: 0.7rem;
-        color: var(--text-light);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        padding: 0.5rem 0;
-    }
-    
-    .footer-links a:hover {
-        color: var(--secondary);
-        transform: translateX(-10px);
-    }
-    
-    .footer-links i {
-        color: var(--secondary);
-        font-size: 0.8rem;
-    }
-    
-    .social-links {
-        display: flex;
-        gap: 1rem;
-        margin: 2rem 0;
-    }
-    
-    .social-link {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-    }
-    
-    .social-link:hover {
-        background: var(--secondary);
-        color: var(--dark);
-        transform: translateY(-5px);
-    }
-    
-    .newsletter-form {
-        margin-top: 2rem;
-    }
-    
-    .form-group {
-        position: relative;
-        display: flex;
-    }
-    
-    .newsletter-form input {
-        flex: 1;
-        padding: 1rem;
-        border-radius: 50px;
-        border: none;
-        background: rgba(255,255,255,0.1);
-        color: white;
-        padding-right: 120px;
-    }
-    
-    .newsletter-form input::placeholder {
-        color: rgba(255,255,255,0.7);
-    }
-    
-    .newsletter-form input:focus {
-        outline: 2px solid var(--secondary);
-    }
-    
-    .newsletter-btn {
-        position: absolute;
-        left: 5px;
-        top: 5px;
-        bottom: 5px;
-        background: var(--secondary);
-        color: var(--dark);
-        border: none;
-        border-radius: 50px;
-        padding: 0 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .newsletter-btn:hover {
-        background: white;
-        transform: scale(1.05);
-    }
-    
-    .copyright {
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding: 2rem 0;
-        margin-top: 2rem;
-    }
-    
-    .copyright-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        color: var(--text-light);
-        font-size: 0.9rem;
-    }
-    
-    .payment-methods {
-        display: flex;
-        gap: 1.5rem;
-        font-size: 2rem;
-        color: white;
-    }
-    
-    .payment-methods i {
-        transition: transform 0.3s ease;
-        cursor: pointer;
-    }
-    
-    .payment-methods i:hover {
-        transform: translateY(-5px);
-        color: var(--secondary);
-    }
-    
-    @media (max-width: 992px) {
-        .footer-grid {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-        
-        .newsletter-btn span {
-            display: none;
-        }
-        
-        .newsletter-btn {
-            padding: 0 0.8rem;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .footer-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-        
-        .footer-col {
-            text-align: center;
-        }
-        
-        .footer-title::after {
-            right: 50%;
-            transform: translateX(50%);
-        }
-        
-        .footer-links a {
-            justify-content: center;
-        }
-        
-        .social-links {
-            justify-content: center;
-        }
-        
-        .contact-item {
-            justify-content: center;
-        }
-        
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-    
-    @media (max-width: 576px) {
-        .footer-wave {
-            height: 60px;
-        }
-        
-        .newsletter-form input {
-            padding-right: 50px;
-        }
-    }
-    </style>
-    
-    <script>
-    // تحديث سنة حقوق النشر تلقائياً
-    document.getElementById('year').textContent = new Date().getFullYear();
-    
-    // تأثيرات AOS للعناصر
-    document.querySelectorAll('.footer-col, .copyright').forEach(el => {
-        el.setAttribute('data-aos', 'fade-up');
-    });
-    </script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
 
-        // تأثير التصغير عند التمرير
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.main-header');
-            header.classList.toggle('scrolled', window.scrollY > 100);
-        });
-    </script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid var(--gray-light);
+      padding-bottom: 10px;
+    }
+
+    /* ========== الشبكات ========== */
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    /* ========== البطاقات والإحصائيات ========== */
+    .stat-card {
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      transition: var(--transition);
+      border-left: 4px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card i {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: rgba(44, 90, 160, 0.1);
+      font-size: 40px;
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 10px;
+    }
+
+    .stat-card small {
+      color: var(--gray);
+      font-size: 12px;
+    }
+
+    /* ========== وسائط الاستعلام للجوال ========== */
+    @media (max-width: 768px) {
+      .container {
+        margin: 15px auto;
+        padding: 0 10px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      
+      .stat-card {
+        padding: 15px 10px;
+      }
+      
+      .stat-card span {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- الهيدر المحسّن -->
+  <header class="topbar">
+    <div class="topbar-content">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <i class="fas fa-plane"></i>
+        </div>
+        <div class="logo-text">
+          <h1>أمان للسفريات</h1>
+          <span>لوحة التحكم</span>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      
+      <div class="nav-container" id="navContainer">
+        <nav class="topbar-nav">
+          <a href="index.html" class="active"><i class="fas fa-home"></i> الرئيسية</a>
+          <a href="clients.html"><i class="fas fa-users"></i> العملاء</a>
+          <a href="flights.html"><i class="fas fa-ticket-alt"></i> التذاكر</a>
+          <a href="visas.html"><i class="fas fa-passport"></i> التأشيرات</a>
+          <a href="work_visit_visas.html"><i class="fas fa-briefcase"></i>العمرة </a>
+          <a href="notifications.html"><i class="fas fa-bell"></i> الإشعارات</a>
+          <a href="backup.html"><i class="fas fa-database"></i> النسخ الاحتياطي</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- التنبيهات العاجلة -->
+    <div class="alert alert-warning">
+      <div class="alert-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div>
+        <strong>تنبيه!</strong> هناك <span id="urgentCount">0</span> عميل لديهم رحلات خلال الأيام القادمة. تأكد من إرسال التذكيرات.
+      </div>
+    </div>
+
+    <!-- الإحصائيات -->
+    <section class="card">
+      <h2><i class="fas fa-chart-bar"></i> نظرة عامة</h2>
+      <div class="grid stats-grid">
+        <div class="stat-card">
+          <i class="fas fa-users"></i>
+          العملاء
+          <span id="stat-clients">0</span>
+          <small>إجمالي المسجلين</small>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-ticket-alt"></i>
+          التذاكر
+          <span id="stat-flights">0</span>
+          <small>تم إصدارها</small>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-passport"></i>
+          التأشيرات
+          <span id="stat-visas">0</span>
+          <small>طلبات نشطة</small>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-bell"></i>
+          الإشعارات
+          <span id="stat-notifs">0</span>
+          <small>غير مقروءة</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="grid main-grid">
+      <!-- المخطط والنشاطات -->
+      <div>
+        <section class="card">
+          <h2><i class="fas fa-chart-line"></i> أداء المبيعات</h2>
+          <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </section>
+        
+        <section class="card">
+          <h2><i class="fas fa-history"></i> النشاطات الحديثة</h2>
+          <ul id="activityList" class="list"></ul>
+        </section>
+      </div>
+
+      <!-- الإشعارات والإجراءات -->
+      <div>
+        <section class="card">
+          <h2><i class="fas fa-bell"></i> الإشعارات العاجلة</h2>
+          <div id="urgentNotifications">
+            <!-- سيتم ملؤها بالجافاسكريبت -->
+          </div>
+        </section>
+
+        <section class="card">
+          <h2><i class="fas fa-bolt"></i> إجراءات سريعة</h2>
+          <div class="action-buttons">
+            <button class="btn btn-primary ripple btn-block" id="createNotificationBtn">
+              <i class="fas fa-bell"></i> إنشاء إشعار
+            </button>
+            <button class="btn btn-success ripple btn-block" id="backupNowBtn">
+              <i class="fas fa-download"></i> نسخ احتياطي
+            </button>
+            <button class="btn btn-outline ripple btn-block" id="refreshDataBtn">
+              <i class="fas fa-sync-alt"></i> تحديث البيانات
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- النسخ الاحتياطي -->
+    <section class="card">
+      <h2><i class="fas fa-database"></i> النسخ الاحتياطي والاستعادة</h2>
+      <div class="grid backup-grid">
+        <div class="backup-card">
+          <h3><i class="fas fa-file-export"></i> تصدير البيانات</h3>
+          <p>حفظ نسخة احتياطية من جميع البيانات</p>
+          <button class="btn btn-primary ripple btn-block" id="exportJsonBtn">
+            <i class="fas fa-file-code"></i> تصدير JSON
+          </button>
+          <button class="btn btn-success ripple btn-block" id="exportExcelBtn">
+            <i class="fas fa-file-excel"></i> تصدير Excel
+          </button>
+        </div>
+
+        <div class="backup-card">
+          <h3><i class="fas fa-file-import"></i> استيراد البيانات</h3>
+          <p>استعادة البيانات من ملف احتياطي</p>
+          <div class="file-input-container">
+            <button class="file-input-label">
+              <i class="fas fa-file-code"></i> اختيار ملف JSON
+            </button>
+            <input type="file" id="importJsonInput" accept=".json">
+          </div>
+          <div class="file-input-container">
+            <button class="file-input-label">
+              <i class="fas fa-file-excel"></i> اختيار ملف Excel
+            </button>
+            <input type="file" id="importExcelInput" accept=".xlsx,.xls">
+          </div>
+        </div>
+
+        <div class="backup-card">
+          <h3><i class="fas fa-code-merge"></i> دمج البيانات</h3>
+          <p>دمج البيانات من ملف مع البيانات الحالية</p>
+          <div class="file-input-container">
+            <button class="file-input-label">
+              <i class="fas fa-layer-group"></i> دمج من ملف
+            </button>
+            <input type="file" id="mergeDataInput" accept=".json,.xlsx,.xls">
+          </div>
+          <div class="progress-bar">
+            <div class="progress" id="mergeProgress"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- مؤشر التحميل -->
+  <div class="loading-spinner" id="loadingSpinner"></div>
+
+  <script>
+    // نظام الإدارة المتكامل
+    const AmanSystem = {
+      // نظام قواعد البيانات
+      DB: {
+        async init() {
+          if (!localStorage.getItem('aman_database')) {
+            const initialData = {
+              clients: [],
+              flights: [],
+              visas: [],
+              workVisas: [],
+              notifications: [],
+              activity: [
+                { 
+                  id: 1, 
+                  text: 'تم تثبيت النظام بنجاح', 
+                  when: new Date().toLocaleString('ar-EG'),
+                  type: 'system'
+                }
+              ],
+              settings: {
+                backupAuto: true,
+                notificationDays: [2, 7, 30],
+                lastBackup: null
+              }
+            };
+            localStorage.setItem('aman_database', JSON.stringify(initialData));
+          }
+          return this.getDB();
+        },
+
+        getDB() {
+          return JSON.parse(localStorage.getItem('aman_database') || '{}');
+        },
+
+        saveDB(data) {
+          localStorage.setItem('aman_database', JSON.stringify(data));
+        },
+
+        async getAll(collection) {
+          const db = this.getDB();
+          return db[collection] || [];
+        },
+
+        async count(collection) {
+          const items = await this.getAll(collection);
+          return items.length;
+        },
+
+        async add(collection, item) {
+          const db = this.getDB();
+          if (!db[collection]) db[collection] = [];
+          item.id = Date.now() + Math.random();
+          item.createdAt = new Date().toISOString();
+          item.updatedAt = new Date().toISOString();
+          db[collection].push(item);
+          
+          // إضافة نشاط
+          if (collection !== 'activity') {
+            const activityText = this.getActivityText(collection, item);
+            db.activity.push({
+              id: Date.now() + Math.random(),
+              text: activityText,
+              when: new Date().toLocaleString('ar-EG'),
+              type: collection
+            });
+          }
+          
+          this.saveDB(db);
+          return item;
+        },
+
+        getActivityText(collection, item) {
+          const texts = {
+            clients: `تم إضافة العميل ${item.name || 'جديد'}`,
+            flights: `تم إصدار تذكرة طيران ${item.flightNumber || 'جديدة'}`,
+            visas: `تم تقديم طلب تأشيرة ${item.type || 'جديد'}`,
+            workVisas: `تم تقديم طلب فيزا ${item.visaType || 'جديد'}`,
+            notifications: `تم إنشاء إشعار ${item.title || 'جديد'}`
+          };
+          return texts[collection] || `تم إضافة عنصر جديد إلى ${collection}`;
+        },
+
+        async update(collection, id, updates) {
+          const db = this.getDB();
+          if (!db[collection]) return null;
+          
+          const index = db[collection].findIndex(item => item.id === id);
+          if (index !== -1) {
+            db[collection][index] = { 
+              ...db[collection][index], 
+              ...updates,
+              updatedAt: new Date().toISOString()
+            };
+            this.saveDB(db);
+            return db[collection][index];
+          }
+          return null;
+        },
+
+        async delete(collection, id) {
+          const db = this.getDB();
+          if (!db[collection]) return false;
+          
+          db[collection] = db[collection].filter(item => item.id !== id);
+          this.saveDB(db);
+          return true;
+        },
+
+        // دمج البيانات
+        async mergeData(externalData) {
+          const db = this.getDB();
+          let mergedCount = 0;
+          let updatedCount = 0;
+          let skippedCount = 0;
+
+          for (const collection in externalData) {
+            if (Array.isArray(externalData[collection])) {
+              if (!db[collection]) db[collection] = [];
+              
+              for (const externalItem of externalData[collection]) {
+                const existingIndex = db[collection].findIndex(item => item.id === externalItem.id);
+                
+                if (existingIndex === -1) {
+                  // العنصر غير موجود، إضافته
+                  db[collection].push(externalItem);
+                  mergedCount++;
+                } else {
+                  // العنصر موجود، تحديثه إذا كان أحدث
+                  const existingItem = db[collection][existingIndex];
+                  const externalDate = new Date(externalItem.updatedAt || externalItem.createdAt || 0);
+                  const existingDate = new Date(existingItem.updatedAt || existingItem.createdAt || 0);
+                  
+                  if (externalDate > existingDate) {
+                    db[collection][existingIndex] = { ...existingItem, ...externalItem };
+                    updatedCount++;
+                  } else {
+                    skippedCount++;
+                  }
+                }
+              }
+            }
+          }
+
+          this.saveDB(db);
+          
+          // إضافة نشاط الدمج
+          db.activity.push({
+            id: Date.now(),
+            text: `تم دمج البيانات: ${mergedCount} مضاف, ${updatedCount} محدث, ${skippedCount} متجاهل`,
+            when: new Date().toLocaleString('ar-EG'),
+            type: 'system'
+          });
+          this.saveDB(db);
+
+          return { merged: mergedCount, updated: updatedCount, skipped: skippedCount };
+        },
+
+        // تصدير البيانات
+        exportToJSON() {
+          return JSON.stringify(this.getDB(), null, 2);
+        },
+
+        // استيراد البيانات (استبدال كامل)
+        async importFromJSON(jsonData) {
+          try {
+            const data = JSON.parse(jsonData);
+            this.saveDB(data);
+            
+            // إضافة نشاط الاستيراد
+            const db = this.getDB();
+            db.activity.push({
+              id: Date.now(),
+              text: 'تم استيراد جميع البيانات بنجاح',
+              when: new Date().toLocaleString('ar-EG'),
+              type: 'system'
+            });
+            this.saveDB(db);
+            
+            return true;
+          } catch (error) {
+            console.error('خطأ في استيراد البيانات:', error);
+            return false;
+          }
+        },
+
+        // تصدير إلى Excel
+        exportToExcel() {
+          const db = this.getDB();
+          const workbook = XLSX.utils.book_new();
+          
+          // إنشاء ورقة لكل مجموعة بيانات
+          for (const collection in db) {
+            if (Array.isArray(db[collection]) && db[collection].length > 0) {
+              const worksheet = XLSX.utils.json_to_sheet(db[collection]);
+              XLSX.utils.book_append_sheet(workbook, worksheet, collection);
+            }
+          }
+          
+          return XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+        },
+
+        // استيراد من Excel
+        async importFromExcel(binaryData) {
+          try {
+            const workbook = XLSX.read(binaryData, { type: 'binary' });
+            const db = this.getDB();
+            let importedCount = 0;
+            
+            workbook.SheetNames.forEach(sheetName => {
+              const worksheet = workbook.Sheets[sheetName];
+              const data = XLSX.utils.sheet_to_json(worksheet);
+              
+              if (Array.isArray(db[sheetName])) {
+                db[sheetName] = data;
+                importedCount += data.length;
+              }
+            });
+            
+            this.saveDB(db);
+            
+            // إضافة نشاط الاستيراد
+            db.activity.push({
+              id: Date.now(),
+              text: `تم استيراد ${importedCount} عنصر من ملف Excel`,
+              when: new Date().toLocaleString('ar-EG'),
+              type: 'system'
+            });
+            this.saveDB(db);
+            
+            return true;
+          } catch (error) {
+            console.error('خطأ في استيراد Excel:', error);
+            return false;
+          }
+        }
+      },
+
+      // نظام الإشعارات المتقدم
+      NotificationSystem: {
+        async checkUpcomingTrips() {
+          const clients = await this.DB.getAll('clients');
+          const today = new Date();
+          const notifications = [];
+          
+          clients.forEach(client => {
+            if (client.travelDate) {
+              const travelDate = new Date(client.travelDate);
+              const diffTime = travelDate - today;
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              
+              if (diffDays > 0 && diffDays <= 7) {
+                const notificationType = diffDays <= 2 ? 'urgent' : 'warning';
+                const notification = {
+                  id: Date.now() + Math.random(),
+                  title: 'رحلة قريبة',
+                  message: `رحلة العميل ${client.name} إلى ${client.destination} بعد ${diffDays} يوم`,
+                  type: notificationType,
+                  clientId: client.id,
+                  relatedTo: 'trip',
+                  priority: diffDays <= 2 ? 'high' : 'medium',
+                  createdAt: new Date().toISOString(),
+                  read: false,
+                  actions: ['viewClient', 'sendReminder']
+                };
+                
+                notifications.push(notification);
+                
+                // حفظ الإشعار في قاعدة البيانات إذا كان عاجلاً
+                if (diffDays <= 2) {
+                  this.DB.add('notifications', notification);
+                }
+              }
+            }
+          });
+          
+          return notifications;
+        },
+
+        async checkExpiringDocuments() {
+          const today = new Date();
+          const notifications = [];
+          
+          // التحقق من التأشيرات المنتهية
+          const visas = await this.DB.getAll('visas');
+          visas.forEach(visa => {
+            if (visa.expiryDate) {
+              const expiryDate = new Date(visa.expiryDate);
+              const diffTime = expiryDate - today;
+              const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+              
+              if (diffDays > 0 && diffDays <= 30) {
+                const notificationType = diffDays <= 7 ? 'urgent' : 'warning';
+                notifications.push({
+                  id: Date.now() + Math.random(),
+                  title: 'تأشيرة منتهية قريباً',
+                  message: `تأشيرة ${visa.type} للعميل ${visa.clientName} تنتهي بعد ${diffDays} يوم`,
+                  type: notificationType,
+                  visaId: visa.id,
+                  relatedTo: 'visa',
+                  priority: diffDays <= 7 ? 'high' : 'medium',
+                  createdAt: new Date().toISOString(),
+                  read: false,
+                  actions: ['viewVisa', 'renewVisa']
+                });
+              }
+            }
+          });
+          
+          return notifications;
+        },
+
+        async refreshNotifications() {
+          const tripNotifications = await this.checkUpcomingTrips();
+          const documentNotifications = await this.checkExpiringDocuments();
+          const allNotifications = [...tripNotifications, ...documentNotifications];
+          
+          const container = document.getElementById('urgentNotifications');
+          const urgentCount = allNotifications.filter(n => n.type === 'urgent').length;
+          
+          document.getElementById('urgentCount').textContent = urgentCount;
+          
+          if (allNotifications.length === 0) {
+            container.innerHTML = '<div style="text-align: center; color: var(--gray); padding: 20px;"><i class="fas fa-bell-slash" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>لا توجد إشعارات عاجلة</div>';
+            return;
+          }
+          
+          // عرض فقط الإشعارات العاجلة والمهمة
+          const urgentNotifications = allNotifications
+            .filter(n => n.priority === 'high')
+            .slice(0, 3);
+          
+          container.innerHTML = urgentNotifications.map(notif => `
+            <div class="notification-item ${notif.type}">
+              <div class="notification-content">
+                <h4>${notif.title}</h4>
+                <p>${notif.message}</p>
+              </div>
+              <div class="notification-meta">
+                <span class="notification-time">الآن</span>
+                <div class="notification-actions">
+                  <button class="btn btn-sm btn-outline" onclick="AmanSystem.handleNotificationAction('${notif.actions[0]}', '${notif.id}')">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-primary" onclick="AmanSystem.handleNotificationAction('${notif.actions[1]}', '${notif.id}')">
+                    <i class="fas fa-bell"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        },
+
+        async createManualNotification(title, message, type = 'info') {
+          const notification = {
+            id: Date.now() + Math.random(),
+            title,
+            message,
+            type,
+            priority: type === 'urgent' ? 'high' : 'medium',
+            createdAt: new Date().toISOString(),
+            read: false,
+            actions: ['view', 'dismiss']
+          };
+          
+          await this.DB.add('notifications', notification);
+          return notification;
+        }
+      },
+
+      // تطبيق لوحة التحكم
+      Dashboard: {
+        async init() {
+          await this.DB.init();
+          this.setupMobileMenu();
+          await this.refreshStats();
+          await this.refreshActivity();
+          await this.refreshCharts();
+          await this.NotificationSystem.refreshNotifications();
+          this.setupEventListeners();
+          
+          // إضافة بعض البيانات التجريبية إذا لم تكن موجودة
+          await this.addSampleData();
+        },
+        
+        setupMobileMenu() {
+          const menuBtn = document.getElementById('mobileMenuBtn');
+          const navContainer = document.getElementById('navContainer');
+          
+          menuBtn.addEventListener('click', () => {
+            navContainer.classList.toggle('active');
+          });
+          
+          // إغلاق القائمة عند النقر خارجها
+          document.addEventListener('click', (e) => {
+            if (!e.target.closest('.topbar-content')) {
+              navContainer.classList.remove('active');
+            }
+          });
+        },
+        
+        async addSampleData() {
+          const db = this.DB.getDB();
+          
+          if (db.clients.length === 0) {
+            // إضافة عملاء نموذجيين
+            const sampleClients = [
+              {
+                id: 1,
+                name: 'أحمد محمد',
+                email: 'ahmed@example.com',
+                phone: '+966501234567',
+                travelDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                destination: 'دبي',
+                status: 'active'
+              },
+              {
+                id: 2,
+                name: 'فاطمة عبدالله',
+                email: 'fatima@example.com',
+                phone: '+966551234567', 
+                travelDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                destination: 'إسطنبول',
+                status: 'active'
+              }
+            ];
+            
+            for (const client of sampleClients) {
+              await this.DB.add('clients', client);
+            }
+            
+            // إضافة تأشيرات نموذجية
+            const sampleVisas = [
+              {
+                id: 1,
+                type: 'سياحية',
+                clientName: 'أحمد محمد',
+                expiryDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                status: 'active'
+              }
+            ];
+            
+            for (const visa of sampleVisas) {
+              await this.DB.add('visas', visa);
+            }
+          }
+        },
+        
+        async refreshStats() {
+          const clients = await this.DB.count('clients');
+          const flights = await this.DB.count('flights');
+          const visas = await this.DB.count('visas');
+          const notifications = await this.DB.count('notifications');
+          
+          document.getElementById('stat-clients').textContent = clients;
+          document.getElementById('stat-flights').textContent = flights;
+          document.getElementById('stat-visas').textContent = visas;
+          document.getElementById('stat-notifs').textContent = notifications;
+        },
+        
+        async refreshActivity() {
+          const activities = await this.DB.getAll('activity');
+          const list = document.getElementById('activityList');
+          
+          if (activities.length === 0) {
+            list.innerHTML = '<li style="text-align: center; color: var(--gray); padding: 20px;"><i class="fas fa-inbox" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>لا توجد نشاطات مسجلة</li>';
+            return;
+          }
+          
+          list.innerHTML = activities.slice().reverse().slice(0, 5).map(activity => `
+            <li>
+              <i class="fas fa-circle" style="color: var(--success); font-size: 8px;"></i>
+              <div class="list-content">${activity.text}</div>
+              <div class="list-time">${activity.when}</div>
+            </li>
+          `).join('');
+        },
+        
+        async refreshCharts() {
+          const flights = await this.DB.getAll('flights');
+          
+          // تجميع البيانات حسب الشهر
+          const monthlyData = [0, 0, 0, 0, 0, 0];
+          flights.forEach(flight => {
+            if (flight.createdAt) {
+              const month = new Date(flight.createdAt).getMonth();
+              if (month >= 0 && month < 6) monthlyData[month]++;
+            }
+          });
+          
+          // إذا لم توجد بيانات، نستخدم بيانات نموذجية
+          if (monthlyData.every(val => val === 0)) {
+            monthlyData.forEach((_, i) => monthlyData[i] = Math.floor(Math.random() * 8) + 3);
+          }
+          
+          const ctx = document.getElementById('salesChart').getContext('2d');
+          
+          if (window.salesChart) {
+            window.salesChart.destroy();
+          }
+          
+          window.salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+              datasets: [{
+                label: 'عدد التذاكر',
+                data: monthlyData,
+                backgroundColor: 'rgba(44, 90, 160, 0.7)',
+                borderColor: 'rgba(44, 90, 160, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  position: 'top',
+                  rtl: true
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    stepSize: 1
+                  }
+                }
+              }
+            }
+          });
+        },
+        
+        setupEventListeners() {
+          // إنشاء إشعار
+          document.getElementById('createNotificationBtn').addEventListener('click', async () => {
+            const notification = await this.NotificationSystem.createManualNotification(
+              'إشعار تجريبي',
+              'هذا إشعار تم إنشاؤه يدوياً من لوحة التحكم',
+              'info'
+            );
+            
+            this.showMessage('تم إنشاء الإشعار بنجاح', 'success');
+            this.refreshStats();
+            this.NotificationSystem.refreshNotifications();
+          });
+          
+          // نسخ احتياطي فوري
+          document.getElementById('backupNowBtn').addEventListener('click', () => {
+            this.performBackup();
+          });
+          
+          // تحديث البيانات
+          document.getElementById('refreshDataBtn').addEventListener('click', () => {
+            this.init();
+            this.showMessage('تم تحديث البيانات', 'success');
+          });
+          
+          // تصدير JSON
+          document.getElementById('exportJsonBtn').addEventListener('click', () => {
+            this.exportData('json');
+          });
+          
+          // تصدير Excel
+          document.getElementById('exportExcelBtn').addEventListener('click', () => {
+            this.exportData('excel');
+          });
+          
+          // استيراد JSON
+          document.getElementById('importJsonInput').addEventListener('change', (e) => {
+            this.importData(e.target.files[0], 'json');
+          });
+          
+          // استيراد Excel
+          document.getElementById('importExcelInput').addEventListener('change', (e) => {
+            this.importData(e.target.files[0], 'excel');
+          });
+          
+          // دمج البيانات
+          document.getElementById('mergeDataInput').addEventListener('change', (e) => {
+            this.mergeData(e.target.files[0]);
+          });
+        },
+        
+        async performBackup() {
+          this.showLoading(true);
+          
+          try {
+            const db = this.DB.getDB();
+            db.settings.lastBackup = new Date().toISOString();
+            this.DB.saveDB(db);
+            
+            // محاكاة عملية النسخ الاحتياطي
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            this.showMessage('تم إنشاء نسخة احتياطية بنجاح', 'success');
+            this.refreshStats();
+          } catch (error) {
+            this.showMessage('حدث خطأ أثناء النسخ الاحتياطي', 'error');
+          } finally {
+            this.showLoading(false);
+          }
+        },
+        
+        exportData(type) {
+          try {
+            let data, filename, mimeType;
+            
+            if (type === 'json') {
+              data = this.DB.exportToJSON();
+              filename = `aman_backup_${new Date().toISOString().split('T')[0]}.json`;
+              mimeType = 'application/json';
+            } else {
+              data = this.DB.exportToExcel();
+              filename = `aman_backup_${new Date().toISOString().split('T')[0]}.xlsx`;
+              mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+              
+              // تحويل البيانات الثنائية إلى Blob
+              const buffer = new ArrayBuffer(data.length);
+              const view = new Uint8Array(buffer);
+              for (let i = 0; i < data.length; i++) {
+                view[i] = data.charCodeAt(i) & 0xFF;
+              }
+              data = buffer;
+            }
+            
+            const blob = new Blob([data], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            this.showMessage(`تم تصدير البيانات إلى ${filename}`, 'success');
+          } catch (error) {
+            console.error('خطأ في التصدير:', error);
+            this.showMessage('حدث خطأ أثناء تصدير البيانات', 'error');
+          }
+        },
+        
+        async importData(file, type) {
+          if (!file) return;
+          
+          this.showLoading(true);
+          
+          try {
+            const reader = new FileReader();
+            
+            reader.onload = async (e) => {
+              try {
+                let success;
+                
+                if (type === 'json') {
+                  success = await this.DB.importFromJSON(e.target.result);
+                } else {
+                  success = await this.DB.importFromExcel(e.target.result);
+                }
+                
+                if (success) {
+                  this.showMessage('تم استيراد البيانات بنجاح', 'success');
+                  this.init(); // إعادة تحميل جميع البيانات
+                } else {
+                  this.showMessage('فشل في استيراد البيانات', 'error');
+                }
+              } catch (error) {
+                console.error('خطأ في معالجة الملف:', error);
+                this.showMessage('حدث خطأ أثناء استيراد البيانات', 'error');
+              } finally {
+                this.showLoading(false);
+              }
+            };
+            
+            if (type === 'json') {
+              reader.readAsText(file);
+            } else {
+              reader.readAsBinaryString(file);
+            }
+          } catch (error) {
+            console.error('خطأ في قراءة الملف:', error);
+            this.showMessage('حدث خطأ أثناء قراءة الملف', 'error');
+            this.showLoading(false);
+          }
+        },
+        
+        async mergeData(file) {
+          if (!file) return;
+          
+          this.showLoading(true);
+          const progressBar = document.getElementById('mergeProgress');
+          progressBar.style.width = '0%';
+          
+          try {
+            const reader = new FileReader();
+            
+            reader.onload = async (e) => {
+              try {
+                progressBar.style.width = '30%';
+                
+                let externalData;
+                if (file.name.endsWith('.json')) {
+                  externalData = JSON.parse(e.target.result);
+                } else {
+                  // معالجة ملف Excel للدمج
+                  const workbook = XLSX.read(e.target.result, { type: 'binary' });
+                  externalData = {};
+                  
+                  workbook.SheetNames.forEach(sheetName => {
+                    const worksheet = workbook.Sheets[sheetName];
+                    externalData[sheetName] = XLSX.utils.sheet_to_json(worksheet);
+                  });
+                }
+                
+                progressBar.style.width = '60%';
+                
+                const result = await this.DB.mergeData(externalData);
+                
+                progressBar.style.width = '100%';
+                
+                this.showMessage(
+                  `تم دمج البيانات: ${result.merged} مضاف, ${result.updated} محدث, ${result.skipped} متجاهل`,
+                  'success'
+                );
+                
+                this.init(); // إعادة تحميل جميع البيانات
+                
+                // إعادة تعيين شريط التقدم بعد ثانية
+                setTimeout(() => {
+                  progressBar.style.width = '0%';
+                }, 1000);
+                
+              } catch (error) {
+                console.error('خطأ في معالجة الملف:', error);
+                this.showMessage('حدث خطأ أثناء دمج البيانات', 'error');
+              } finally {
+                this.showLoading(false);
+              }
+            };
+            
+            if (file.name.endsWith('.json')) {
+              reader.readAsText(file);
+            } else {
+              reader.readAsBinaryString(file);
+            }
+          } catch (error) {
+            console.error('خطأ في قراءة الملف:', error);
+            this.showMessage('حدث خطأ أثناء قراءة الملف', 'error');
+            this.showLoading(false);
+          }
+        },
+        
+        handleNotificationAction(action, notificationId) {
+          switch (action) {
+            case 'viewClient':
+              this.showMessage('سيتم عرض بيانات العميل', 'info');
+              break;
+            case 'sendReminder':
+              this.showMessage('تم إرسال التذكير للعميل', 'success');
+              break;
+            case 'viewVisa':
+              this.showMessage('سيتم عرض بيانات التأشيرة', 'info');
+              break;
+            case 'renewVisa':
+              this.showMessage('سيتم تجديد التأشيرة', 'info');
+              break;
+            case 'view':
+              this.showMessage('عرض تفاصيل الإشعار', 'info');
+              break;
+            case 'dismiss':
+              this.showMessage('تم تجاهل الإشعار', 'info');
+              break;
+          }
+        },
+        
+        showLoading(show) {
+          document.getElementById('loadingSpinner').style.display = show ? 'block' : 'none';
+        },
+        
+        showMessage(message, type) {
+          // إزالة أي رسائل سابقة
+          const existingMessages = document.querySelectorAll('.message');
+          existingMessages.forEach(msg => msg.remove());
+          
+          // إنشاء عنصر رسالة جديد
+          const messageEl = document.createElement('div');
+          messageEl.textContent = message;
+          messageEl.className = `message ${type}`;
+          
+          document.body.appendChild(messageEl);
+          
+          // إزالة الرسالة بعد 3 ثوان
+          setTimeout(() => {
+            messageEl.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+              if (messageEl.parentNode) {
+                messageEl.parentNode.removeChild(messageEl);
+              }
+            }, 300);
+          }, 3000);
+        }
+      }
+    };
+
+    // جعل النظام متاحاً globally للوظائف المذكورة في onclick
+    window.AmanSystem = AmanSystem;
+
+    // تهيئة النظام عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', () => {
+      AmanSystem.Dashboard.init();
+    });
+  </script>
+      <script>
+    // كود مبسط لإدارة قائمة الهامبرغر
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuBtn = document.getElementById('mobileMenuBtn');
+      const navContainer = document.getElementById('navContainer');
+      
+      // تبديل عرض/إخفاء القائمة
+      menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // منع انتشار الحدث
+        navContainer.classList.toggle('active');
+      });
+      
+      // إغلاق القائمة عند النقر خارجها
+      document.addEventListener('click', function(e) {
+        if (!navContainer.contains(e.target) && !menuBtn.contains(e.target)) {
+          navContainer.classList.remove('active');
+        }
+      });
+      
+      // منع إغلاق القائمة عند النقر داخلها
+      navContainer.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+      
+
+    });
+  </script>
 </body>
 </html>
-
