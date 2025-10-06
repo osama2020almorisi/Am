@@ -1,0 +1,1889 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>أمان - إدارة حجوزات العمرة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2c5aa0;
+      --primary-light: #3a6bc0;
+      --primary-dark: #1e3d72;
+      --secondary: #f8a31b;
+      --secondary-light: #f9b84d;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --border-radius: 10px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf1 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 10px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .topbar nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .topbar nav a:hover, .topbar nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: var(--transition);
+      border: 1px solid var(--gray-light);
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid var(--gray-light);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card h2 i {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .label-icon {
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--gray-light);
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      transition: var(--transition);
+      background: #f9f9f9;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+      background: white;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .input-row > div {
+      flex: 1;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .checkbox-group input {
+      width: auto;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-info {
+      background: var(--info);
+      color: white;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .table th {
+      background: var(--light);
+      padding: 12px 10px;
+      text-align: right;
+      font-weight: 600;
+      color: var(--dark);
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 14px;
+    }
+
+    .table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 14px;
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: var(--warning);
+    }
+
+    .status-confirmed {
+      background: #e7f7ef;
+      color: var(--success);
+    }
+
+    .status-traveled {
+      background: #cce7ff;
+      color: var(--info);
+    }
+
+    .status-completed {
+      background: #d1ecf1;
+      color: var(--info);
+    }
+
+    .status-cancelled {
+      background: #f8d7da;
+      color: var(--danger);
+    }
+
+    /* نظام الإشعارات العائم */
+    .notification-toast {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      background: white;
+      padding: 15px 20px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+      transform: translateY(-100px);
+      opacity: 0;
+      transition: all 0.4s ease;
+      border-right: 4px solid var(--info);
+    }
+
+    .notification-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .notification-toast.success {
+      border-right-color: var(--success);
+    }
+
+    .notification-toast.warning {
+      border-right-color: var(--warning);
+    }
+
+    .notification-toast.error {
+      border-right-color: var(--danger);
+    }
+
+    .notification-toast.info {
+      border-right-color: var(--info);
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: white;
+    }
+
+    .notification-toast.success .notification-icon {
+      background: var(--success);
+    }
+
+    .notification-toast.warning .notification-icon {
+      background: var(--warning);
+    }
+
+    .notification-toast.error .notification-icon {
+      background: var(--danger);
+    }
+
+    .notification-toast.info .notification-icon {
+      background: var(--info);
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-content h4 {
+      margin-bottom: 5px;
+      color: var(--dark);
+      font-size: 16px;
+    }
+
+    .notification-content p {
+      color: var(--gray);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .notification-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--gray);
+      cursor: pointer;
+      padding: 5px;
+      transition: var(--transition);
+    }
+
+    .notification-close:hover {
+      color: var(--dark);
+    }
+
+    /* قسم إشعارات العمرة */
+    .umrah-notifications {
+      background: #f8f9fa;
+      border-radius: var(--border-radius);
+      padding: 15px;
+      margin-top: 20px;
+      border: 1px solid var(--gray-light);
+    }
+
+    .umrah-notification-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: var(--border-radius);
+      margin-bottom: 10px;
+      border-left: 4px solid var(--info);
+      transition: var(--transition);
+    }
+
+    .umrah-notification-item:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .umrah-notification-item.success {
+      border-left-color: var(--success);
+    }
+
+    .umrah-notification-item.warning {
+      border-left-color: var(--warning);
+    }
+
+    .umrah-notification-item.error {
+      border-left-color: var(--danger);
+    }
+
+    .umrah-notification-item.urgent {
+      border-left-color: var(--danger);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    }
+
+    .umrah-notification-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .umrah-notification-item.success .umrah-notification-icon {
+      background: var(--success);
+    }
+
+    .umrah-notification-item.warning .umrah-notification-icon {
+      background: var(--warning);
+    }
+
+    .umrah-notification-item.error .umrah-notification-icon {
+      background: var(--danger);
+    }
+
+    .umrah-notification-item.info .umrah-notification-icon {
+      background: var(--info);
+    }
+
+    .umrah-notification-item.urgent .umrah-notification-icon {
+      background: var(--danger);
+    }
+
+    .umrah-notification-content {
+      flex: 1;
+    }
+
+    .umrah-notification-content h4 {
+      margin-bottom: 4px;
+      color: var(--dark);
+      font-size: 15px;
+    }
+
+    .umrah-notification-content p {
+      color: var(--gray);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .umrah-notification-time {
+      font-size: 11px;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+    }
+
+    .empty-state i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: var(--gray-light);
+    }
+
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.5s;
+      box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .loading-spinner {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(44, 90, 160, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* تحسينات للاستجابة على الأجهزة المحمولة */
+    @media (max-width: 768px) {
+      body {
+        padding: 5px;
+      }
+      
+      .topbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      
+      .topbar h1 {
+        font-size: 18px;
+      }
+      
+      .topbar nav {
+        justify-content: center;
+      }
+      
+      .container {
+        padding: 0;
+        gap: 10px;
+      }
+      
+      .card {
+        padding: 15px;
+      }
+      
+      .card h2 {
+        font-size: 18px;
+      }
+      
+      .input-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 15px;
+      }
+      
+      .table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .table th, .table td {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+      
+      .notification-toast {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar h1 {
+        font-size: 16px;
+      }
+      
+      .topbar nav a {
+        font-size: 13px;
+        padding: 6px 10px;
+      }
+      
+      .card {
+        padding: 12px;
+      }
+      
+      .card h2 {
+        font-size: 16px;
+      }
+      
+      .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .table th, .table td {
+        padding: 8px 6px;
+        font-size: 12px;
+      }
+    }
+
+    /* تأثيرات خاصة للتفاعل */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .ripple:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .5s, opacity 1s;
+    }
+
+    .ripple:active:after {
+      transform: scale(0, 0);
+      opacity: .2;
+      transition: 0s;
+    }
+
+    /* أزرار تأكيد الإجراءات */
+    .action-confirm {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .confirm-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .confirm-yes {
+      background: var(--success);
+      color: white;
+    }
+
+    .confirm-no {
+      background: var(--danger);
+      color: white;
+    }
+
+    .confirm-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    /* شارة العاجل */
+    .urgent-badge {
+      background: var(--danger);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      margin-right: 8px;
+      animation: pulse 1.5s infinite;
+    }
+
+    /* تخصيصات للعمرة */
+    .umrah-badge {
+      background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- إشعار عائم -->
+  <div class="notification-toast" id="statusToast">
+    <div class="notification-icon">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    <div class="notification-content">
+      <h4 id="toastTitle">تحديث الحالة</h4>
+      <p id="toastMessage">تم تحديث حجز العمرة بنجاح</p>
+    </div>
+    <button class="notification-close" id="toastClose">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <header class="topbar">
+    <h1><i class="fas fa-kaaba"></i> إدارة حجوزات العمرة - أمان للسفريات</h1>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="clients.html"><i class="fas fa-users"></i> العملاء</a>
+      <a href="flights.html"><i class="fas fa-ticket-alt"></i> التذاكر</a>
+      <a href="visas.html"><i class="fas fa-passport"></i> التأشيرات</a>
+      <a href="umrah.html" class="active"><i class="fas fa-kaaba"></i> العمرة</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- قسم إشعارات العمرة -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <h2><i class="fas fa-bell"></i> إشعارات حجوزات العمرة</h2>
+      <div class="umrah-notifications" id="umrahNotifications">
+        <!-- سيتم ملؤها بالجافاسكريبت -->
+      </div>
+    </section>
+
+    <!-- قسم إضافة حجز عمرة جديد -->
+    <section class="card">
+      <h2><i class="fas fa-plus-circle"></i> إضافة حجز عمرة جديد</h2>
+      <form id="umrahForm">
+        <div class="form-group">
+          <label for="clientName">
+            <span class="label-icon"><i class="fas fa-user"></i></span>
+            اسم المعتمر
+          </label>
+          <input type="text" id="clientName" name="clientName" placeholder="أدخل اسم المعتمر الكامل" required>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="packageType">
+              <span class="label-icon"><i class="fas fa-box"></i></span>
+              نوع الباقة
+            </label>
+            <select id="packageType" name="packageType" required>
+              <option value="">اختر نوع الباقة</option>
+              <option value="اقتصادية">اقتصادية</option>
+              <option value="متميزة">متميزة</option>
+              <option value="فاخرة">فاخرة</option>
+              <option value="VIP">VIP</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="hotelCategory">
+              <span class="label-icon"><i class="fas fa-hotel"></i></span>
+              فئة الفندق
+            </label>
+            <select id="hotelCategory" name="hotelCategory" required>
+              <option value="">اختر فئة الفندق</option>
+              <option value="3 نجوم">3 نجوم</option>
+              <option value="4 نجوم">4 نجوم</option>
+              <option value="5 نجوم">5 نجوم</option>
+              <option value="شقق فندقية">شقق فندقية</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="issueDate">
+              <span class="label-icon"><i class="fas fa-calendar-check"></i></span>
+              تاريخ الإصدار
+            </label>
+            <input type="date" id="issueDate" name="issueDate" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="expiryDate">
+              <span class="label-icon"><i class="fas fa-hourglass-end"></i></span>
+              تاريخ الانتهاء
+            </label>
+            <input type="date" id="expiryDate" name="expiryDate" required>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="travelDate">
+              <span class="label-icon"><i class="fas fa-plane-departure"></i></span>
+              تاريخ السفر
+            </label>
+            <input type="date" id="travelDate" name="travelDate" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="returnDate">
+              <span class="label-icon"><i class="fas fa-plane-arrival"></i></span>
+              تاريخ العودة
+            </label>
+            <input type="date" id="returnDate" name="returnDate" required>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="duration">
+              <span class="label-icon"><i class="fas fa-clock"></i></span>
+              مدة العمرة
+            </label>
+            <select id="duration" name="duration" required>
+              <option value="">اختر المدة</option>
+              <option value="7 أيام">7 أيام</option>
+              <option value="10 أيام">10 أيام</option>
+              <option value="14 يوم">14 يوم</option>
+              <option value="شهر">شهر</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="status">
+              <span class="label-icon"><i class="fas fa-info-circle"></i></span>
+              حالة الحجز
+            </label>
+            <select id="status" name="status" required>
+              <option value="pending">قيد الانتظار</option>
+              <option value="confirmed">مؤكد</option>
+              <option value="traveled">مسافر</option>
+              <option value="completed">مكتمل</option>
+              <option value="cancelled">ملغي</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="phone">
+              <span class="label-icon"><i class="fas fa-phone"></i></span>
+              رقم الهاتف
+            </label>
+            <input type="tel" id="phone" name="phone" placeholder="مثال: +966501234567">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">
+              <span class="label-icon"><i class="fas fa-envelope"></i></span>
+              البريد الإلكتروني
+            </label>
+            <input type="email" id="email" name="email" placeholder="مثال: client@example.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">
+            <span class="label-icon"><i class="fas fa-sticky-note"></i></span>
+            ملاحظات إضافية
+          </label>
+          <textarea id="notes" name="notes" rows="3" placeholder="أي ملاحظات إضافية حول حجز العمرة"></textarea>
+        </div>
+
+        <div class="action-buttons">
+          <button type="submit" class="btn btn-primary ripple" id="saveBtn">
+            <i class="fas fa-save"></i> حفظ الحجز
+          </button>
+          <button type="button" class="btn btn-warning ripple" id="resetBtn">
+            <i class="fas fa-undo"></i> مسح النموذج
+          </button>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i> تم حفظ حجز العمرة بنجاح!
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner"></div>
+      </form>
+    </section>
+
+    <!-- قسم قائمة حجوزات العمرة -->
+    <section class="card">
+      <h2><i class="fas fa-list"></i> قائمة حجوزات العمرة</h2>
+      <div class="action-buttons">
+        <button class="btn btn-success ripple" id="refreshBtn">
+          <i class="fas fa-sync-alt"></i> تحديث القائمة
+        </button>
+        <button class="btn btn-primary ripple" id="exportBtn">
+          <i class="fas fa-download"></i> تصدير البيانات
+        </button>
+      </div>
+      
+      <!-- شريط البحث -->
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <input type="text" id="searchInput" placeholder="ابحث في حجوزات العمرة..." style="flex: 1;">
+        <button class="btn btn-primary" id="searchBtn">
+          <i class="fas fa-search"></i> بحث
+        </button>
+      </div>
+      
+      <div class="table-container" style="overflow-x: auto; margin-top: 15px;">
+        <table id="umrahTable" class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>المعتمر</th>
+              <th>الباقة</th>
+              <th>فئة الفندق</th>
+              <th>تاريخ الإصدار</th>
+              <th>تاريخ الانتهاء</th>
+              <th>تاريخ السفر</th>
+              <th>تاريخ العودة</th>
+              <th>حالة الحجز</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="umrahTableBody">
+            <!-- سيتم ملؤها بالجافاسكريبت -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="empty-state" id="emptyState">
+        <i class="fas fa-kaaba"></i>
+        <h3>لا توجد حجوزات عمرة مسجلة</h3>
+        <p>انقر على "إضافة حجز عمرة جديد" لبدء تسجيل الحجوزات</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // نظام قاعدة البيانات الموحد للعمرة
+    const UmrahDB = {
+      // تهيئة قاعدة البيانات
+      init() {
+        if (!localStorage.getItem('umrah_database')) {
+          const initialData = {
+            bookings: [],
+            notifications: [] // إشعارات العمرة فقط
+          };
+          localStorage.setItem('umrah_database', JSON.stringify(initialData));
+        }
+        return this.getDB();
+      },
+
+      // الحصول على قاعدة البيانات
+      getDB() {
+        return JSON.parse(localStorage.getItem('umrah_database') || '{}');
+      },
+
+      // حفظ قاعدة البيانات
+      saveDB(data) {
+        localStorage.setItem('umrah_database', JSON.stringify(data));
+      },
+
+      // الحصول على جميع العناصر في مجموعة
+      getAll(collection) {
+        const db = this.getDB();
+        return db[collection] || [];
+      },
+
+      // إضافة عنصر جديد
+      add(collection, item) {
+        const db = this.getDB();
+        if (!db[collection]) db[collection] = [];
+        item.id = Date.now().toString();
+        item.createdAt = new Date().toISOString();
+        item.updatedAt = new Date().toISOString();
+        db[collection].push(item);
+        this.saveDB(db);
+        return item;
+      },
+
+      // تحديث عنصر
+      update(collection, id, updates) {
+        const db = this.getDB();
+        if (!db[collection]) return null;
+        
+        const index = db[collection].findIndex(item => item.id === id);
+        if (index !== -1) {
+          db[collection][index] = { 
+            ...db[collection][index], 
+            ...updates,
+            updatedAt: new Date().toISOString()
+          };
+          this.saveDB(db);
+          return db[collection][index];
+        }
+        return null;
+      },
+
+      // حذف عنصر
+      delete(collection, id) {
+        const db = this.getDB();
+        if (!db[collection]) return false;
+        
+        db[collection] = db[collection].filter(item => item.id !== id);
+        this.saveDB(db);
+        return true;
+      }
+    };
+
+    // نظام التنبيهات الذكي للعمرة
+    const UmrahAlertManager = {
+      // التحقق من حجوزات العمرة القريبة من السفر
+      checkUpcomingTravel() {
+        const bookings = UmrahDB.getAll('bookings');
+        const today = new Date();
+        const alerts = [];
+        
+        bookings.forEach(booking => {
+          if (booking.travelDate && booking.status === 'confirmed') {
+            const travelDate = new Date(booking.travelDate);
+            const diffTime = travelDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 0 && diffDays <= 7) {
+              let alertType, priority, title, icon;
+              
+              if (diffDays <= 2) {
+                alertType = 'urgent';
+                priority = 'high';
+                title = 'سفر للعمرة خلال يومين!';
+                icon = 'fas fa-plane';
+              } else if (diffDays <= 4) {
+                alertType = 'warning';
+                priority = 'medium';
+                title = 'سفر للعمرة خلال 4 أيام';
+                icon = 'fas fa-suitcase';
+              } else {
+                alertType = 'info';
+                priority = 'low';
+                title = 'سفر للعمرة قريباً';
+                icon = 'fas fa-calendar-alt';
+              }
+              
+              const alert = {
+                id: `travel_${booking.id}_${diffDays}`,
+                title: title,
+                message: `المعتمر ${booking.clientName} يسافر للعمرة بعد ${diffDays} يوم`,
+                type: alertType,
+                icon: icon,
+                bookingId: booking.id,
+                priority: priority,
+                createdAt: new Date().toISOString(),
+                read: false
+              };
+              
+              // التحقق من عدم وجود تنبيه مسبق
+              const existingAlerts = UmrahDB.getAll('notifications');
+              const existingAlert = existingAlerts.find(
+                a => a.id === alert.id && !a.read
+              );
+              
+              if (!existingAlert) {
+                alerts.push(alert);
+                UmrahDB.add('notifications', alert);
+              }
+            }
+          }
+        });
+        
+        return alerts;
+      },
+
+      // التحقق من حجوزات العمرة القريبة من الانتهاء
+      checkExpiringBookings() {
+        const bookings = UmrahDB.getAll('bookings');
+        const today = new Date();
+        const alerts = [];
+        
+        bookings.forEach(booking => {
+          if (booking.expiryDate && booking.status !== 'completed' && booking.status !== 'cancelled') {
+            const expiryDate = new Date(booking.expiryDate);
+            const diffTime = expiryDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 0 && diffDays <= 30) {
+              let alertType, priority, title, icon;
+              
+              if (diffDays <= 7) {
+                alertType = 'urgent';
+                priority = 'high';
+                title = 'عمرة تنتهي خلال أسبوع!';
+                icon = 'fas fa-exclamation-triangle';
+              } else if (diffDays <= 15) {
+                alertType = 'warning';
+                priority = 'medium';
+                title = 'عمرة تنتهي خلال 15 يوم';
+                icon = 'fas fa-clock';
+              } else {
+                alertType = 'info';
+                priority = 'low';
+                title = 'عمرة تنتهي قريباً';
+                icon = 'fas fa-info-circle';
+              }
+              
+              const alert = {
+                id: `expiry_${booking.id}_${diffDays}`,
+                title: title,
+                message: `عمرة المعتمر ${booking.clientName} تنتهي بعد ${diffDays} يوم`,
+                type: alertType,
+                icon: icon,
+                bookingId: booking.id,
+                priority: priority,
+                createdAt: new Date().toISOString(),
+                read: false
+              };
+              
+              // التحقق من عدم وجود تنبيه مسبق
+              const existingAlerts = UmrahDB.getAll('notifications');
+              const existingAlert = existingAlerts.find(
+                a => a.id === alert.id && !a.read
+              );
+              
+              if (!existingAlert) {
+                alerts.push(alert);
+                UmrahDB.add('notifications', alert);
+              }
+            }
+          }
+        });
+        
+        return alerts;
+      },
+
+      // التحقق من العائدين من العمرة
+      checkReturningPilgrims() {
+        const bookings = UmrahDB.getAll('bookings');
+        const today = new Date();
+        const alerts = [];
+        
+        bookings.forEach(booking => {
+          if (booking.returnDate && booking.status === 'traveled') {
+            const returnDate = new Date(booking.returnDate);
+            const diffTime = returnDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 0 && diffDays <= 3) {
+              const alert = {
+                id: `return_${booking.id}_${diffDays}`,
+                title: 'عائد من العمرة قريباً',
+                message: `المعتمر ${booking.clientName} يعود من العمرة بعد ${diffDays} يوم`,
+                type: 'info',
+                icon: 'fas fa-plane-arrival',
+                bookingId: booking.id,
+                priority: 'low',
+                createdAt: new Date().toISOString(),
+                read: false
+              };
+              
+              // التحقق من عدم وجود تنبيه مسبق
+              const existingAlerts = UmrahDB.getAll('notifications');
+              const existingAlert = existingAlerts.find(
+                a => a.id === alert.id && !a.read
+              );
+              
+              if (!existingAlert) {
+                alerts.push(alert);
+                UmrahDB.add('notifications', alert);
+              }
+            }
+          }
+        });
+        
+        return alerts;
+      },
+
+      // التحقق من جميع التنبيهات
+      checkAllAlerts() {
+        const travelAlerts = this.checkUpcomingTravel();
+        const expiryAlerts = this.checkExpiringBookings();
+        const returnAlerts = this.checkReturningPilgrims();
+        return [...travelAlerts, ...expiryAlerts, ...returnAlerts];
+      }
+    };
+
+    // نظام الإشعارات الذكي للعمرة
+    const UmrahNotificationManager = {
+      // إنشاء إشعار لتغيير حالة الحجز
+      createStatusChangeNotification(booking, oldStatus, newStatus) {
+        const statusTexts = {
+          'pending': 'قيد الانتظار',
+          'confirmed': 'مؤكد',
+          'traveled': 'مسافر',
+          'completed': 'مكتمل',
+          'cancelled': 'ملغي'
+        };
+        
+        let notificationType = 'info';
+        let icon = 'fas fa-info-circle';
+        
+        if (newStatus === 'confirmed') {
+          notificationType = 'success';
+          icon = 'fas fa-check-circle';
+        } else if (newStatus === 'cancelled') {
+          notificationType = 'error';
+          icon = 'fas fa-times-circle';
+        } else if (newStatus === 'traveled') {
+          notificationType = 'warning';
+          icon = 'fas fa-plane';
+        } else if (newStatus === 'completed') {
+          notificationType = 'success';
+          icon = 'fas fa-kaaba';
+        }
+        
+        const notification = {
+          id: Date.now().toString(),
+          title: `تغيير حالة العمرة - ${statusTexts[newStatus]}`,
+          message: `تم تغيير حالة عمرة المعتمر ${booking.clientName} من ${statusTexts[oldStatus]} إلى ${statusTexts[newStatus]}`,
+          type: notificationType,
+          icon: icon,
+          bookingId: booking.id,
+          createdAt: new Date().toISOString(),
+          read: false
+        };
+        
+        UmrahDB.add('notifications', notification);
+        return notification;
+      },
+
+      // إنشاء إشعار لحجز جديد
+      createNewBookingNotification(booking) {
+        const notification = {
+          id: Date.now().toString(),
+          title: 'حجز عمرة جديد',
+          message: `تم إضافة حجز عمرة جديد للمعتمر ${booking.clientName}`,
+          type: 'info',
+          icon: 'fas fa-plus-circle',
+          bookingId: booking.id,
+          createdAt: new Date().toISOString(),
+          read: false
+        };
+        
+        UmrahDB.add('notifications', notification);
+        return notification;
+      },
+
+      // إنشاء إشعار لحذف حجز
+      createDeleteBookingNotification(booking) {
+        const notification = {
+          id: Date.now().toString(),
+          title: 'حذف حجز عمرة',
+          message: `تم حذف حجز عمرة المعتمر ${booking.clientName}`,
+          type: 'error',
+          icon: 'fas fa-trash',
+          bookingId: booking.id,
+          createdAt: new Date().toISOString(),
+          read: false
+        };
+        
+        UmrahDB.add('notifications', notification);
+        return notification;
+      },
+
+      // تحديث عرض إشعارات العمرة
+      refreshUmrahNotifications() {
+        // التحقق من التنبيهات أولاً
+        UmrahAlertManager.checkAllAlerts();
+        
+        const container = document.getElementById('umrahNotifications');
+        const notifications = UmrahDB.getAll('notifications')
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 10); // عرض آخر 10 إشعارات فقط
+        
+        if (notifications.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state" style="padding: 20px;">
+              <i class="fas fa-bell-slash" style="font-size: 40px;"></i>
+              <p>لا توجد إشعارات حالية</p>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = notifications.map(notif => {
+          const timeAgo = this.getTimeAgo(notif.createdAt);
+          const urgentBadge = notif.type === 'urgent' ? '<span class="urgent-badge">عاجل</span>' : '';
+          
+          return `
+            <div class="umrah-notification-item ${notif.type}">
+              <div class="umrah-notification-icon">
+                <i class="${notif.icon}"></i>
+              </div>
+              <div class="umrah-notification-content">
+                <h4>${urgentBadge}${notif.title}</h4>
+                <p>${notif.message}</p>
+              </div>
+              <div class="umrah-notification-time">${timeAgo}</div>
+            </div>
+          `;
+        }).join('');
+      },
+
+      // حساب الوقت المنقضي
+      getTimeAgo(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        if (diffMins < 1) return 'الآن';
+        if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
+        if (diffHours < 24) return `منذ ${diffHours} ساعة`;
+        if (diffDays < 7) return `منذ ${diffDays} يوم`;
+        
+        return date.toLocaleDateString('ar-EG');
+      },
+
+      // عرض إشعار عائم
+      showToast(title, message, type = 'info') {
+        const toast = document.getElementById('statusToast');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        // تحديث المحتوى
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        
+        // تحديث النوع
+        toast.className = `notification-toast ${type}`;
+        toast.querySelector('.notification-icon').innerHTML = 
+          type === 'success' ? '<i class="fas fa-check-circle"></i>' :
+          type === 'warning' ? '<i class="fas fa-exclamation-triangle"></i>' :
+          type === 'error' ? '<i class="fas fa-times-circle"></i>' :
+          type === 'urgent' ? '<i class="fas fa-exclamation-circle"></i>' :
+          '<i class="fas fa-info-circle"></i>';
+        
+        // إظهار الإشعار
+        toast.classList.add('show');
+        
+        // إخفاء تلقائي بعد 5 ثوان
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 5000);
+      }
+    };
+
+    // نظام إدارة حجوزات العمرة
+    const UmrahManager = {
+      currentEditingId: null,
+      
+      // تهيئة النظام
+      async init() {
+        await UmrahDB.init();
+        this.setupEventListeners();
+        this.renderBookings();
+        UmrahNotificationManager.refreshUmrahNotifications();
+        
+        // تعيين تاريخ اليوم كحد أدنى للتواريخ
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('issueDate').min = today;
+        document.getElementById('expiryDate').min = today;
+        document.getElementById('travelDate').min = today;
+        document.getElementById('returnDate').min = today;
+        
+        // إعداد إغلاق الإشعار العائم
+        document.getElementById('toastClose').addEventListener('click', () => {
+          document.getElementById('statusToast').classList.remove('show');
+        });
+
+        // التحقق من التنبيهات كل دقيقة
+        setInterval(() => {
+          UmrahNotificationManager.refreshUmrahNotifications();
+        }, 60000);
+      },
+      
+      // إعداد مستمعي الأحداث
+      setupEventListeners() {
+        // حفظ النموذج
+        document.getElementById('umrahForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.saveBooking();
+        });
+        
+        // مسح النموذج
+        document.getElementById('resetBtn').addEventListener('click', () => {
+          this.resetForm();
+        });
+        
+        // تحديث القائمة
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+          this.renderBookings();
+          UmrahNotificationManager.refreshUmrahNotifications();
+          UmrahNotificationManager.showToast('تم التحديث', 'تم تحديث قائمة الحجوزات بنجاح', 'success');
+        });
+        
+        // تصدير البيانات
+        document.getElementById('exportBtn').addEventListener('click', () => {
+          this.exportData();
+        });
+        
+        // البحث
+        document.getElementById('searchBtn').addEventListener('click', () => {
+          this.performSearch();
+        });
+        
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+          if (e.key === 'Enter') {
+            this.performSearch();
+          }
+        });
+      },
+      
+      // حفظ حجز العمرة
+      async saveBooking() {
+        const form = document.getElementById('umrahForm');
+        const formData = new FormData(form);
+        
+        // التحقق من صحة البيانات
+        if (!formData.get('clientName') || !formData.get('packageType') || !formData.get('hotelCategory') || 
+            !formData.get('issueDate') || !formData.get('expiryDate') || !formData.get('travelDate') || 
+            !formData.get('returnDate') || !formData.get('duration') || !formData.get('status')) {
+          this.showMessage('يرجى ملء جميع الحقول المطلوبة', 'error');
+          return;
+        }
+        
+        this.showLoading(true);
+        
+        try {
+          const bookingData = {
+            clientName: formData.get('clientName'),
+            packageType: formData.get('packageType'),
+            hotelCategory: formData.get('hotelCategory'),
+            issueDate: formData.get('issueDate'),
+            expiryDate: formData.get('expiryDate'),
+            travelDate: formData.get('travelDate'),
+            returnDate: formData.get('returnDate'),
+            duration: formData.get('duration'),
+            status: formData.get('status'),
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            notes: formData.get('notes')
+          };
+          
+          if (this.currentEditingId) {
+            // الحصول على الحالة القديمة قبل التحديث
+            const oldBooking = UmrahDB.getAll('bookings').find(b => b.id === this.currentEditingId);
+            const oldStatus = oldBooking ? oldBooking.status : '';
+            
+            // تحديث الحجز الحالي
+            await UmrahDB.update('bookings', this.currentEditingId, bookingData);
+            
+            // إنشاء إشعار إذا تغيرت الحالة
+            if (oldStatus !== bookingData.status) {
+              UmrahNotificationManager.createStatusChangeNotification(bookingData, oldStatus, bookingData.status);
+              UmrahNotificationManager.showToast(
+                'تم تغيير الحالة', 
+                `تم تغيير حالة عمرة ${bookingData.clientName} إلى ${this.getStatusText(bookingData.status)}`,
+                bookingData.status === 'completed' ? 'success' : 
+                bookingData.status === 'cancelled' ? 'error' : 'info'
+              );
+            } else {
+              UmrahNotificationManager.showToast('تم التحديث', `تم تحديث بيانات عمرة ${bookingData.clientName}`, 'success');
+            }
+            
+            this.currentEditingId = null;
+            document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> حفظ الحجز';
+          } else {
+            // إضافة حجز جديد
+            const newBooking = await UmrahDB.add('bookings', bookingData);
+            UmrahNotificationManager.createNewBookingNotification(newBooking);
+            UmrahNotificationManager.showToast('حجز جديد', `تم إضافة عمرة جديدة للمعتمر ${bookingData.clientName}`, 'success');
+          }
+          
+          this.resetForm();
+          this.renderBookings();
+          UmrahNotificationManager.refreshUmrahNotifications();
+          
+        } catch (error) {
+          console.error('خطأ في حفظ حجز العمرة:', error);
+          UmrahNotificationManager.showToast('خطأ', 'حدث خطأ أثناء حفظ حجز العمرة', 'error');
+        } finally {
+          this.showLoading(false);
+        }
+      },
+      
+      // الحصول على نص الحالة
+      getStatusText(status) {
+        const statusTexts = {
+          'pending': 'قيد الانتظار',
+          'confirmed': 'مؤكد',
+          'traveled': 'مسافر',
+          'completed': 'مكتمل',
+          'cancelled': 'ملغي'
+        };
+        return statusTexts[status] || 'غير معروف';
+      },
+      
+      // عرض حجز العمرة
+      viewBooking(bookingId) {
+        const booking = UmrahDB.getAll('bookings').find(b => b.id === bookingId);
+        if (booking) {
+          this.editBooking(booking);
+          
+          // التمرير إلى قسم النموذج
+          document.querySelector('.card:first-of-type').scrollIntoView({ 
+            behavior: 'smooth' 
+          });
+        }
+      },
+      
+      // تحرير حجز العمرة
+      editBooking(booking) {
+        document.getElementById('clientName').value = booking.clientName || '';
+        document.getElementById('packageType').value = booking.packageType || '';
+        document.getElementById('hotelCategory').value = booking.hotelCategory || '';
+        document.getElementById('issueDate').value = booking.issueDate || '';
+        document.getElementById('expiryDate').value = booking.expiryDate || '';
+        document.getElementById('travelDate').value = booking.travelDate || '';
+        document.getElementById('returnDate').value = booking.returnDate || '';
+        document.getElementById('duration').value = booking.duration || '';
+        document.getElementById('status').value = booking.status || '';
+        document.getElementById('phone').value = booking.phone || '';
+        document.getElementById('email').value = booking.email || '';
+        document.getElementById('notes').value = booking.notes || '';
+        
+        this.currentEditingId = booking.id;
+        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-edit"></i> تحديث الحجز';
+        
+        UmrahNotificationManager.showToast('وضع التحرير', 'يمكنك الآن تعديل بيانات حجز العمرة', 'info');
+      },
+      
+      // تأكيد تغيير حالة الحجز
+      confirmStatusChange(bookingId, newStatus) {
+        const booking = UmrahDB.getAll('bookings').find(b => b.id === bookingId);
+        if (!booking) return;
+        
+        const statusText = this.getStatusText(newStatus);
+        const confirmMessage = `هل تريد تأكيد تغيير حالة عمرة ${booking.clientName} إلى "${statusText}"؟`;
+        
+        if (confirm(confirmMessage)) {
+          const oldStatus = booking.status;
+          UmrahDB.update('bookings', bookingId, { status: newStatus });
+          
+          // إنشاء إشعار لتغيير الحالة
+          UmrahNotificationManager.createStatusChangeNotification(booking, oldStatus, newStatus);
+          UmrahNotificationManager.showToast(
+            'تم تغيير الحالة', 
+            `تم تغيير حالة عمرة ${booking.clientName} إلى ${statusText}`,
+            newStatus === 'completed' ? 'success' : 
+            newStatus === 'cancelled' ? 'error' : 'info'
+          );
+          
+          this.renderBookings();
+          UmrahNotificationManager.refreshUmrahNotifications();
+        }
+      },
+      
+      // حذف حجز العمرة
+      async deleteBooking(bookingId) {
+        const booking = UmrahDB.getAll('bookings').find(b => b.id === bookingId);
+        if (!booking) return;
+        
+        if (!confirm(`هل أنت متأكد من أنك تريد حذف عمرة ${booking.clientName}؟ لا يمكن التراجع عن هذا الإجراء.`)) {
+          return;
+        }
+        
+        this.showLoading(true);
+        
+        try {
+          const success = await UmrahDB.delete('bookings', bookingId);
+          
+          if (success) {
+            // إنشاء إشعار للحذف
+            UmrahNotificationManager.createDeleteBookingNotification(booking);
+            UmrahNotificationManager.showToast('تم الحذف', `تم حذف عمرة ${booking.clientName}`, 'error');
+            
+            this.renderBookings();
+            UmrahNotificationManager.refreshUmrahNotifications();
+          } else {
+            UmrahNotificationManager.showToast('خطأ', 'حدث خطأ أثناء حذف الحجز', 'error');
+          }
+        } catch (error) {
+          console.error('خطأ في حذف حجز العمرة:', error);
+          UmrahNotificationManager.showToast('خطأ', 'حدث خطأ أثناء حذف الحجز', 'error');
+        } finally {
+          this.showLoading(false);
+        }
+      },
+      
+      // عرض قائمة حجوزات العمرة
+      renderBookings(filteredBookings = null) {
+        let bookings = filteredBookings || UmrahDB.getAll('bookings');
+        
+        const tbody = document.getElementById('umrahTableBody');
+        const emptyState = document.getElementById('emptyState');
+        
+        if (bookings.length === 0) {
+          tbody.innerHTML = '';
+          emptyState.style.display = 'block';
+          return;
+        }
+        
+        emptyState.style.display = 'none';
+        
+        // ترتيب الحجوزات حسب تاريخ الإنشاء (الأحدث أولاً)
+        const sortedBookings = bookings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        
+        tbody.innerHTML = sortedBookings.map((booking, index) => {
+          // تحديد حالة الحجز
+          let statusText, statusClass;
+          switch(booking.status) {
+            case 'pending':
+              statusText = 'قيد الانتظار';
+              statusClass = 'status-pending';
+              break;
+            case 'confirmed':
+              statusText = 'مؤكد';
+              statusClass = 'status-confirmed';
+              break;
+            case 'traveled':
+              statusText = 'مسافر';
+              statusClass = 'status-traveled';
+              break;
+            case 'completed':
+              statusText = 'مكتمل';
+              statusClass = 'status-completed';
+              break;
+            case 'cancelled':
+              statusText = 'ملغي';
+              statusClass = 'status-cancelled';
+              break;
+            default:
+              statusText = 'غير معروف';
+              statusClass = 'status-pending';
+          }
+          
+          // تنسيق التواريخ
+          const issueDate = booking.issueDate ? new Date(booking.issueDate).toLocaleDateString('ar-EG') : '-';
+          const expiryDate = booking.expiryDate ? new Date(booking.expiryDate).toLocaleDateString('ar-EG') : '-';
+          const travelDate = booking.travelDate ? new Date(booking.travelDate).toLocaleDateString('ar-EG') : '-';
+          const returnDate = booking.returnDate ? new Date(booking.returnDate).toLocaleDateString('ar-EG') : '-';
+          
+          // أزرار تأكيد الإجراءات بناءً على الحالة الحالية
+          let actionButtons = '';
+          if (booking.status === 'pending') {
+            actionButtons = `
+              <button class="confirm-btn confirm-yes" onclick="UmrahManager.confirmStatusChange('${booking.id}', 'confirmed')">
+                <i class="fas fa-check"></i> تأكيد
+              </button>
+            `;
+          } else if (booking.status === 'confirmed') {
+            actionButtons = `
+              <button class="confirm-btn confirm-yes" onclick="UmrahManager.confirmStatusChange('${booking.id}', 'traveled')">
+                <i class="fas fa-plane"></i> سافر
+              </button>
+            `;
+          } else if (booking.status === 'traveled') {
+            actionButtons = `
+              <div class="action-confirm">
+                <button class="confirm-btn confirm-yes" onclick="UmrahManager.confirmStatusChange('${booking.id}', 'completed')">
+                  <i class="fas fa-kaaba"></i> اكتمل
+                </button>
+                <button class="confirm-btn confirm-no" onclick="UmrahManager.confirmStatusChange('${booking.id}', 'cancelled')">
+                  <i class="fas fa-times"></i> إلغاء
+                </button>
+              </div>
+            `;
+          }
+          
+          return `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${booking.clientName}</td>
+              <td><span class="umrah-badge">${booking.packageType}</span></td>
+              <td>${booking.hotelCategory}</td>
+              <td>${issueDate}</td>
+              <td>${expiryDate}</td>
+              <td>${travelDate}</td>
+              <td>${returnDate}</td>
+              <td>
+                <span class="status-badge ${statusClass}">${statusText}</span>
+                ${actionButtons}
+              </td>
+              <td>
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                  <button class="btn btn-sm btn-primary ripple" onclick="UmrahManager.editBooking('${booking.id}')" title="تعديل">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger ripple" onclick="UmrahManager.deleteBooking('${booking.id}')" title="حذف">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      },
+      
+      // البحث في حجوزات العمرة
+      performSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        
+        if (query === '') {
+          this.renderBookings();
+          return;
+        }
+        
+        const results = this.searchBookings(query);
+        this.renderBookings(results);
+        
+        if (results.length === 0) {
+          UmrahNotificationManager.showToast('لا توجد نتائج', 'لم يتم العثور على حجوزات تطابق بحثك', 'warning');
+        } else {
+          UmrahNotificationManager.showToast('تم البحث', `تم العثور على ${results.length} حجز`, 'success');
+        }
+      },
+      
+      // وظيفة مساعدة للبحث في حجوزات العمرة
+      searchBookings(query) {
+        const bookings = UmrahDB.getAll('bookings');
+        const searchTerm = query.toLowerCase();
+        
+        return bookings.filter(booking => 
+          booking.clientName.toLowerCase().includes(searchTerm) ||
+          booking.packageType.toLowerCase().includes(searchTerm) ||
+          booking.hotelCategory.toLowerCase().includes(searchTerm) ||
+          (booking.phone && booking.phone.includes(searchTerm)) ||
+          (booking.email && booking.email.toLowerCase().includes(searchTerm))
+        );
+      },
+      
+      // مسح النموذج
+      resetForm() {
+        document.getElementById('umrahForm').reset();
+        this.currentEditingId = null;
+        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> حفظ الحجز';
+        
+        // تعيين تاريخ اليوم كحد أدنى
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('issueDate').min = today;
+        document.getElementById('expiryDate').min = today;
+        document.getElementById('travelDate').min = today;
+        document.getElementById('returnDate').min = today;
+      },
+      
+      // تصدير البيانات
+      exportData() {
+        const bookings = UmrahDB.getAll('bookings');
+        
+        if (bookings.length === 0) {
+          UmrahNotificationManager.showToast('لا توجد بيانات', 'لا توجد بيانات للتصدير', 'warning');
+          return;
+        }
+        
+        // تحويل البيانات إلى تنسيق CSV
+        const headers = ['المعتمر', 'نوع الباقة', 'فئة الفندق', 'تاريخ الإصدار', 'تاريخ الانتهاء', 'تاريخ السفر', 'تاريخ العودة', 'المدة', 'الحالة', 'الهاتف', 'البريد الإلكتروني'];
+        const csvData = bookings.map(booking => [
+          booking.clientName,
+          booking.packageType,
+          booking.hotelCategory,
+          booking.issueDate ? new Date(booking.issueDate).toLocaleDateString('ar-EG') : '',
+          booking.expiryDate ? new Date(booking.expiryDate).toLocaleDateString('ar-EG') : '',
+          booking.travelDate ? new Date(booking.travelDate).toLocaleDateString('ar-EG') : '',
+          booking.returnDate ? new Date(booking.returnDate).toLocaleDateString('ar-EG') : '',
+          booking.duration,
+          booking.status,
+          booking.phone || '',
+          booking.email || ''
+        ]);
+        
+        const csvContent = [headers, ...csvData]
+          .map(row => row.map(field => `"${field}"`).join(','))
+          .join('\n');
+        
+        // إنشاء ملف وتنزيله
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', `حجوزات_العمرة_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        UmrahNotificationManager.showToast('تم التصدير', 'تم تصدير البيانات بنجاح', 'success');
+      },
+      
+      // عرض رسائل للمستخدم
+      showMessage(message, type = 'info') {
+        const messageEl = document.getElementById('successMessage');
+        
+        // تغيير النص واللون حسب نوع الرسالة
+        messageEl.innerHTML = `
+          <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+          ${message}
+        `;
+        
+        messageEl.style.background = type === 'success' ? 'var(--success)' : 
+                                   type === 'error' ? 'var(--danger)' : 
+                                   type === 'warning' ? 'var(--warning)' : 'var(--info)';
+        
+        messageEl.style.display = 'block';
+        
+        // إخفاء الرسالة بعد 5 ثوانٍ
+        setTimeout(() => {
+          messageEl.style.display = 'none';
+        }, 5000);
+      },
+      
+      // عرض/إخفاء مؤشر التحميل
+      showLoading(show) {
+        const spinner = document.getElementById('loadingSpinner');
+        const saveBtn = document.getElementById('saveBtn');
+        
+        if (show) {
+          spinner.style.display = 'block';
+          saveBtn.disabled = true;
+          saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        } else {
+          spinner.style.display = 'none';
+          saveBtn.disabled = false;
+          if (this.currentEditingId) {
+            saveBtn.innerHTML = '<i class="fas fa-edit"></i> تحديث الحجز';
+          } else {
+            saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الحجز';
+          }
+        }
+      }
+    };
+
+    // تهيئة التطبيق عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      UmrahManager.init();
+    });
+  </script>
+</body>
+</html>

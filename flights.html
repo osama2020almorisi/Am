@@ -1,0 +1,1903 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>أمان - إدارة تذاكر الطيران</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2c5aa0;
+      --primary-light: #3a6bc0;
+      --primary-dark: #1e3d72;
+      --secondary: #f8a31b;
+      --secondary-light: #f9b84d;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --border-radius: 10px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf1 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 10px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .topbar nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .topbar nav a:hover, .topbar nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: var(--transition);
+      border: 1px solid var(--gray-light);
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid var(--gray-light);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card h2 i {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .label-icon {
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--gray-light);
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      transition: var(--transition);
+      background: #f9f9f9;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+      background: white;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .input-row > div {
+      flex: 1;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .checkbox-group input {
+      width: auto;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .table th {
+      background: var(--light);
+      padding: 12px 10px;
+      text-align: right;
+      font-weight: 600;
+      color: var(--dark);
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 14px;
+    }
+
+    .table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 14px;
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-active {
+      background: #e7f7ef;
+      color: var(--success);
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: var(--warning);
+    }
+
+    .status-expired {
+      background: #f8d7da;
+      color: var(--danger);
+    }
+
+    .urgent-badge {
+      background: var(--danger);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 10px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    }
+
+    .notification-item {
+      padding: 15px;
+      border-radius: var(--border-radius);
+      margin-bottom: 15px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-left: 4px solid var(--warning);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .notification-item.urgent {
+      border-left-color: var(--danger);
+      animation: pulse 2s infinite;
+    }
+
+    .notification-item.info {
+      border-left-color: var(--info);
+    }
+
+    .notification-content h4 {
+      margin-bottom: 5px;
+      color: var(--dark);
+      font-size: 16px;
+    }
+
+    .notification-content p {
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    .notification-time {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .notification-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+    }
+
+    .empty-state i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: var(--gray-light);
+    }
+
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.5s;
+      box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .loading-spinner {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(44, 90, 160, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .progress-bar {
+      height: 5px;
+      background: var(--gray-light);
+      border-radius: 10px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    /* تحسينات للاستجابة على الأجهزة المحمولة */
+    @media (max-width: 768px) {
+      body {
+        padding: 5px;
+      }
+      
+      .topbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      
+      .topbar h1 {
+        font-size: 18px;
+      }
+      
+      .topbar nav {
+        justify-content: center;
+      }
+      
+      .container {
+        padding: 0;
+        gap: 10px;
+      }
+      
+      .card {
+        padding: 15px;
+      }
+      
+      .card h2 {
+        font-size: 18px;
+      }
+      
+      .input-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 15px;
+      }
+      
+      .table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .table th, .table td {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+      
+      .notification-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .notification-actions {
+        align-self: flex-end;
+      }
+      
+      input, select, textarea {
+        font-size: 16px; /* منع التكبير في iOS */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar h1 {
+        font-size: 16px;
+      }
+      
+      .topbar nav a {
+        font-size: 13px;
+        padding: 6px 10px;
+      }
+      
+      .card {
+        padding: 12px;
+      }
+      
+      .card h2 {
+        font-size: 16px;
+      }
+      
+      .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .table th, .table td {
+        padding: 8px 6px;
+        font-size: 12px;
+      }
+    }
+
+    /* تأثيرات خاصة للتفاعل */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .ripple:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .5s, opacity 1s;
+    }
+
+    .ripple:active:after {
+      transform: scale(0, 0);
+      opacity: .2;
+      transition: 0s;
+    }
+
+    /* تحسينات لوضعية الهاتف الأفقي */
+    @media (max-width: 992px) and (orientation: landscape) {
+      .topbar {
+        flex-direction: row;
+      }
+      
+      .topbar h1 {
+        font-size: 18px;
+      }
+    }
+
+    /* تحسينات للشاشات الكبيرة جداً */
+    @media (min-width: 1400px) {
+      .container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* تحسينات لوضع عدم الاتصال */
+    .offline-indicator {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: var(--danger);
+      color: white;
+      padding: 10px 15px;
+      border-radius: var(--border-radius);
+      z-index: 1000;
+      display: none;
+      box-shadow: var(--shadow);
+    }
+
+    /* تحسينات لإمكانية الوصول */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* تحسينات للتبويب */
+    *:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* تحسينات للتنقل باللمس */
+    @media (hover: none) {
+      .btn:hover {
+        transform: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+      
+      .card:hover {
+        box-shadow: var(--shadow);
+      }
+    }
+
+    /* تحسينات لشاشات عالية الدقة */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+      .card {
+        border: 0.5px solid var(--gray-light);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-indicator" id="offlineIndicator">
+    <i class="fas fa-wifi"></i> أنت غير متصل بالإنترنت
+  </div>
+
+  <header class="topbar">
+    <h1><i class="fas fa-plane"></i> إدارة تذاكر الطيران - أمان للسفريات</h1>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="clients.html"><i class="fas fa-users"></i> العملاء</a>
+      <a href="flights.html" class="active"><i class="fas fa-ticket-alt"></i> التذاكر</a>
+      <a href="visas.html"><i class="fas fa-passport"></i> التأشيرات</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- قسم الإشعارات العاجلة -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h2><i class="fas fa-bell"></i> الإشعارات العاجلة</h2>
+        <div>
+          <button class="btn btn-sm btn-primary" id="markAllReadBtn">
+            <i class="fas fa-check-double"></i> تعيين الكل كمقروء
+          </button>
+          <button class="btn btn-sm btn-secondary" id="notificationSettingsBtn">
+            <i class="fas fa-cog"></i> الإعدادات
+          </button>
+        </div>
+      </div>
+      <div id="urgentNotifications">
+        <!-- سيتم ملؤها بالجافاسكريبت -->
+      </div>
+    </section>
+
+    <!-- قسم إضافة تذكرة -->
+    <section class="card">
+      <h2><i class="fas fa-plus-circle"></i> إضافة تذكرة جديدة</h2>
+      <form id="flightForm">
+        <div class="form-group">
+          <label for="clientName">
+            <span class="label-icon"><i class="fas fa-user"></i></span>
+            اسم العميل
+          </label>
+          <input type="text" id="clientName" name="clientName" placeholder="أدخل اسم العميل الكامل" required>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="airline">
+              <span class="label-icon"><i class="fas fa-plane"></i></span>
+              شركة الطيران
+            </label>
+            <input type="text" id="airline" name="airline" placeholder="مثال: الخطوط الجوية العربية السعودية" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="flightNo">
+              <span class="label-icon"><i class="fas fa-hashtag"></i></span>
+              رقم الرحلة
+            </label>
+            <input type="text" id="flightNo" name="flightNo" placeholder="مثال: SV 123" required>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="from">
+              <span class="label-icon"><i class="fas fa-map-marker-alt"></i></span>
+              من
+            </label>
+            <input type="text" id="from" name="from" placeholder="مدينة المغادرة" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="to">
+              <span class="label-icon"><i class="fas fa-map-marker-alt"></i></span>
+              إلى
+            </label>
+            <input type="text" id="to" name="to" placeholder="مدينة الوصول" required>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="departureDate">
+              <span class="label-icon"><i class="fas fa-calendar-alt"></i></span>
+              تاريخ الذهاب
+            </label>
+            <input type="date" id="departureDate" name="departureDate" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="returnDate">
+              <span class="label-icon"><i class="fas fa-calendar-alt"></i></span>
+              تاريخ العودة
+            </label>
+            <input type="date" id="returnDate" name="returnDate">
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="openReturn" name="openReturn">
+          <label for="openReturn" style="display: inline-flex; margin: 0;">
+            <span>العودة مفتوحة (بدون تاريخ محدد)</span>
+          </label>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="phone">
+              <span class="label-icon"><i class="fas fa-phone"></i></span>
+              رقم الهاتف
+            </label>
+            <input type="tel" id="phone" name="phone" placeholder="مثال: +966501234567">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">
+              <span class="label-icon"><i class="fas fa-envelope"></i></span>
+              البريد الإلكتروني
+            </label>
+            <input type="email" id="email" name="email" placeholder="مثال: client@example.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">
+            <span class="label-icon"><i class="fas fa-sticky-note"></i></span>
+            ملاحظات إضافية
+          </label>
+          <textarea id="notes" name="notes" rows="3" placeholder="أي ملاحظات إضافية حول التذكرة"></textarea>
+        </div>
+
+        <div class="action-buttons">
+          <button type="submit" class="btn btn-primary ripple" id="saveBtn">
+            <i class="fas fa-save"></i> حفظ التذكرة
+          </button>
+          <button type="button" class="btn btn-warning ripple" id="resetBtn">
+            <i class="fas fa-undo"></i> مسح النموذج
+          </button>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i> تم حفظ التذكرة بنجاح!
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner"></div>
+      </form>
+    </section>
+
+    <!-- قسم قائمة التذاكر -->
+    <section class="card">
+      <h2><i class="fas fa-list"></i> قائمة التذاكر</h2>
+      <div class="action-buttons">
+        <button class="btn btn-success ripple" id="refreshBtn">
+          <i class="fas fa-sync-alt"></i> تحديث القائمة
+        </button>
+        <button class="btn btn-primary ripple" id="exportBtn">
+          <i class="fas fa-download"></i> تصدير البيانات
+        </button>
+        <button class="btn btn-warning ripple" id="filterBtn">
+          <i class="fas fa-filter"></i> تصفية
+        </button>
+      </div>
+      
+      <!-- شريط البحث -->
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <input type="text" id="searchInput" placeholder="ابحث في التذاكر..." style="flex: 1;">
+        <button class="btn btn-primary" id="searchBtn">
+          <i class="fas fa-search"></i> بحث
+        </button>
+      </div>
+      
+      <!-- خيارات التصفية -->
+      <div id="filterOptions" style="display: none; margin-top: 15px; padding: 15px; background: var(--light); border-radius: var(--border-radius);">
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <div>
+            <label for="statusFilter">الحالة:</label>
+            <select id="statusFilter">
+              <option value="all">الكل</option>
+              <option value="active">نشطة</option>
+              <option value="pending">قريبة</option>
+              <option value="expired">منتهية</option>
+            </select>
+          </div>
+          <div>
+            <label for="dateFilter">التاريخ:</label>
+            <select id="dateFilter">
+              <option value="all">الكل</option>
+              <option value="today">اليوم</option>
+              <option value="week">هذا الأسبوع</option>
+              <option value="month">هذا الشهر</option>
+            </select>
+          </div>
+          <div>
+            <button class="btn btn-sm btn-primary" id="applyFilterBtn">تطبيق</button>
+            <button class="btn btn-sm btn-secondary" id="clearFilterBtn">مسح</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="table-container" style="overflow-x: auto; margin-top: 15px;">
+        <table id="flightsTable" class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>العميل</th>
+              <th>الخطوط</th>
+              <th>الرحلة</th>
+              <th>المسار</th>
+              <th>تاريخ الذهاب</th>
+              <th>تاريخ العودة</th>
+              <th>الحالة</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="flightsTableBody">
+            <!-- سيتم ملؤها بالجافاسكريبت -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="empty-state" id="emptyState">
+        <i class="fas fa-ticket-alt"></i>
+        <h3>لا توجد تذاكر مسجلة</h3>
+        <p>انقر على "إضافة تذكرة جديدة" لبدء تسجيل التذاكر</p>
+      </div>
+      
+      <!-- ترقيم الصفحات -->
+      <div id="pagination" style="display: flex; justify-content: center; margin-top: 20px; gap: 10px;">
+        <!-- سيتم ملؤها بالجافاسكريبت -->
+      </div>
+    </section>
+  </main>
+
+  <!-- نافذة إعدادات الإشعارات -->
+  <div id="notificationSettingsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 25px; border-radius: var(--border-radius); width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto;">
+      <h2 style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+        <i class="fas fa-cog"></i> إعدادات الإشعارات
+      </h2>
+      
+      <div class="form-group">
+        <label for="notificationDays">عدد الأيام للإشعار قبل الرحلة:</label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+          <div class="checkbox-group">
+            <input type="checkbox" id="notify2Days" name="notificationDays" value="2">
+            <label for="notify2Days" style="display: inline-flex; margin: 0;">يومين</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="notify7Days" name="notificationDays" value="7">
+            <label for="notify7Days" style="display: inline-flex; margin: 0;">7 أيام</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="notify30Days" name="notificationDays" value="30">
+            <label for="notify30Days" style="display: inline-flex; margin: 0;">30 يوم</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="checkbox-group">
+        <input type="checkbox" id="enablePushNotifications">
+        <label for="enablePushNotifications" style="display: inline-flex; margin: 0;">تفعيل الإشعارات المنبثقة</label>
+      </div>
+      
+      <div class="checkbox-group">
+        <input type="checkbox" id="enableSound">
+        <label for="enableSound" style="display: inline-flex; margin: 0;">تفعيل الصوت للإشعارات العاجلة</label>
+      </div>
+      
+      <div class="action-buttons" style="margin-top: 25px;">
+        <button class="btn btn-primary" id="saveNotificationSettings">
+          <i class="fas fa-save"></i> حفظ الإعدادات
+        </button>
+        <button class="btn btn-secondary" id="closeNotificationSettings">
+          <i class="fas fa-times"></i> إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // نظام قاعدة البيانات الموحد
+    const AmanDB = {
+      // تهيئة قاعدة البيانات
+      init() {
+        if (!localStorage.getItem('aman_database')) {
+          const initialData = {
+            flights: [],
+            notifications: [],
+            activity: [
+              { 
+                id: 1, 
+                text: 'تم تثبيت النظام بنجاح', 
+                when: new Date().toLocaleString('ar-EG'),
+                type: 'system'
+              }
+            ],
+            settings: {
+              backupAuto: true,
+              notificationDays: [2, 7, 30],
+              enablePushNotifications: true,
+              enableSound: true,
+              lastBackup: null
+            }
+          };
+          localStorage.setItem('aman_database', JSON.stringify(initialData));
+        }
+        return this.getDB();
+      },
+
+      // الحصول على قاعدة البيانات
+      getDB() {
+        return JSON.parse(localStorage.getItem('aman_database') || '{}');
+      },
+
+      // حفظ قاعدة البيانات
+      saveDB(data) {
+        localStorage.setItem('aman_database', JSON.stringify(data));
+      },
+
+      // الحصول على جميع العناصر في مجموعة
+      getAll(collection) {
+        const db = this.getDB();
+        return db[collection] || [];
+      },
+
+      // عد العناصر في مجموعة
+      count(collection) {
+        const items = this.getAll(collection);
+        return items.length;
+      },
+
+      // إضافة عنصر جديد
+      add(collection, item) {
+        const db = this.getDB();
+        if (!db[collection]) db[collection] = [];
+        item.id = Date.now().toString();
+        item.createdAt = new Date().toISOString();
+        item.updatedAt = new Date().toISOString();
+        db[collection].push(item);
+        
+        // إضافة نشاط
+        if (collection !== 'activity') {
+          const activityText = this.getActivityText(collection, item);
+          db.activity.push({
+            id: Date.now().toString(),
+            text: activityText,
+            when: new Date().toLocaleDateString('ar-EG'),
+            type: collection
+          });
+        }
+        
+        this.saveDB(db);
+        return item;
+      },
+
+      // نص النشاط التلقائي
+      getActivityText(collection, item) {
+        const texts = {
+          flights: `تم إضافة تذكرة طيران للعميل ${item.clientName || 'جديد'}`,
+          notifications: `تم إنشاء إشعار ${item.title || 'جديد'}`
+        };
+        return texts[collection] || `تم إضافة عنصر جديد إلى ${collection}`;
+      },
+
+      // تحديث عنصر
+      update(collection, id, updates) {
+        const db = this.getDB();
+        if (!db[collection]) return null;
+        
+        const index = db[collection].findIndex(item => item.id === id);
+        if (index !== -1) {
+          db[collection][index] = { 
+            ...db[collection][index], 
+            ...updates,
+            updatedAt: new Date().toISOString()
+          };
+          this.saveDB(db);
+          return db[collection][index];
+        }
+        return null;
+      },
+
+      // حذف عنصر
+      delete(collection, id) {
+        const db = this.getDB();
+        if (!db[collection]) return false;
+        
+        db[collection] = db[collection].filter(item => item.id !== id);
+        this.saveDB(db);
+        return true;
+      }
+    };
+
+    // نظام الإشعارات المتكامل
+    const NotificationManager = {
+      // التحقق من التذاكر القريبة وإنشاء إشعارات
+      checkUpcomingFlights() {
+        const flights = AmanDB.getAll('flights');
+        const today = new Date();
+        const notifications = [];
+        const settings = AmanDB.getDB().settings || {};
+        const notificationDays = settings.notificationDays || [2, 7, 30];
+        
+        flights.forEach(flight => {
+          if (flight.departureDate) {
+            const departureDate = new Date(flight.departureDate);
+            const diffTime = departureDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // إنشاء إشعارات حسب الأهمية
+            if (diffDays > 0 && notificationDays.includes(diffDays)) {
+              let notificationType, priority, title;
+              
+              if (diffDays <= 2) {
+                notificationType = 'urgent';
+                priority = 'high';
+                title = 'رحلة خلال يومين!';
+              } else if (diffDays <= 7) {
+                notificationType = 'warning';
+                priority = 'medium';
+                title = 'رحلة خلال أسبوع';
+              } else {
+                notificationType = 'info';
+                priority = 'low';
+                title = 'رحلة قريبة';
+              }
+              
+              const notification = {
+                id: Date.now().toString(),
+                title: title,
+                message: `رحلة العميل ${flight.clientName} إلى ${flight.to} بعد ${diffDays} يوم`,
+                type: notificationType,
+                flightId: flight.id,
+                relatedTo: 'flight',
+                priority: priority,
+                createdAt: new Date().toISOString(),
+                read: false,
+                actions: ['viewFlight', 'dismiss']
+              };
+              
+              // التحقق من عدم وجود إشعار مسبق لنفس الرحلة
+              const existingNotifications = AmanDB.getAll('notifications');
+              const existingNotification = existingNotifications.find(
+                n => n.flightId === flight.id && n.relatedTo === 'flight' && !n.read && n.priority === priority
+              );
+              
+              if (!existingNotification) {
+                notifications.push(notification);
+                AmanDB.add('notifications', notification);
+                
+                // إشعار منبثق إذا كان مفعل
+                if (settings.enablePushNotifications && (priority === 'high' || priority === 'medium')) {
+                  this.showPushNotification(notification);
+                }
+              }
+            }
+          }
+        });
+        
+        return notifications;
+      },
+      
+      // عرض إشعار منبثق
+      showPushNotification(notification) {
+        if (!("Notification" in window)) {
+          console.log("هذا المتصفح لا يدعم الإشعارات المنبثقة");
+          return;
+        }
+        
+        if (Notification.permission === "granted") {
+          const notif = new Notification(notification.title, {
+            body: notification.message,
+            icon: '/favicon.ico',
+            tag: notification.id
+          });
+          
+          notif.onclick = function() {
+            FlightManager.viewFlight(notification.flightId);
+            window.focus();
+            this.close();
+          };
+        } else if (Notification.permission !== "denied") {
+          Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+              this.showPushNotification(notification);
+            }
+          });
+        }
+      },
+      
+      // تحديث عرض الإشعارات
+      refreshNotifications() {
+        const notifications = this.checkUpcomingFlights();
+        const container = document.getElementById('urgentNotifications');
+        
+        // عرض فقط الإشعارات العاجلة والمهمة
+        const urgentNotifications = AmanDB.getAll('notifications')
+          .filter(n => !n.read && (n.priority === 'high' || n.priority === 'medium'))
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 5);
+        
+        if (urgentNotifications.length === 0) {
+          container.innerHTML = '<div style="text-align: center; color: var(--gray); padding: 20px;"><i class="fas fa-bell-slash" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>لا توجد إشعارات عاجلة</div>';
+          return;
+        }
+        
+        container.innerHTML = urgentNotifications.map(notif => `
+          <div class="notification-item ${notif.type}">
+            <div class="notification-content">
+              <h4>${notif.title}</h4>
+              <p>${notif.message}</p>
+              <div class="notification-time">${new Date(notif.createdAt).toLocaleDateString('ar-EG')}</div>
+            </div>
+            <div class="notification-actions">
+              <button class="btn btn-sm btn-primary" onclick="FlightManager.viewFlight('${notif.flightId}')">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-success" onclick="NotificationManager.markAsRead('${notif.id}')">
+                <i class="fas fa-check"></i> تم
+              </button>
+            </div>
+          </div>
+        `).join('');
+      },
+      
+      // تعيين الإشعار كمقروء
+      markAsRead(notificationId) {
+        AmanDB.update('notifications', notificationId, { read: true });
+        this.refreshNotifications();
+      },
+      
+      // تعيين جميع الإشعارات كمقروءة
+      markAllAsRead() {
+        const notifications = AmanDB.getAll('notifications');
+        notifications.forEach(notification => {
+          if (!notification.read) {
+            AmanDB.update('notifications', notification.id, { read: true });
+          }
+        });
+        this.refreshNotifications();
+        FlightManager.showMessage('تم تعيين جميع الإشعارات كمقروءة', 'success');
+      },
+      
+      // فتح إعدادات الإشعارات
+      openSettings() {
+        const modal = document.getElementById('notificationSettingsModal');
+        const settings = AmanDB.getDB().settings || {};
+        
+        // تعيين القيم الحالية
+        document.getElementById('notify2Days').checked = settings.notificationDays?.includes(2) || false;
+        document.getElementById('notify7Days').checked = settings.notificationDays?.includes(7) || false;
+        document.getElementById('notify30Days').checked = settings.notificationDays?.includes(30) || false;
+        document.getElementById('enablePushNotifications').checked = settings.enablePushNotifications || false;
+        document.getElementById('enableSound').checked = settings.enableSound || false;
+        
+        modal.style.display = 'flex';
+      },
+      
+      // حفظ إعدادات الإشعارات
+      saveSettings() {
+        const db = AmanDB.getDB();
+        const notificationDays = [];
+        
+        if (document.getElementById('notify2Days').checked) notificationDays.push(2);
+        if (document.getElementById('notify7Days').checked) notificationDays.push(7);
+        if (document.getElementById('notify30Days').checked) notificationDays.push(30);
+        
+        db.settings = {
+          ...db.settings,
+          notificationDays,
+          enablePushNotifications: document.getElementById('enablePushNotifications').checked,
+          enableSound: document.getElementById('enableSound').checked
+        };
+        
+        AmanDB.saveDB(db);
+        this.closeSettings();
+        this.refreshNotifications();
+        FlightManager.showMessage('تم حفظ إعدادات الإشعارات', 'success');
+      },
+      
+      // إغلاق إعدادات الإشعارات
+      closeSettings() {
+        document.getElementById('notificationSettingsModal').style.display = 'none';
+      }
+    };
+
+    // نظام إدارة التذاكر
+    const FlightManager = {
+      currentEditingId: null,
+      currentPage: 1,
+      itemsPerPage: 10,
+      currentFilter: {},
+      
+      // تهيئة النظام
+      async init() {
+        await AmanDB.init();
+        this.setupEventListeners();
+        this.renderFlights();
+        NotificationManager.refreshNotifications();
+        this.setupOfflineDetection();
+        
+        // تعيين تاريخ اليوم كحد أدنى لتاريخ الذهاب
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('departureDate').min = today;
+        document.getElementById('returnDate').min = today;
+        
+        // إضافة بعض البيانات التجريبية إذا لم تكن موجودة
+        await this.addSampleData();
+        
+        // طلب إذن الإشعارات
+        if ("Notification" in window && Notification.permission === "default") {
+          Notification.requestPermission();
+        }
+      },
+      
+      // إضافة بيانات تجريبية
+      async addSampleData() {
+        const flights = AmanDB.getAll('flights');
+        
+        if (flights.length === 0) {
+          const sampleFlights = [
+            {
+              id: '1',
+              clientName: 'أحمد محمد',
+              airline: 'الخطوط الجوية العربية السعودية',
+              flightNo: 'SV 123',
+              from: 'الرياض',
+              to: 'دبي',
+              departureDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              returnDate: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              openReturn: false,
+              phone: '+966501234567',
+              email: 'ahmed@example.com',
+              notes: 'تذكرة ذهاب وعودة',
+              status: 'active',
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            },
+            {
+              id: '2',
+              clientName: 'فاطمة عبدالله',
+              airline: 'الطيران العماني',
+              flightNo: 'WY 456',
+              from: 'جدة',
+              to: 'مسقط',
+              departureDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              returnDate: '',
+              openReturn: true,
+              phone: '+966551234567',
+              email: 'fatima@example.com',
+              notes: 'تذكرة ذهاب فقط - عودة مفتوحة',
+              status: 'active',
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            }
+          ];
+          
+          for (const flight of sampleFlights) {
+            await AmanDB.add('flights', flight);
+          }
+          
+          this.renderFlights();
+        }
+      },
+      
+      // إعداد مستمعي الأحداث
+      setupEventListeners() {
+        // حفظ النموذج
+        document.getElementById('flightForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.saveFlight();
+        });
+        
+        // مسح النموذج
+        document.getElementById('resetBtn').addEventListener('click', () => {
+          this.resetForm();
+        });
+        
+        // تحديث القائمة
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+          this.renderFlights();
+          this.showMessage('تم تحديث القائمة', 'success');
+        });
+        
+        // تصدير البيانات
+        document.getElementById('exportBtn').addEventListener('click', () => {
+          this.exportData();
+        });
+        
+        // تفعيل/تعطيل حقل تاريخ العودة
+        document.getElementById('openReturn').addEventListener('change', (e) => {
+          document.getElementById('returnDate').disabled = e.target.checked;
+          if (e.target.checked) {
+            document.getElementById('returnDate').value = '';
+          }
+        });
+        
+        // تحديث الحد الأدنى لتاريخ العودة عند تغيير تاريخ الذهاب
+        document.getElementById('departureDate').addEventListener('change', (e) => {
+          document.getElementById('returnDate').min = e.target.value;
+        });
+        
+        // البحث
+        document.getElementById('searchBtn').addEventListener('click', () => {
+          this.performSearch();
+        });
+        
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+          if (e.key === 'Enter') {
+            this.performSearch();
+          }
+        });
+        
+        // التصفية
+        document.getElementById('filterBtn').addEventListener('click', () => {
+          const filterOptions = document.getElementById('filterOptions');
+          filterOptions.style.display = filterOptions.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        document.getElementById('applyFilterBtn').addEventListener('click', () => {
+          this.applyFilters();
+        });
+        
+        document.getElementById('clearFilterBtn').addEventListener('click', () => {
+          this.clearFilters();
+        });
+        
+        // الإشعارات
+        document.getElementById('markAllReadBtn').addEventListener('click', () => {
+          NotificationManager.markAllAsRead();
+        });
+        
+        document.getElementById('notificationSettingsBtn').addEventListener('click', () => {
+          NotificationManager.openSettings();
+        });
+        
+        document.getElementById('saveNotificationSettings').addEventListener('click', () => {
+          NotificationManager.saveSettings();
+        });
+        
+        document.getElementById('closeNotificationSettings').addEventListener('click', () => {
+          NotificationManager.closeSettings();
+        });
+        
+        // إغلاق النافذة المنبثقة بالنقر خارجها
+        document.getElementById('notificationSettingsModal').addEventListener('click', (e) => {
+          if (e.target.id === 'notificationSettingsModal') {
+            NotificationManager.closeSettings();
+          }
+        });
+      },
+      
+      // إعداد كشف عدم الاتصال
+      setupOfflineDetection() {
+        window.addEventListener('online', () => {
+          document.getElementById('offlineIndicator').style.display = 'none';
+        });
+        
+        window.addEventListener('offline', () => {
+          document.getElementById('offlineIndicator').style.display = 'block';
+        });
+        
+        // التحقق من حالة الاتصال الأولية
+        if (!navigator.onLine) {
+          document.getElementById('offlineIndicator').style.display = 'block';
+        }
+      },
+      
+      // حفظ التذكرة
+      async saveFlight() {
+        const form = document.getElementById('flightForm');
+        const formData = new FormData(form);
+        
+        // التحقق من صحة البيانات
+        if (!formData.get('clientName') || !formData.get('airline') || !formData.get('flightNo') || 
+            !formData.get('from') || !formData.get('to') || !formData.get('departureDate')) {
+          this.showMessage('يرجى ملء جميع الحقول المطلوبة', 'error');
+          return;
+        }
+        
+        this.showLoading(true);
+        
+        try {
+          const flightData = {
+            clientName: formData.get('clientName'),
+            airline: formData.get('airline'),
+            flightNo: formData.get('flightNo'),
+            from: formData.get('from'),
+            to: formData.get('to'),
+            departureDate: formData.get('departureDate'),
+            returnDate: formData.get('returnDate') || '',
+            openReturn: document.getElementById('openReturn').checked,
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            notes: formData.get('notes'),
+            status: 'active'
+          };
+          
+          if (this.currentEditingId) {
+            // تحديث التذكرة الحالية
+            await AmanDB.update('flights', this.currentEditingId, flightData);
+            this.showMessage('تم تحديث التذكرة بنجاح', 'success');
+            this.currentEditingId = null;
+            document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> حفظ التذكرة';
+          } else {
+            // إضافة تذكرة جديدة
+            await AmanDB.add('flights', flightData);
+            this.showMessage('تم حفظ التذكرة بنجاح', 'success');
+          }
+          
+          this.resetForm();
+          this.renderFlights();
+          NotificationManager.refreshNotifications();
+          
+        } catch (error) {
+          console.error('خطأ في حفظ التذكرة:', error);
+          this.showMessage('حدث خطأ أثناء حفظ التذكرة', 'error');
+        } finally {
+          this.showLoading(false);
+        }
+      },
+      
+      // عرض التذكرة
+      viewFlight(flightId) {
+        const flight = AmanDB.getAll('flights').find(f => f.id === flightId);
+        if (flight) {
+          this.editFlight(flight);
+          
+          // التمرير إلى قسم النموذج
+          document.querySelector('.card:first-of-type').scrollIntoView({ 
+            behavior: 'smooth' 
+          });
+        }
+      },
+      
+      // تحرير التذكرة
+      editFlight(flight) {
+        document.getElementById('clientName').value = flight.clientName || '';
+        document.getElementById('airline').value = flight.airline || '';
+        document.getElementById('flightNo').value = flight.flightNo || '';
+        document.getElementById('from').value = flight.from || '';
+        document.getElementById('to').value = flight.to || '';
+        document.getElementById('departureDate').value = flight.departureDate || '';
+        document.getElementById('returnDate').value = flight.returnDate || '';
+        document.getElementById('openReturn').checked = flight.openReturn || false;
+        document.getElementById('phone').value = flight.phone || '';
+        document.getElementById('email').value = flight.email || '';
+        document.getElementById('notes').value = flight.notes || '';
+        
+        // تفعيل/تعطيل حقل تاريخ العودة
+        document.getElementById('returnDate').disabled = flight.openReturn;
+        
+        this.currentEditingId = flight.id;
+        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-edit"></i> تحديث التذكرة';
+        
+        this.showMessage('يمكنك الآن تعديل بيانات التذكرة', 'info');
+      },
+      
+      // حذف التذكرة
+      async deleteFlight(flightId) {
+        if (!confirm('هل أنت متأكد من أنك تريد حذف هذه التذكرة؟ لا يمكن التراجع عن هذا الإجراء.')) {
+          return;
+        }
+        
+        this.showLoading(true);
+        
+        try {
+          const success = await AmanDB.delete('flights', flightId);
+          
+          if (success) {
+            this.showMessage('تم حذف التذكرة بنجاح', 'success');
+            this.renderFlights();
+            NotificationManager.refreshNotifications();
+          } else {
+            this.showMessage('حدث خطأ أثناء حذف التذكرة', 'error');
+          }
+        } catch (error) {
+          console.error('خطأ في حذف التذكرة:', error);
+          this.showMessage('حدث خطأ أثناء حذف التذكرة', 'error');
+        } finally {
+          this.showLoading(false);
+        }
+      },
+      
+      // عرض قائمة التذاكر
+      renderFlights(filteredFlights = null) {
+        let flights = filteredFlights || AmanDB.getAll('flights');
+        
+        // تطبيق التصفية إذا كانت موجودة
+        if (Object.keys(this.currentFilter).length > 0) {
+          flights = this.applyCurrentFilters(flights);
+        }
+        
+        const tbody = document.getElementById('flightsTableBody');
+        const emptyState = document.getElementById('emptyState');
+        const pagination = document.getElementById('pagination');
+        
+        if (flights.length === 0) {
+          tbody.innerHTML = '';
+          emptyState.style.display = 'block';
+          pagination.innerHTML = '';
+          return;
+        }
+        
+        emptyState.style.display = 'none';
+        
+        // ترتيب التذاكر حسب تاريخ الإنشاء (الأحدث أولاً)
+        const sortedFlights = flights.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        
+        // الترقيم
+        const totalPages = Math.ceil(sortedFlights.length / this.itemsPerPage);
+        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+        const paginatedFlights = sortedFlights.slice(startIndex, startIndex + this.itemsPerPage);
+        
+        tbody.innerHTML = paginatedFlights.map((flight, index) => {
+          const globalIndex = startIndex + index + 1;
+          const departureDate = new Date(flight.departureDate).toLocaleDateString('ar-EG');
+          const returnDate = flight.returnDate ? new Date(flight.returnDate).toLocaleDateString('ar-EG') : 'مفتوحة';
+          const route = `${flight.from} → ${flight.to}`;
+          
+          // تحديد حالة التذكرة بناءً على التاريخ
+          let status = 'active';
+          let statusText = 'نشطة';
+          let statusClass = 'status-active';
+          
+          if (flight.departureDate) {
+            const today = new Date();
+            const departure = new Date(flight.departureDate);
+            const timeDiff = departure - today;
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            
+            if (daysDiff < 0) {
+              status = 'expired';
+              statusText = 'منتهية';
+              statusClass = 'status-expired';
+            } else if (daysDiff <= 2) {
+              status = 'pending';
+              statusText = 'قريبة';
+              statusClass = 'status-pending';
+            }
+          }
+          
+          return `
+            <tr>
+              <td>${globalIndex}</td>
+              <td>${flight.clientName}</td>
+              <td>${flight.airline}</td>
+              <td>${flight.flightNo}</td>
+              <td>${route}</td>
+              <td>${departureDate}</td>
+              <td>${returnDate}</td>
+              <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+              <td>
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                  <button class="btn btn-sm btn-primary ripple" onclick="FlightManager.editFlight('${flight.id}')" title="تعديل">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-warning ripple" onclick="FlightManager.viewFlight('${flight.id}')" title="عرض">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger ripple" onclick="FlightManager.deleteFlight('${flight.id}')" title="حذف">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+        
+        // عرض ترقيم الصفحات
+        this.renderPagination(totalPages);
+      },
+      
+      // تطبيق التصفيات الحالية
+      applyCurrentFilters(flights) {
+        let filtered = [...flights];
+        
+        if (this.currentFilter.status && this.currentFilter.status !== 'all') {
+          filtered = filtered.filter(flight => {
+            if (flight.departureDate) {
+              const today = new Date();
+              const departure = new Date(flight.departureDate);
+              const timeDiff = departure - today;
+              const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+              
+              if (this.currentFilter.status === 'active') {
+                return daysDiff > 2;
+              } else if (this.currentFilter.status === 'pending') {
+                return daysDiff > 0 && daysDiff <= 2;
+              } else if (this.currentFilter.status === 'expired') {
+                return daysDiff < 0;
+              }
+            }
+            return true;
+          });
+        }
+        
+        if (this.currentFilter.date && this.currentFilter.date !== 'all') {
+          const today = new Date();
+          const startOfWeek = new Date(today);
+          startOfWeek.setDate(today.getDate() - today.getDay());
+          const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+          
+          filtered = filtered.filter(flight => {
+            const departureDate = new Date(flight.departureDate);
+            
+            if (this.currentFilter.date === 'today') {
+              return departureDate.toDateString() === today.toDateString();
+            } else if (this.currentFilter.date === 'week') {
+              return departureDate >= startOfWeek && departureDate <= today;
+            } else if (this.currentFilter.date === 'month') {
+              return departureDate >= startOfMonth && departureDate <= today;
+            }
+            return true;
+          });
+        }
+        
+        return filtered;
+      },
+      
+      // تطبيق التصفيات
+      applyFilters() {
+        const statusFilter = document.getElementById('statusFilter').value;
+        const dateFilter = document.getElementById('dateFilter').value;
+        
+        this.currentFilter = {
+          status: statusFilter,
+          date: dateFilter
+        };
+        
+        this.currentPage = 1;
+        this.renderFlights();
+        document.getElementById('filterOptions').style.display = 'none';
+        
+        this.showMessage('تم تطبيق التصفية', 'success');
+      },
+      
+      // مسح التصفيات
+      clearFilters() {
+        this.currentFilter = {};
+        document.getElementById('statusFilter').value = 'all';
+        document.getElementById('dateFilter').value = 'all';
+        this.currentPage = 1;
+        this.renderFlights();
+        document.getElementById('filterOptions').style.display = 'none';
+        
+        this.showMessage('تم مسح التصفية', 'success');
+      },
+      
+      // عرض ترقيم الصفحات
+      renderPagination(totalPages) {
+        const pagination = document.getElementById('pagination');
+        
+        if (totalPages <= 1) {
+          pagination.innerHTML = '';
+          return;
+        }
+        
+        let paginationHTML = '';
+        
+        // زر الصفحة السابقة
+        if (this.currentPage > 1) {
+          paginationHTML += `<button class="btn btn-sm btn-primary" onclick="FlightManager.goToPage(${this.currentPage - 1})"><i class="fas fa-chevron-right"></i> السابق</button>`;
+        }
+        
+        // أرقام الصفحات
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === this.currentPage) {
+            paginationHTML += `<button class="btn btn-sm btn-primary" style="background: var(--primary-dark);">${i}</button>`;
+          } else if (
+            i === 1 || 
+            i === totalPages || 
+            (i >= this.currentPage - 1 && i <= this.currentPage + 1)
+          ) {
+            paginationHTML += `<button class="btn btn-sm btn-primary" onclick="FlightManager.goToPage(${i})">${i}</button>`;
+          } else if (i === this.currentPage - 2 || i === this.currentPage + 2) {
+            paginationHTML += `<span style="padding: 8px 12px;">...</span>`;
+          }
+        }
+        
+        // زر الصفحة التالية
+        if (this.currentPage < totalPages) {
+          paginationHTML += `<button class="btn btn-sm btn-primary" onclick="FlightManager.goToPage(${this.currentPage + 1})">التالي <i class="fas fa-chevron-left"></i></button>`;
+        }
+        
+        pagination.innerHTML = paginationHTML;
+      },
+      
+      // الانتقال إلى صفحة محددة
+      goToPage(page) {
+        this.currentPage = page;
+        this.renderFlights();
+        
+        // التمرير إلى أعلى الجدول
+        document.getElementById('flightsTable').scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      },
+      
+      // البحث في التذاكر
+      performSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        
+        if (query === '') {
+          this.renderFlights();
+          return;
+        }
+        
+        const results = this.searchFlights(query);
+        this.renderFlights(results);
+        
+        if (results.length === 0) {
+          this.showMessage('لم يتم العثور على تذاكر تطابق بحثك', 'warning');
+        } else {
+          this.showMessage(`تم العثور على ${results.length} تذكرة`, 'success');
+        }
+      },
+      
+      // وظيفة مساعدة للبحث في التذاكر
+      searchFlights(query) {
+        const flights = AmanDB.getAll('flights');
+        const searchTerm = query.toLowerCase();
+        
+        return flights.filter(flight => 
+          flight.clientName.toLowerCase().includes(searchTerm) ||
+          flight.airline.toLowerCase().includes(searchTerm) ||
+          flight.flightNo.toLowerCase().includes(searchTerm) ||
+          flight.from.toLowerCase().includes(searchTerm) ||
+          flight.to.toLowerCase().includes(searchTerm) ||
+          (flight.phone && flight.phone.includes(searchTerm)) ||
+          (flight.email && flight.email.toLowerCase().includes(searchTerm))
+        );
+      },
+      
+      // مسح النموذج
+      resetForm() {
+        document.getElementById('flightForm').reset();
+        document.getElementById('returnDate').disabled = false;
+        this.currentEditingId = null;
+        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> حفظ التذكرة';
+        
+        // تعيين تاريخ اليوم كحد أدنى
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('departureDate').min = today;
+        document.getElementById('returnDate').min = today;
+      },
+      
+      // تصدير البيانات
+      exportData() {
+        const flights = AmanDB.getAll('flights');
+        
+        if (flights.length === 0) {
+          this.showMessage('لا توجد بيانات للتصدير', 'warning');
+          return;
+        }
+        
+        // تحويل البيانات إلى تنسيق CSV
+        const headers = ['العميل', 'شركة الطيران', 'رقم الرحلة', 'من', 'إلى', 'تاريخ الذهاب', 'تاريخ العودة', 'الهاتف', 'البريد الإلكتروني', 'الحالة'];
+        const csvData = flights.map(flight => [
+          flight.clientName,
+          flight.airline,
+          flight.flightNo,
+          flight.from,
+          flight.to,
+          new Date(flight.departureDate).toLocaleDateString('ar-EG'),
+          flight.returnDate ? new Date(flight.returnDate).toLocaleDateString('ar-EG') : 'مفتوحة',
+          flight.phone || '',
+          flight.email || '',
+          flight.status
+        ]);
+        
+        const csvContent = [headers, ...csvData]
+          .map(row => row.map(field => `"${field}"`).join(','))
+          .join('\n');
+        
+        // إنشاء ملف وتنزيله
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', `تذاكر_الطيران_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        this.showMessage('تم تصدير البيانات بنجاح', 'success');
+      },
+      
+      // عرض رسائل للمستخدم
+      showMessage(message, type = 'info') {
+        const messageEl = document.getElementById('successMessage');
+        
+        // تغيير النص واللون حسب نوع الرسالة
+        messageEl.innerHTML = `
+          <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+          ${message}
+        `;
+        
+        messageEl.style.background = type === 'success' ? 'var(--success)' : 
+                                   type === 'error' ? 'var(--danger)' : 
+                                   type === 'warning' ? 'var(--warning)' : 'var(--info)';
+        
+        messageEl.style.display = 'block';
+        
+        // إخفاء الرسالة بعد 5 ثوانٍ
+        setTimeout(() => {
+          messageEl.style.display = 'none';
+        }, 5000);
+      },
+      
+      // عرض/إخفاء مؤشر التحميل
+      showLoading(show) {
+        const spinner = document.getElementById('loadingSpinner');
+        const saveBtn = document.getElementById('saveBtn');
+        
+        if (show) {
+          spinner.style.display = 'block';
+          saveBtn.disabled = true;
+          saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        } else {
+          spinner.style.display = 'none';
+          saveBtn.disabled = false;
+          if (this.currentEditingId) {
+            saveBtn.innerHTML = '<i class="fas fa-edit"></i> تحديث التذكرة';
+          } else {
+            saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ التذكرة';
+          }
+        }
+      }
+    };
+
+    // تهيئة التطبيق عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      FlightManager.init();
+    });
+
+    // إضافة تأثيرات الـ ripple للأزرار
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('ripple') || e.target.closest('.ripple')) {
+        const btn = e.target.classList.contains('ripple') ? e.target : e.target.closest('.ripple');
+        createRipple(btn, e);
+      }
+    });
+
+    function createRipple(button, e) {
+      const circle = document.createElement('span');
+      const diameter = Math.max(button.clientWidth, button.clientHeight);
+      const radius = diameter / 2;
+      
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left - radius;
+      const y = e.clientY - rect.top - radius;
+      
+      circle.style.width = circle.style.height = `${diameter}px`;
+      circle.style.left = `${x}px`;
+      circle.style.top = `${y}px`;
+      circle.classList.add('ripple-effect');
+      
+      const ripple = button.getElementsByClassName('ripple-effect')[0];
+      if (ripple) {
+        ripple.remove();
+      }
+      
+      button.appendChild(circle);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1831 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>أمان - إدارة التأشيرات</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2c5aa0;
+      --primary-light: #3a6bc0;
+      --primary-dark: #1e3d72;
+      --secondary: #f8a31b;
+      --secondary-light: #f9b84d;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --border-radius: 10px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf1 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 10px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .topbar nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .topbar nav a:hover, .topbar nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: var(--transition);
+      border: 1px solid var(--gray-light);
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid var(--gray-light);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card h2 i {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .label-icon {
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--gray-light);
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      transition: var(--transition);
+      background: #f9f9f9;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+      background: white;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .input-row > div {
+      flex: 1;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .checkbox-group input {
+      width: auto;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-info {
+      background: var(--info);
+      color: white;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .table th {
+      background: var(--light);
+      padding: 12px 10px;
+      text-align: right;
+      font-weight: 600;
+      color: var(--dark);
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 14px;
+    }
+
+    .table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 14px;
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table tr:hover {
+      background: #f8f9fa;
+    }
+
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: var(--warning);
+    }
+
+    .status-submitted {
+      background: #cce7ff;
+      color: var(--info);
+    }
+
+    .status-transferred {
+      background: #d1ecf1;
+      color: var(--info);
+    }
+
+    .status-issued {
+      background: #e7f7ef;
+      color: var(--success);
+    }
+
+    .status-rejected {
+      background: #f8d7da;
+      color: var(--danger);
+    }
+
+    .status-expired {
+      background: #f8d7da;
+      color: var(--danger);
+    }
+
+    /* نظام الإشعارات العائم */
+    .notification-toast {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      background: white;
+      padding: 15px 20px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+      transform: translateY(-100px);
+      opacity: 0;
+      transition: all 0.4s ease;
+      border-right: 4px solid var(--info);
+    }
+
+    .notification-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .notification-toast.success {
+      border-right-color: var(--success);
+    }
+
+    .notification-toast.warning {
+      border-right-color: var(--warning);
+    }
+
+    .notification-toast.error {
+      border-right-color: var(--danger);
+    }
+
+    .notification-toast.info {
+      border-right-color: var(--info);
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: white;
+    }
+
+    .notification-toast.success .notification-icon {
+      background: var(--success);
+    }
+
+    .notification-toast.warning .notification-icon {
+      background: var(--warning);
+    }
+
+    .notification-toast.error .notification-icon {
+      background: var(--danger);
+    }
+
+    .notification-toast.info .notification-icon {
+      background: var(--info);
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-content h4 {
+      margin-bottom: 5px;
+      color: var(--dark);
+      font-size: 16px;
+    }
+
+    .notification-content p {
+      color: var(--gray);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .notification-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--gray);
+      cursor: pointer;
+      padding: 5px;
+      transition: var(--transition);
+    }
+
+    .notification-close:hover {
+      color: var(--dark);
+    }
+
+    /* قسم إشعارات حالة التأشيرات */
+    .status-notifications {
+      background: #f8f9fa;
+      border-radius: var(--border-radius);
+      padding: 15px;
+      margin-top: 20px;
+      border: 1px solid var(--gray-light);
+    }
+
+    .status-notification-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: white;
+      border-radius: var(--border-radius);
+      margin-bottom: 10px;
+      border-left: 4px solid var(--info);
+      transition: var(--transition);
+    }
+
+    .status-notification-item:hover {
+      transform: translateX(-5px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .status-notification-item.success {
+      border-left-color: var(--success);
+    }
+
+    .status-notification-item.warning {
+      border-left-color: var(--warning);
+    }
+
+    .status-notification-item.error {
+      border-left-color: var(--danger);
+    }
+
+    .status-notification-item.urgent {
+      border-left-color: var(--danger);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    }
+
+    .status-notification-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .status-notification-item.success .status-notification-icon {
+      background: var(--success);
+    }
+
+    .status-notification-item.warning .status-notification-icon {
+      background: var(--warning);
+    }
+
+    .status-notification-item.error .status-notification-icon {
+      background: var(--danger);
+    }
+
+    .status-notification-item.info .status-notification-icon {
+      background: var(--info);
+    }
+
+    .status-notification-item.urgent .status-notification-icon {
+      background: var(--danger);
+    }
+
+    .status-notification-content {
+      flex: 1;
+    }
+
+    .status-notification-content h4 {
+      margin-bottom: 4px;
+      color: var(--dark);
+      font-size: 15px;
+    }
+
+    .status-notification-content p {
+      color: var(--gray);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .status-notification-time {
+      font-size: 11px;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+    }
+
+    .empty-state i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: var(--gray-light);
+    }
+
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.5s;
+      box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .loading-spinner {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(44, 90, 160, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* تحسينات للاستجابة على الأجهزة المحمولة */
+    @media (max-width: 768px) {
+      body {
+        padding: 5px;
+      }
+      
+      .topbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      
+      .topbar h1 {
+        font-size: 18px;
+      }
+      
+      .topbar nav {
+        justify-content: center;
+      }
+      
+      .container {
+        padding: 0;
+        gap: 10px;
+      }
+      
+      .card {
+        padding: 15px;
+      }
+      
+      .card h2 {
+        font-size: 18px;
+      }
+      
+      .input-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 15px;
+      }
+      
+      .table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .table th, .table td {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+      
+      .notification-toast {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar h1 {
+        font-size: 16px;
+      }
+      
+      .topbar nav a {
+        font-size: 13px;
+        padding: 6px 10px;
+      }
+      
+      .card {
+        padding: 12px;
+      }
+      
+      .card h2 {
+        font-size: 16px;
+      }
+      
+      .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .table th, .table td {
+        padding: 8px 6px;
+        font-size: 12px;
+      }
+    }
+
+    /* تأثيرات خاصة للتفاعل */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .ripple:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .5s, opacity 1s;
+    }
+
+    .ripple:active:after {
+      transform: scale(0, 0);
+      opacity: .2;
+      transition: 0s;
+    }
+
+    /* أزرار تأكيد الإجراءات */
+    .action-confirm {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .confirm-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .confirm-yes {
+      background: var(--success);
+      color: white;
+    }
+
+    .confirm-no {
+      background: var(--danger);
+      color: white;
+    }
+
+    .confirm-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    /* شارة العاجل */
+    .urgent-badge {
+      background: var(--danger);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      margin-right: 8px;
+      animation: pulse 1.5s infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- إشعار عائم -->
+  <div class="notification-toast" id="statusToast">
+    <div class="notification-icon">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    <div class="notification-content">
+      <h4 id="toastTitle">تحديث الحالة</h4>
+      <p id="toastMessage">تم تحديث حالة التأشيرة بنجاح</p>
+    </div>
+    <button class="notification-close" id="toastClose">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <header class="topbar">
+    <h1><i class="fas fa-passport"></i> إدارة التأشيرات - أمان للسفريات</h1>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="clients.html"><i class="fas fa-users"></i> العملاء</a>
+      <a href="flights.html"><i class="fas fa-ticket-alt"></i> التذاكر</a>
+      <a href="visas.html" class="active"><i class="fas fa-passport"></i> التأشيرات</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- قسم إشعارات حالة التأشيرات -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <h2><i class="fas fa-bell"></i> إشعارات حالة التأشيرات</h2>
+      <div class="status-notifications" id="statusNotifications">
+        <!-- سيتم ملؤها بالجافاسكريبت -->
+      </div>
+    </section>
+
+    <!-- قسم إضافة طلب تأشيرة -->
+    <section class="card">
+      <h2><i class="fas fa-plus-circle"></i> إضافة طلب تأشيرة جديد</h2>
+      <form id="visaForm">
+        <div class="form-group">
+          <label for="clientName">
+            <span class="label-icon"><i class="fas fa-user"></i></span>
+            اسم العميل
+          </label>
+          <input type="text" id="clientName" name="clientName" placeholder="أدخل اسم العميل الكامل" required>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="visaType">
+              <span class="label-icon"><i class="fas fa-passport"></i></span>
+              نوع التأشيرة
+            </label>
+            <select id="visaType" name="visaType" required>
+              <option value="">اختر نوع التأشيرة</option>
+              <option value="سياحية">سياحية</option>
+              <option value="عمل">عمل</option>
+              <option value="دراسية">دراسية</option>
+              <option value="علاج">علاج</option>
+              <option value="عمرة">عمرة</option>
+              <option value="حج">حج</option>
+              <option value="عائلية">عائلية</option>
+              <option value="ترانزيت">ترانزيت</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="destination">
+              <span class="label-icon"><i class="fas fa-globe"></i></span>
+              الدولة
+            </label>
+            <input type="text" id="destination" name="destination" placeholder="الدولة المطلوبة" required>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="submissionOffice">
+              <span class="label-icon"><i class="fas fa-building"></i></span>
+              مكتب التقديم
+            </label>
+            <input type="text" id="submissionOffice" name="submissionOffice" placeholder="اسم المكتب" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="submissionDate">
+              <span class="label-icon"><i class="fas fa-calendar-alt"></i></span>
+              تاريخ التقديم
+            </label>
+            <input type="date" id="submissionDate" name="submissionDate">
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="transferDate">
+              <span class="label-icon"><i class="fas fa-plane-departure"></i></span>
+              تاريخ الترحيل للسفارة
+            </label>
+            <input type="date" id="transferDate" name="transferDate">
+          </div>
+          
+          <div class="form-group">
+            <label for="issueDate">
+              <span class="label-icon"><i class="fas fa-calendar-check"></i></span>
+              تاريخ الإصدار
+            </label>
+            <input type="date" id="issueDate" name="issueDate">
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="expiryDate">
+              <span class="label-icon"><i class="fas fa-hourglass-end"></i></span>
+              تاريخ الانتهاء
+            </label>
+            <input type="date" id="expiryDate" name="expiryDate">
+          </div>
+          
+          <div class="form-group">
+            <label for="status">
+              <span class="label-icon"><i class="fas fa-info-circle"></i></span>
+              حالة الطلب
+            </label>
+            <select id="status" name="status" required>
+              <option value="pending">قيد الانتظار</option>
+              <option value="submitted">تم التقديم</option>
+              <option value="transferred">مرحل للسفارة</option>
+              <option value="issued">تم الإصدار</option>
+              <option value="rejected">مرفوض</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="phone">
+              <span class="label-icon"><i class="fas fa-phone"></i></span>
+              رقم الهاتف
+            </label>
+            <input type="tel" id="phone" name="phone" placeholder="مثال: +966501234567">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">
+              <span class="label-icon"><i class="fas fa-envelope"></i></span>
+              البريد الإلكتروني
+            </label>
+            <input type="email" id="email" name="email" placeholder="مثال: client@example.com">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">
+            <span class="label-icon"><i class="fas fa-sticky-note"></i></span>
+            ملاحظات إضافية
+          </label>
+          <textarea id="notes" name="notes" rows="3" placeholder="أي ملاحظات إضافية حول طلب التأشيرة"></textarea>
+        </div>
+
+        <div class="action-buttons">
+          <button type="submit" class="btn btn-primary ripple" id="saveBtn">
+            <i class="fas fa-save"></i> حفظ الطلب
+          </button>
+          <button type="button" class="btn btn-warning ripple" id="resetBtn">
+            <i class="fas fa-undo"></i> مسح النموذج
+          </button>
+        </div>
+
+        <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i> تم حفظ طلب التأشيرة بنجاح!
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner"></div>
+      </form>
+    </section>
+
+    <!-- قسم قائمة طلبات التأشيرات -->
+    <section class="card">
+      <h2><i class="fas fa-list"></i> قائمة طلبات التأشيرات</h2>
+      <div class="action-buttons">
+        <button class="btn btn-success ripple" id="refreshBtn">
+          <i class="fas fa-sync-alt"></i> تحديث القائمة
+        </button>
+        <button class="btn btn-primary ripple" id="exportBtn">
+          <i class="fas fa-download"></i> تصدير البيانات
+        </button>
+      </div>
+      
+      <!-- شريط البحث -->
+      <div style="display: flex; gap: 10px; margin-top: 15px;">
+        <input type="text" id="searchInput" placeholder="ابحث في طلبات التأشيرات..." style="flex: 1;">
+        <button class="btn btn-primary" id="searchBtn">
+          <i class="fas fa-search"></i> بحث
+        </button>
+      </div>
+      
+      <div class="table-container" style="overflow-x: auto; margin-top: 15px;">
+        <table id="visasTable" class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>العميل</th>
+              <th>النوع</th>
+              <th>الدولة</th>
+              <th>مكتب التقديم</th>
+              <th>حالة الطلب</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="visasTableBody">
+            <!-- سيتم ملؤها بالجافاسكريبت -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="empty-state" id="emptyState">
+        <i class="fas fa-passport"></i>
+        <h3>لا توجد طلبات تأشيرة مسجلة</h3>
+        <p>انقر على "إضافة طلب تأشيرة جديد" لبدء تسجيل الطلبات</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // نظام قاعدة البيانات الموحد
+    const AmanDB = {
+      // تهيئة قاعدة البيانات
+      init() {
+        if (!localStorage.getItem('aman_database')) {
+          const initialData = {
+            visas: [],
+            statusNotifications: [] // إشعارات حالة التأشيرات فقط
+          };
+          localStorage.setItem('aman_database', JSON.stringify(initialData));
+        }
+        return this.getDB();
+      },
+
+      // الحصول على قاعدة البيانات
+      getDB() {
+        return JSON.parse(localStorage.getItem('aman_database') || '{}');
+      },
+
+      // حفظ قاعدة البيانات
+      saveDB(data) {
+        localStorage.setItem('aman_database', JSON.stringify(data));
+      },
+
+      // الحصول على جميع العناصر في مجموعة
+      getAll(collection) {
+        const db = this.getDB();
+        return db[collection] || [];
+      },
+
+      // إضافة عنصر جديد
+      add(collection, item) {
+        const db = this.getDB();
+        if (!db[collection]) db[collection] = [];
+        item.id = Date.now().toString();
+        item.createdAt = new Date().toISOString();
+        item.updatedAt = new Date().toISOString();
+        db[collection].push(item);
+        this.saveDB(db);
+        return item;
+      },
+
+      // تحديث عنصر
+      update(collection, id, updates) {
+        const db = this.getDB();
+        if (!db[collection]) return null;
+        
+        const index = db[collection].findIndex(item => item.id === id);
+        if (index !== -1) {
+          db[collection][index] = { 
+            ...db[collection][index], 
+            ...updates,
+            updatedAt: new Date().toISOString()
+          };
+          this.saveDB(db);
+          return db[collection][index];
+        }
+        return null;
+      },
+
+      // حذف عنصر
+      delete(collection, id) {
+        const db = this.getDB();
+        if (!db[collection]) return false;
+        
+        db[collection] = db[collection].filter(item => item.id !== id);
+        this.saveDB(db);
+        return true;
+      }
+    };
+
+    // نظام التنبيهات الذكي للتأشيرات
+    const SmartAlertManager = {
+      // التحقق من التأشيرات القريبة من الانتهاء
+      checkExpiringVisas() {
+        const visas = AmanDB.getAll('visas');
+        const today = new Date();
+        const alerts = [];
+        
+        visas.forEach(visa => {
+          if (visa.expiryDate && visa.status === 'issued') {
+            const expiryDate = new Date(visa.expiryDate);
+            const diffTime = expiryDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 0 && diffDays <= 30) {
+              let alertType, priority, title, icon;
+              
+              if (diffDays <= 7) {
+                alertType = 'urgent';
+                priority = 'high';
+                title = 'تأشيرة تنتهي خلال أسبوع!';
+                icon = 'fas fa-exclamation-triangle';
+              } else if (diffDays <= 15) {
+                alertType = 'warning';
+                priority = 'medium';
+                title = 'تأشيرة تنتهي خلال 15 يوم';
+                icon = 'fas fa-clock';
+              } else {
+                alertType = 'info';
+                priority = 'low';
+                title = 'تأشيرة تنتهي قريباً';
+                icon = 'fas fa-info-circle';
+              }
+              
+              const alert = {
+                id: `expiry_${visa.id}_${diffDays}`,
+                title: title,
+                message: `تأشيرة العميل ${visa.clientName} إلى ${visa.destination} تنتهي بعد ${diffDays} يوم`,
+                type: alertType,
+                icon: icon,
+                visaId: visa.id,
+                priority: priority,
+                createdAt: new Date().toISOString(),
+                read: false
+              };
+              
+              // التحقق من عدم وجود تنبيه مسبق
+              const existingAlerts = AmanDB.getAll('statusNotifications');
+              const existingAlert = existingAlerts.find(
+                a => a.id === alert.id && !a.read
+              );
+              
+              if (!existingAlert) {
+                alerts.push(alert);
+                AmanDB.add('statusNotifications', alert);
+              }
+            }
+          }
+        });
+        
+        return alerts;
+      },
+
+      // التحقق من التأشيرات المتأخرة في الإصدار
+      checkDelayedIssuance() {
+        const visas = AmanDB.getAll('visas');
+        const today = new Date();
+        const alerts = [];
+        
+        visas.forEach(visa => {
+          // التأشيرات التي تم ترحيلها للسفارة منذ أكثر من 15 يوم ولم تصدر بعد
+          if (visa.transferDate && visa.status === 'transferred') {
+            const transferDate = new Date(visa.transferDate);
+            const diffTime = today - transferDate;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays >= 15) {
+              const alert = {
+                id: `delay_${visa.id}_${diffDays}`,
+                title: 'تأشيرة متأخرة في الإصدار',
+                message: `تأشيرة العميل ${visa.clientName} متأخرة منذ ${diffDays} يوم بعد الترحيل`,
+                type: diffDays >= 30 ? 'urgent' : 'warning',
+                icon: 'fas fa-clock',
+                visaId: visa.id,
+                priority: diffDays >= 30 ? 'high' : 'medium',
+                createdAt: new Date().toISOString(),
+                read: false
+              };
+              
+              // التحقق من عدم وجود تنبيه مسبق
+              const existingAlerts = AmanDB.getAll('statusNotifications');
+              const existingAlert = existingAlerts.find(
+                a => a.id === alert.id && !a.read
+              );
+              
+              if (!existingAlert) {
+                alerts.push(alert);
+                AmanDB.add('statusNotifications', alert);
+              }
+            }
+          }
+          
+          // التأشيرات التي تم تقديمها منذ أكثر من 7 أيام ولم ترحل للسفارة
+          if (visa.submissionDate && visa.status === 'submitted') {
+            const submissionDate = new Date(visa.submissionDate);
+            const diffTime = today - submissionDate;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays >= 7) {
+              const alert = {
+                id: `pending_${visa.id}_${diffDays}`,
+                title: 'تأشيرة تحتاج متابعة',
+                message: `تأشيرة العميل ${visa.clientName} معلقة منذ ${diffDays} يوم بعد التقديم`,
+                type: 'warning',
+                icon: 'fas fa-hourglass-half',
+                visaId: visa.id,
+                priority: 'medium',
+                createdAt: new Date().toISOString(),
+                read: false
+              };
+              
+              // التحقق من عدم وجود تنبيه مسبق
+              const existingAlerts = AmanDB.getAll('statusNotifications');
+              const existingAlert = existingAlerts.find(
+                a => a.id === alert.id && !a.read
+              );
+              
+              if (!existingAlert) {
+                alerts.push(alert);
+                AmanDB.add('statusNotifications', alert);
+              }
+            }
+          }
+        });
+        
+        return alerts;
+      },
+
+      // التحقق من جميع التنبيهات
+      checkAllAlerts() {
+        const expiringAlerts = this.checkExpiringVisas();
+        const delayedAlerts = this.checkDelayedIssuance();
+        return [...expiringAlerts, ...delayedAlerts];
+      }
+    };
+
+    // نظام الإشعارات الذكي لحالة التأشيرات
+    const StatusNotificationManager = {
+      // إنشاء إشعار لتغيير حالة التأشيرة
+      createStatusChangeNotification(visa, oldStatus, newStatus) {
+        const statusTexts = {
+          'pending': 'قيد الانتظار',
+          'submitted': 'تم التقديم',
+          'transferred': 'مرحل للسفارة',
+          'issued': 'تم الإصدار',
+          'rejected': 'مرفوض'
+        };
+        
+        let notificationType = 'info';
+        let icon = 'fas fa-info-circle';
+        
+        if (newStatus === 'issued') {
+          notificationType = 'success';
+          icon = 'fas fa-check-circle';
+        } else if (newStatus === 'rejected') {
+          notificationType = 'error';
+          icon = 'fas fa-times-circle';
+        } else if (newStatus === 'transferred') {
+          notificationType = 'warning';
+          icon = 'fas fa-plane';
+        }
+        
+        const notification = {
+          id: Date.now().toString(),
+          title: `تغيير حالة التأشيرة - ${statusTexts[newStatus]}`,
+          message: `تم تغيير حالة تأشيرة العميل ${visa.clientName} من ${statusTexts[oldStatus]} إلى ${statusTexts[newStatus]}`,
+          type: notificationType,
+          icon: icon,
+          visaId: visa.id,
+          createdAt: new Date().toISOString(),
+          read: false
+        };
+        
+        AmanDB.add('statusNotifications', notification);
+        return notification;
+      },
+
+      // إنشاء إشعار لتأشيرة جديدة
+      createNewVisaNotification(visa) {
+        const notification = {
+          id: Date.now().toString(),
+          title: 'طلب تأشيرة جديد',
+          message: `تم إضافة طلب تأشيرة جديد للعميل ${visa.clientName}`,
+          type: 'info',
+          icon: 'fas fa-plus-circle',
+          visaId: visa.id,
+          createdAt: new Date().toISOString(),
+          read: false
+        };
+        
+        AmanDB.add('statusNotifications', notification);
+        return notification;
+      },
+
+      // إنشاء إشعار لحذف تأشيرة
+      createDeleteVisaNotification(visa) {
+        const notification = {
+          id: Date.now().toString(),
+          title: 'حذف طلب تأشيرة',
+          message: `تم حذف طلب تأشيرة العميل ${visa.clientName}`,
+          type: 'error',
+          icon: 'fas fa-trash',
+          visaId: visa.id,
+          createdAt: new Date().toISOString(),
+          read: false
+        };
+        
+        AmanDB.add('statusNotifications', notification);
+        return notification;
+      },
+
+      // تحديث عرض إشعارات الحالة
+      refreshStatusNotifications() {
+        // التحقق من التنبيهات أولاً
+        SmartAlertManager.checkAllAlerts();
+        
+        const container = document.getElementById('statusNotifications');
+        const notifications = AmanDB.getAll('statusNotifications')
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 10); // عرض آخر 10 إشعارات فقط
+        
+        if (notifications.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state" style="padding: 20px;">
+              <i class="fas fa-bell-slash" style="font-size: 40px;"></i>
+              <p>لا توجد إشعارات حالية</p>
+            </div>
+          `;
+          return;
+        }
+        
+        container.innerHTML = notifications.map(notif => {
+          const timeAgo = this.getTimeAgo(notif.createdAt);
+          const urgentBadge = notif.type === 'urgent' ? '<span class="urgent-badge">عاجل</span>' : '';
+          
+          return `
+            <div class="status-notification-item ${notif.type}">
+              <div class="status-notification-icon">
+                <i class="${notif.icon}"></i>
+              </div>
+              <div class="status-notification-content">
+                <h4>${urgentBadge}${notif.title}</h4>
+                <p>${notif.message}</p>
+              </div>
+              <div class="status-notification-time">${timeAgo}</div>
+            </div>
+          `;
+        }).join('');
+      },
+
+      // حساب الوقت المنقضي
+      getTimeAgo(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        if (diffMins < 1) return 'الآن';
+        if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
+        if (diffHours < 24) return `منذ ${diffHours} ساعة`;
+        if (diffDays < 7) return `منذ ${diffDays} يوم`;
+        
+        return date.toLocaleDateString('ar-EG');
+      },
+
+      // عرض إشعار عائم
+      showToast(title, message, type = 'info') {
+        const toast = document.getElementById('statusToast');
+        const toastTitle = document.getElementById('toastTitle');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        // تحديث المحتوى
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        
+        // تحديث النوع
+        toast.className = `notification-toast ${type}`;
+        toast.querySelector('.notification-icon').innerHTML = 
+          type === 'success' ? '<i class="fas fa-check-circle"></i>' :
+          type === 'warning' ? '<i class="fas fa-exclamation-triangle"></i>' :
+          type === 'error' ? '<i class="fas fa-times-circle"></i>' :
+          type === 'urgent' ? '<i class="fas fa-exclamation-circle"></i>' :
+          '<i class="fas fa-info-circle"></i>';
+        
+        // إظهار الإشعار
+        toast.classList.add('show');
+        
+        // إخفاء تلقائي بعد 5 ثوان
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 5000);
+      }
+    };
+
+    // نظام إدارة التأشيرات
+    const VisaManager = {
+      currentEditingId: null,
+      
+      // تهيئة النظام
+      async init() {
+        await AmanDB.init();
+        this.setupEventListeners();
+        this.renderVisas();
+        StatusNotificationManager.refreshStatusNotifications();
+        
+        // تعيين تاريخ اليوم كحد أدنى للتواريخ
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('submissionDate').min = today;
+        document.getElementById('transferDate').min = today;
+        document.getElementById('issueDate').min = today;
+        document.getElementById('expiryDate').min = today;
+        
+        // إعداد إغلاق الإشعار العائم
+        document.getElementById('toastClose').addEventListener('click', () => {
+          document.getElementById('statusToast').classList.remove('show');
+        });
+
+        // التحقق من التنبيهات كل دقيقة
+        setInterval(() => {
+          StatusNotificationManager.refreshStatusNotifications();
+        }, 60000);
+      },
+      
+      // إعداد مستمعي الأحداث
+      setupEventListeners() {
+        // حفظ النموذج
+        document.getElementById('visaForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.saveVisa();
+        });
+        
+        // مسح النموذج
+        document.getElementById('resetBtn').addEventListener('click', () => {
+          this.resetForm();
+        });
+        
+        // تحديث القائمة
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+          this.renderVisas();
+          StatusNotificationManager.refreshStatusNotifications();
+          StatusNotificationManager.showToast('تم التحديث', 'تم تحديث قائمة التأشيرات بنجاح', 'success');
+        });
+        
+        // تصدير البيانات
+        document.getElementById('exportBtn').addEventListener('click', () => {
+          this.exportData();
+        });
+        
+        // البحث
+        document.getElementById('searchBtn').addEventListener('click', () => {
+          this.performSearch();
+        });
+        
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+          if (e.key === 'Enter') {
+            this.performSearch();
+          }
+        });
+      },
+      
+      // حفظ طلب التأشيرة
+      async saveVisa() {
+        const form = document.getElementById('visaForm');
+        const formData = new FormData(form);
+        
+        // التحقق من صحة البيانات
+        if (!formData.get('clientName') || !formData.get('visaType') || !formData.get('destination') || 
+            !formData.get('submissionOffice') || !formData.get('status')) {
+          this.showMessage('يرجى ملء جميع الحقول المطلوبة', 'error');
+          return;
+        }
+        
+        this.showLoading(true);
+        
+        try {
+          const visaData = {
+            clientName: formData.get('clientName'),
+            visaType: formData.get('visaType'),
+            destination: formData.get('destination'),
+            submissionOffice: formData.get('submissionOffice'),
+            submissionDate: formData.get('submissionDate') || '',
+            transferDate: formData.get('transferDate') || '',
+            issueDate: formData.get('issueDate') || '',
+            expiryDate: formData.get('expiryDate') || '',
+            status: formData.get('status'),
+            phone: formData.get('phone'),
+            email: formData.get('email'),
+            notes: formData.get('notes')
+          };
+          
+          if (this.currentEditingId) {
+            // الحصول على الحالة القديمة قبل التحديث
+            const oldVisa = AmanDB.getAll('visas').find(v => v.id === this.currentEditingId);
+            const oldStatus = oldVisa ? oldVisa.status : '';
+            
+            // تحديث الطلب الحالي
+            await AmanDB.update('visas', this.currentEditingId, visaData);
+            
+            // إنشاء إشعار إذا تغيرت الحالة
+            if (oldStatus !== visaData.status) {
+              StatusNotificationManager.createStatusChangeNotification(visaData, oldStatus, visaData.status);
+              StatusNotificationManager.showToast(
+                'تم تغيير الحالة', 
+                `تم تغيير حالة تأشيرة ${visaData.clientName} إلى ${this.getStatusText(visaData.status)}`,
+                visaData.status === 'issued' ? 'success' : 
+                visaData.status === 'rejected' ? 'error' : 'info'
+              );
+            } else {
+              StatusNotificationManager.showToast('تم التحديث', `تم تحديث بيانات تأشيرة ${visaData.clientName}`, 'success');
+            }
+            
+            this.currentEditingId = null;
+            document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> حفظ الطلب';
+          } else {
+            // إضافة طلب جديد
+            const newVisa = await AmanDB.add('visas', visaData);
+            StatusNotificationManager.createNewVisaNotification(newVisa);
+            StatusNotificationManager.showToast('طلب جديد', `تم إضافة تأشيرة جديدة للعميل ${visaData.clientName}`, 'success');
+          }
+          
+          this.resetForm();
+          this.renderVisas();
+          StatusNotificationManager.refreshStatusNotifications();
+          
+        } catch (error) {
+          console.error('خطأ في حفظ طلب التأشيرة:', error);
+          StatusNotificationManager.showToast('خطأ', 'حدث خطأ أثناء حفظ طلب التأشيرة', 'error');
+        } finally {
+          this.showLoading(false);
+        }
+      },
+      
+      // الحصول على نص الحالة
+      getStatusText(status) {
+        const statusTexts = {
+          'pending': 'قيد الانتظار',
+          'submitted': 'تم التقديم',
+          'transferred': 'مرحل للسفارة',
+          'issued': 'تم الإصدار',
+          'rejected': 'مرفوض'
+        };
+        return statusTexts[status] || 'غير معروف';
+      },
+      
+      // عرض طلب التأشيرة
+      viewVisa(visaId) {
+        const visa = AmanDB.getAll('visas').find(v => v.id === visaId);
+        if (visa) {
+          this.editVisa(visa);
+          
+          // التمرير إلى قسم النموذج
+          document.querySelector('.card:first-of-type').scrollIntoView({ 
+            behavior: 'smooth' 
+          });
+        }
+      },
+      
+      // تحرير طلب التأشيرة
+      editVisa(visa) {
+        document.getElementById('clientName').value = visa.clientName || '';
+        document.getElementById('visaType').value = visa.visaType || '';
+        document.getElementById('destination').value = visa.destination || '';
+        document.getElementById('submissionOffice').value = visa.submissionOffice || '';
+        document.getElementById('submissionDate').value = visa.submissionDate || '';
+        document.getElementById('transferDate').value = visa.transferDate || '';
+        document.getElementById('issueDate').value = visa.issueDate || '';
+        document.getElementById('expiryDate').value = visa.expiryDate || '';
+        document.getElementById('status').value = visa.status || '';
+        document.getElementById('phone').value = visa.phone || '';
+        document.getElementById('email').value = visa.email || '';
+        document.getElementById('notes').value = visa.notes || '';
+        
+        this.currentEditingId = visa.id;
+        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-edit"></i> تحديث الطلب';
+        
+        StatusNotificationManager.showToast('وضع التحرير', 'يمكنك الآن تعديل بيانات طلب التأشيرة', 'info');
+      },
+      
+      // تأكيد تغيير حالة الطلب
+      confirmStatusChange(visaId, newStatus) {
+        const visa = AmanDB.getAll('visas').find(v => v.id === visaId);
+        if (!visa) return;
+        
+        const statusText = this.getStatusText(newStatus);
+        const confirmMessage = `هل تريد تأكيد تغيير حالة طلب ${visa.clientName} إلى "${statusText}"؟`;
+        
+        if (confirm(confirmMessage)) {
+          const oldStatus = visa.status;
+          AmanDB.update('visas', visaId, { status: newStatus });
+          
+          // إنشاء إشعار لتغيير الحالة
+          StatusNotificationManager.createStatusChangeNotification(visa, oldStatus, newStatus);
+          StatusNotificationManager.showToast(
+            'تم تغيير الحالة', 
+            `تم تغيير حالة تأشيرة ${visa.clientName} إلى ${statusText}`,
+            newStatus === 'issued' ? 'success' : 
+            newStatus === 'rejected' ? 'error' : 'info'
+          );
+          
+          this.renderVisas();
+          StatusNotificationManager.refreshStatusNotifications();
+        }
+      },
+      
+      // حذف طلب التأشيرة
+      async deleteVisa(visaId) {
+        const visa = AmanDB.getAll('visas').find(v => v.id === visaId);
+        if (!visa) return;
+        
+        if (!confirm(`هل أنت متأكد من أنك تريد حذف طلب تأشيرة ${visa.clientName}؟ لا يمكن التراجع عن هذا الإجراء.`)) {
+          return;
+        }
+        
+        this.showLoading(true);
+        
+        try {
+          const success = await AmanDB.delete('visas', visaId);
+          
+          if (success) {
+            // إنشاء إشعار للحذف
+            StatusNotificationManager.createDeleteVisaNotification(visa);
+            StatusNotificationManager.showToast('تم الحذف', `تم حذف طلب تأشيرة ${visa.clientName}`, 'error');
+            
+            this.renderVisas();
+            StatusNotificationManager.refreshStatusNotifications();
+          } else {
+            StatusNotificationManager.showToast('خطأ', 'حدث خطأ أثناء حذف الطلب', 'error');
+          }
+        } catch (error) {
+          console.error('خطأ في حذف طلب التأشيرة:', error);
+          StatusNotificationManager.showToast('خطأ', 'حدث خطأ أثناء حذف الطلب', 'error');
+        } finally {
+          this.showLoading(false);
+        }
+      },
+      
+      // عرض قائمة طلبات التأشيرات
+      renderVisas(filteredVisas = null) {
+        let visas = filteredVisas || AmanDB.getAll('visas');
+        
+        const tbody = document.getElementById('visasTableBody');
+        const emptyState = document.getElementById('emptyState');
+        
+        if (visas.length === 0) {
+          tbody.innerHTML = '';
+          emptyState.style.display = 'block';
+          return;
+        }
+        
+        emptyState.style.display = 'none';
+        
+        // ترتيب الطلبات حسب تاريخ الإنشاء (الأحدث أولاً)
+        const sortedVisas = visas.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        
+        tbody.innerHTML = sortedVisas.map((visa, index) => {
+          // تحديد حالة الطلب
+          let statusText, statusClass;
+          switch(visa.status) {
+            case 'pending':
+              statusText = 'قيد الانتظار';
+              statusClass = 'status-pending';
+              break;
+            case 'submitted':
+              statusText = 'تم التقديم';
+              statusClass = 'status-submitted';
+              break;
+            case 'transferred':
+              statusText = 'مرحل للسفارة';
+              statusClass = 'status-transferred';
+              break;
+            case 'issued':
+              statusText = 'تم الإصدار';
+              statusClass = 'status-issued';
+              break;
+            case 'rejected':
+              statusText = 'مرفوض';
+              statusClass = 'status-rejected';
+              break;
+            default:
+              statusText = 'غير معروف';
+              statusClass = 'status-pending';
+          }
+          
+          // أزرار تأكيد الإجراءات بناءً على الحالة الحالية
+          let actionButtons = '';
+          if (visa.status === 'pending') {
+            actionButtons = `
+              <button class="confirm-btn confirm-yes" onclick="VisaManager.confirmStatusChange('${visa.id}', 'submitted')">
+                <i class="fas fa-check"></i> تم التقديم
+              </button>
+            `;
+          } else if (visa.status === 'submitted') {
+            actionButtons = `
+              <button class="confirm-btn confirm-yes" onclick="VisaManager.confirmStatusChange('${visa.id}', 'transferred')">
+                <i class="fas fa-plane"></i> تم الترحيل
+              </button>
+            `;
+          } else if (visa.status === 'transferred') {
+            actionButtons = `
+              <div class="action-confirm">
+                <button class="confirm-btn confirm-yes" onclick="VisaManager.confirmStatusChange('${visa.id}', 'issued')">
+                  <i class="fas fa-check-circle"></i> تم الإصدار
+                </button>
+                <button class="confirm-btn confirm-no" onclick="VisaManager.confirmStatusChange('${visa.id}', 'rejected')">
+                  <i class="fas fa-times-circle"></i> مرفوض
+                </button>
+              </div>
+            `;
+          }
+          
+          return `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${visa.clientName}</td>
+              <td>${visa.visaType}</td>
+              <td>${visa.destination}</td>
+              <td>${visa.submissionOffice}</td>
+              <td>
+                <span class="status-badge ${statusClass}">${statusText}</span>
+                ${actionButtons}
+              </td>
+              <td>
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                  <button class="btn btn-sm btn-primary ripple" onclick="VisaManager.editVisa('${visa.id}')" title="تعديل">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-danger ripple" onclick="VisaManager.deleteVisa('${visa.id}')" title="حذف">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      },
+      
+      // البحث في طلبات التأشيرات
+      performSearch() {
+        const query = document.getElementById('searchInput').value.trim();
+        
+        if (query === '') {
+          this.renderVisas();
+          return;
+        }
+        
+        const results = this.searchVisas(query);
+        this.renderVisas(results);
+        
+        if (results.length === 0) {
+          StatusNotificationManager.showToast('لا توجد نتائج', 'لم يتم العثور على طلبات تطابق بحثك', 'warning');
+        } else {
+          StatusNotificationManager.showToast('تم البحث', `تم العثور على ${results.length} طلب`, 'success');
+        }
+      },
+      
+      // وظيفة مساعدة للبحث في طلبات التأشيرات
+      searchVisas(query) {
+        const visas = AmanDB.getAll('visas');
+        const searchTerm = query.toLowerCase();
+        
+        return visas.filter(visa => 
+          visa.clientName.toLowerCase().includes(searchTerm) ||
+          visa.visaType.toLowerCase().includes(searchTerm) ||
+          visa.destination.toLowerCase().includes(searchTerm) ||
+          visa.submissionOffice.toLowerCase().includes(searchTerm) ||
+          (visa.phone && visa.phone.includes(searchTerm)) ||
+          (visa.email && visa.email.toLowerCase().includes(searchTerm))
+        );
+      },
+      
+      // مسح النموذج
+      resetForm() {
+        document.getElementById('visaForm').reset();
+        this.currentEditingId = null;
+        document.getElementById('saveBtn').innerHTML = '<i class="fas fa-save"></i> حفظ الطلب';
+        
+        // تعيين تاريخ اليوم كحد أدنى
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('submissionDate').min = today;
+        document.getElementById('transferDate').min = today;
+        document.getElementById('issueDate').min = today;
+        document.getElementById('expiryDate').min = today;
+      },
+      
+      // تصدير البيانات
+      exportData() {
+        const visas = AmanDB.getAll('visas');
+        
+        if (visas.length === 0) {
+          StatusNotificationManager.showToast('لا توجد بيانات', 'لا توجد بيانات للتصدير', 'warning');
+          return;
+        }
+        
+        // تحويل البيانات إلى تنسيق CSV
+        const headers = ['العميل', 'نوع التأشيرة', 'الدولة', 'مكتب التقديم', 'تاريخ التقديم', 'تاريخ الترحيل', 'تاريخ الإصدار', 'تاريخ الانتهاء', 'الحالة', 'الهاتف', 'البريد الإلكتروني'];
+        const csvData = visas.map(visa => [
+          visa.clientName,
+          visa.visaType,
+          visa.destination,
+          visa.submissionOffice,
+          visa.submissionDate ? new Date(visa.submissionDate).toLocaleDateString('ar-EG') : '',
+          visa.transferDate ? new Date(visa.transferDate).toLocaleDateString('ar-EG') : '',
+          visa.issueDate ? new Date(visa.issueDate).toLocaleDateString('ar-EG') : '',
+          visa.expiryDate ? new Date(visa.expiryDate).toLocaleDateString('ar-EG') : '',
+          visa.status,
+          visa.phone || '',
+          visa.email || ''
+        ]);
+        
+        const csvContent = [headers, ...csvData]
+          .map(row => row.map(field => `"${field}"`).join(','))
+          .join('\n');
+        
+        // إنشاء ملف وتنزيله
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', `طلبات_التأشيرات_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        StatusNotificationManager.showToast('تم التصدير', 'تم تصدير البيانات بنجاح', 'success');
+      },
+      
+      // عرض رسائل للمستخدم
+      showMessage(message, type = 'info') {
+        const messageEl = document.getElementById('successMessage');
+        
+        // تغيير النص واللون حسب نوع الرسالة
+        messageEl.innerHTML = `
+          <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+          ${message}
+        `;
+        
+        messageEl.style.background = type === 'success' ? 'var(--success)' : 
+                                   type === 'error' ? 'var(--danger)' : 
+                                   type === 'warning' ? 'var(--warning)' : 'var(--info)';
+        
+        messageEl.style.display = 'block';
+        
+        // إخفاء الرسالة بعد 5 ثوانٍ
+        setTimeout(() => {
+          messageEl.style.display = 'none';
+        }, 5000);
+      },
+      
+      // عرض/إخفاء مؤشر التحميل
+      showLoading(show) {
+        const spinner = document.getElementById('loadingSpinner');
+        const saveBtn = document.getElementById('saveBtn');
+        
+        if (show) {
+          spinner.style.display = 'block';
+          saveBtn.disabled = true;
+          saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        } else {
+          spinner.style.display = 'none';
+          saveBtn.disabled = false;
+          if (this.currentEditingId) {
+            saveBtn.innerHTML = '<i class="fas fa-edit"></i> تحديث الطلب';
+          } else {
+            saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الطلب';
+          }
+        }
+      }
+    };
+
+    // تهيئة التطبيق عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      VisaManager.init();
+    });
+  </script>
+</body>
+</html>

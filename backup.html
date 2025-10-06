@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>النسخ والنسخ الاحتياطي</title><link rel="stylesheet" href="assets/style.css"></head>
+<body>
+  <header class="topbar"><h1>النسخ والنسخ الاحتياطي</h1><nav><a href="index.html">الرئيسية</a></nav></header>
+  <main class="container">
+    <section class="card">
+      <h2>تصدير إلى Excel</h2>
+      <button id="exportAll">تصدير كل البيانات</button>
+    </section>
+    <section class="card">
+      <h2>استيراد ملف Excel</h2>
+      <input type="file" id="importFile" accept=".xlsx,.xls,.csv">
+    </section>
+  </main>
+  <script src="assets/db.js"></script>
+  <script>
+    document.getElementById('exportAll').addEventListener('click', async ()=>{
+      const names=['clients','flights','visas','workvisas','notifications','activity'];
+      const workbook = XLSX.utils.book_new();
+      for(const name of names){
+        const data = await DB.getAll(name);
+        const ws = XLSX.utils.json_to_sheet(data);
+        XLSX.utils.book_append_sheet(workbook, ws, name);
+      }
+      XLSX.writeFile(workbook, 'aman_export.xlsx');
+    });
+
+    document.getElementById('importFile').addEventListener('change', async e=>{
+      const f = e.target.files[0];
+      if(!f) return;
+      const data = await f.arrayBuffer();
+      const wb = XLSX.read(data);
+      for(const sheetName of wb.SheetNames){
+        const arr = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+        for(const row of arr){
+          row.id = row.id || Date.now().toString() + Math.random().toString(36).slice(2,8);
+          await DB.add(sheetName, row);
+        }
+      }
+      alert('تم الاستيراد.'); location.reload();
+    });
+  </script>
+</body>
+</html>

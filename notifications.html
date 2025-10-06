@@ -1,0 +1,1476 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>أمان - مركز الإشعارات المتقدم</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2c5aa0;
+      --primary-light: #3a6bc0;
+      --primary-dark: #1e3d72;
+      --secondary: #f8a31b;
+      --secondary-light: #f9b84d;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --info: #17a2b8;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --border-radius: 10px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf1 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 10px;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .topbar nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .topbar nav a:hover, .topbar nav a.active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: var(--transition);
+      border: 1px solid var(--gray-light);
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid var(--gray-light);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card h2 i {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .label-icon {
+      background: var(--primary);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid var(--gray-light);
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      transition: var(--transition);
+      background: #f9f9f9;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+      background: white;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .input-row > div {
+      flex: 1;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .checkbox-group input {
+      width: auto;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-info {
+      background: var(--info);
+      color: white;
+    }
+
+    .btn-sm {
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* نظام الإشعارات المتقدم */
+    .notification-item {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--info);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .notification-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .notification-item.urgent {
+      border-left-color: var(--danger);
+      animation: pulse 2s infinite;
+    }
+
+    .notification-item.warning {
+      border-left-color: var(--warning);
+    }
+
+    .notification-item.success {
+      border-left-color: var(--success);
+    }
+
+    .notification-item.info {
+      border-left-color: var(--info);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+    }
+
+    .notification-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .notification-title {
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .notification-badge {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .badge-urgent {
+      background: var(--danger);
+    }
+
+    .badge-warning {
+      background: var(--warning);
+    }
+
+    .badge-success {
+      background: var(--success);
+    }
+
+    .badge-info {
+      background: var(--info);
+    }
+
+    .notification-time {
+      font-size: 12px;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    .notification-content {
+      margin-bottom: 15px;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+
+    .notification-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+
+    .notification-source {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--light);
+      padding: 4px 8px;
+      border-radius: 12px;
+    }
+
+    .notification-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .action-btn.view {
+      background: var(--primary);
+      color: white;
+    }
+
+    .action-btn.dismiss {
+      background: var(--danger);
+      color: white;
+    }
+
+    .action-btn.postpone {
+      background: var(--warning);
+      color: white;
+    }
+
+    .action-btn.complete {
+      background: var(--success);
+      color: white;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray);
+    }
+
+    .empty-state i {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: var(--gray-light);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 10px 20px;
+      background: var(--light);
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .filter-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .filter-tab:hover:not(.active) {
+      background: var(--gray-light);
+    }
+
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 15px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--gray);
+    }
+
+    .stat-card.urgent .stat-number {
+      color: var(--danger);
+    }
+
+    .stat-card.warning .stat-number {
+      color: var(--warning);
+    }
+
+    .stat-card.success .stat-number {
+      color: var(--success);
+    }
+
+    .stat-card.info .stat-number {
+      color: var(--info);
+    }
+
+    /* تحسينات للاستجابة على الأجهزة المحمولة */
+    @media (max-width: 768px) {
+      body {
+        padding: 5px;
+      }
+      
+      .topbar {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+      
+      .topbar h1 {
+        font-size: 18px;
+      }
+      
+      .topbar nav {
+        justify-content: center;
+      }
+      
+      .container {
+        padding: 0;
+        gap: 10px;
+      }
+      
+      .card {
+        padding: 15px;
+      }
+      
+      .card h2 {
+        font-size: 18px;
+      }
+      
+      .input-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 15px;
+      }
+      
+      .notification-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      
+      .notification-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      
+      .stats-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .topbar h1 {
+        font-size: 16px;
+      }
+      
+      .topbar nav a {
+        font-size: 13px;
+        padding: 6px 10px;
+      }
+      
+      .card {
+        padding: 12px;
+      }
+      
+      .card h2 {
+        font-size: 16px;
+      }
+      
+      .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+      
+      .stats-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* تأثيرات خاصة للتفاعل */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .ripple:after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+      background-repeat: no-repeat;
+      background-position: 50%;
+      transform: scale(10, 10);
+      opacity: 0;
+      transition: transform .5s, opacity 1s;
+    }
+
+    .ripple:active:after {
+      transform: scale(0, 0);
+      opacity: .2;
+      transition: 0s;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <h1><i class="fas fa-bell"></i> مركز الإشعارات المتقدم - أمان للسفريات</h1>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+      <a href="clients.html"><i class="fas fa-users"></i> العملاء</a>
+      <a href="flights.html"><i class="fas fa-ticket-alt"></i> التذاكر</a>
+      <a href="visas.html"><i class="fas fa-passport"></i> التأشيرات</a>
+      <a href="umrah.html"><i class="fas fa-kaaba"></i> العمرة</a>
+      <a href="notifications.html" class="active"><i class="fas fa-bell"></i> الإشعارات</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- قسم إحصائيات الإشعارات -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <h2><i class="fas fa-chart-bar"></i> نظرة عامة على الإشعارات</h2>
+      <div class="stats-cards">
+        <div class="stat-card urgent">
+          <div class="stat-number" id="urgentCount">0</div>
+          <div class="stat-label">عاجل</div>
+        </div>
+        <div class="stat-card warning">
+          <div class="stat-number" id="warningCount">0</div>
+          <div class="stat-label">تحذير</div>
+        </div>
+        <div class="stat-card info">
+          <div class="stat-number" id="infoCount">0</div>
+          <div class="stat-label">معلومات</div>
+        </div>
+        <div class="stat-card success">
+          <div class="stat-number" id="successCount">0</div>
+          <div class="stat-label">مكتمل</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم إنشاء إشعار يدوي -->
+    <section class="card">
+      <h2><i class="fas fa-plus-circle"></i> إنشاء إشعار جديد</h2>
+      <form id="notificationForm">
+        <div class="form-group">
+          <label for="notificationTitle">
+            <span class="label-icon"><i class="fas fa-heading"></i></span>
+            عنوان الإشعار
+          </label>
+          <input type="text" id="notificationTitle" name="notificationTitle" placeholder="أدخل عنوان الإشعار" required>
+        </div>
+
+        <div class="form-group">
+          <label for="notificationMessage">
+            <span class="label-icon"><i class="fas fa-comment"></i></span>
+            نص الإشعار
+          </label>
+          <textarea id="notificationMessage" name="notificationMessage" rows="3" placeholder="أدخل نص الإشعار" required></textarea>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="notificationType">
+              <span class="label-icon"><i class="fas fa-tag"></i></span>
+              نوع الإشعار
+            </label>
+            <select id="notificationType" name="notificationType" required>
+              <option value="info">معلومات</option>
+              <option value="warning">تحذير</option>
+              <option value="urgent">عاجل</option>
+              <option value="success">نجاح</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="notificationPriority">
+              <span class="label-icon"><i class="fas fa-exclamation-circle"></i></span>
+              الأولوية
+            </label>
+            <select id="notificationPriority" name="notificationPriority" required>
+              <option value="low">منخفضة</option>
+              <option value="medium">متوسطة</option>
+              <option value="high">عالية</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="relatedModule">
+              <span class="label-icon"><i class="fas fa-link"></i></span>
+              وحدة مرتبطة
+            </label>
+            <select id="relatedModule" name="relatedModule">
+              <option value="">عام</option>
+              <option value="clients">العملاء</option>
+              <option value="flights">التذاكر</option>
+              <option value="visas">التأشيرات</option>
+              <option value="umrah">العمرة</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="relatedId">
+              <span class="label-icon"><i class="fas fa-hashtag"></i></span>
+              معرف العنصر
+            </label>
+            <input type="text" id="relatedId" name="relatedId" placeholder="معرف العنصر المرتبط (اختياري)">
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="scheduledDate">
+              <span class="label-icon"><i class="fas fa-calendar-alt"></i></span>
+              تاريخ الجدولة
+            </label>
+            <input type="date" id="scheduledDate" name="scheduledDate">
+          </div>
+          
+          <div class="form-group">
+            <label for="scheduledTime">
+              <span class="label-icon"><i class="fas fa-clock"></i></span>
+              وقت الجدولة
+            </label>
+            <input type="time" id="scheduledTime" name="scheduledTime">
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button type="submit" class="btn btn-primary ripple" id="saveBtn">
+            <i class="fas fa-save"></i> حفظ الإشعار
+          </button>
+          <button type="button" class="btn btn-warning ripple" id="resetBtn">
+            <i class="fas fa-undo"></i> مسح النموذج
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- قسم إدارة الإشعارات -->
+    <section class="card">
+      <h2><i class="fas fa-list"></i> إدارة الإشعارات</h2>
+      
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">الكل</button>
+        <button class="filter-tab" data-filter="urgent">عاجل</button>
+        <button class="filter-tab" data-filter="warning">تحذير</button>
+        <button class="filter-tab" data-filter="info">معلومات</button>
+        <button class="filter-tab" data-filter="success">مكتمل</button>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-success ripple" id="refreshBtn">
+          <i class="fas fa-sync-alt"></i> تحديث القائمة
+        </button>
+        <button class="btn btn-primary ripple" id="markAllReadBtn">
+          <i class="fas fa-check-double"></i> تعيين الكل كمقروء
+        </button>
+        <button class="btn btn-danger ripple" id="clearOldBtn">
+          <i class="fas fa-trash"></i> حذف المنتهية
+        </button>
+      </div>
+      
+      <div id="notificationsList">
+        <!-- سيتم ملؤها بالجافاسكريبت -->
+      </div>
+      
+      <div class="empty-state" id="emptyState">
+        <i class="fas fa-bell-slash"></i>
+        <h3>لا توجد إشعارات حالياً</h3>
+        <p>جميع الإشعارات محدثة أو تمت معالجتها</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // نظام قاعدة البيانات الموحد للإشعارات
+    const NotificationDB = {
+      // تهيئة قاعدة البيانات
+      init() {
+        if (!localStorage.getItem('notification_database')) {
+          const initialData = {
+            notifications: [],
+            settings: {
+              autoDelete: true,
+              keepDays: 30,
+              soundEnabled: true
+            }
+          };
+          localStorage.setItem('notification_database', JSON.stringify(initialData));
+        }
+        return this.getDB();
+      },
+
+      // الحصول على قاعدة البيانات
+      getDB() {
+        return JSON.parse(localStorage.getItem('notification_database') || '{}');
+      },
+
+      // حفظ قاعدة البيانات
+      saveDB(data) {
+        localStorage.setItem('notification_database', JSON.stringify(data));
+      },
+
+      // الحصول على جميع العناصر في مجموعة
+      getAll(collection) {
+        const db = this.getDB();
+        return db[collection] || [];
+      },
+
+      // إضافة عنصر جديد
+      add(collection, item) {
+        const db = this.getDB();
+        if (!db[collection]) db[collection] = [];
+        item.id = Date.now().toString();
+        item.createdAt = new Date().toISOString();
+        item.updatedAt = new Date().toISOString();
+        item.read = false;
+        db[collection].push(item);
+        this.saveDB(db);
+        return item;
+      },
+
+      // تحديث عنصر
+      update(collection, id, updates) {
+        const db = this.getDB();
+        if (!db[collection]) return null;
+        
+        const index = db[collection].findIndex(item => item.id === id);
+        if (index !== -1) {
+          db[collection][index] = { 
+            ...db[collection][index], 
+            ...updates,
+            updatedAt: new Date().toISOString()
+          };
+          this.saveDB(db);
+          return db[collection][index];
+        }
+        return null;
+      },
+
+      // حذف عنصر
+      delete(collection, id) {
+        const db = this.getDB();
+        if (!db[collection]) return false;
+        
+        db[collection] = db[collection].filter(item => item.id !== id);
+        this.saveDB(db);
+        return true;
+      },
+
+      // الحصول على الإشعارات من جميع الأنظمة
+      getAllNotifications() {
+        // جمع الإشعارات من جميع قواعد البيانات
+        const allNotifications = [];
+        
+        // إشعارات العملاء
+        try {
+          const clientsDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+          if (clientsDB.notifications) {
+            clientsDB.notifications.forEach(notif => {
+              notif.source = 'clients';
+              allNotifications.push(notif);
+            });
+          }
+        } catch(e) {}
+        
+        // إشعارات التذاكر
+        try {
+          const flightsDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+          if (flightsDB.notifications) {
+            flightsDB.notifications.forEach(notif => {
+              notif.source = 'flights';
+              allNotifications.push(notif);
+            });
+          }
+        } catch(e) {}
+        
+        // إشعارات التأشيرات
+        try {
+          const visasDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+          if (visasDB.statusNotifications) {
+            visasDB.statusNotifications.forEach(notif => {
+              notif.source = 'visas';
+              allNotifications.push(notif);
+            });
+          }
+        } catch(e) {}
+        
+        // إشعارات العمرة
+        try {
+          const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{}');
+          if (umrahDB.notifications) {
+            umrahDB.notifications.forEach(notif => {
+              notif.source = 'umrah';
+              allNotifications.push(notif);
+            });
+          }
+        } catch(e) {}
+        
+        // إشعارات مركز الإشعارات
+        const notificationDB = this.getDB();
+        if (notificationDB.notifications) {
+          notificationDB.notifications.forEach(notif => {
+            notif.source = 'notifications';
+            allNotifications.push(notif);
+          });
+        }
+        
+        return allNotifications;
+      }
+    };
+
+    // نظام إدارة الإشعارات المتقدم
+    const AdvancedNotificationManager = {
+      currentFilter: 'all',
+      
+      // تهيئة النظام
+      async init() {
+        await NotificationDB.init();
+        this.setupEventListeners();
+        this.renderNotifications();
+        this.updateStats();
+        
+        // التحقق من الإشعارات الجديدة كل 30 ثانية
+        setInterval(() => {
+          this.renderNotifications();
+          this.updateStats();
+        }, 30000);
+      },
+      
+      // إعداد مستمعي الأحداث
+      setupEventListeners() {
+        // حفظ النموذج
+        document.getElementById('notificationForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.saveNotification();
+        });
+        
+        // مسح النموذج
+        document.getElementById('resetBtn').addEventListener('click', () => {
+          this.resetForm();
+        });
+        
+        // تحديث القائمة
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+          this.renderNotifications();
+          this.updateStats();
+          this.showToast('تم التحديث', 'تم تحديث قائمة الإشعارات', 'success');
+        });
+        
+        // تعيين الكل كمقروء
+        document.getElementById('markAllReadBtn').addEventListener('click', () => {
+          this.markAllAsRead();
+        });
+        
+        // حذف الإشعارات المنتهية
+        document.getElementById('clearOldBtn').addEventListener('click', () => {
+          this.clearOldNotifications();
+        });
+        
+        // تصفية الإشعارات
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            this.currentFilter = tab.dataset.filter;
+            this.renderNotifications();
+          });
+        });
+      },
+      
+      // حفظ إشعار جديد
+      async saveNotification() {
+        const form = document.getElementById('notificationForm');
+        const formData = new FormData(form);
+        
+        // التحقق من صحة البيانات
+        if (!formData.get('notificationTitle') || !formData.get('notificationMessage')) {
+          this.showToast('خطأ', 'يرجى ملء جميع الحقول المطلوبة', 'error');
+          return;
+        }
+        
+        // تجميع البيانات
+        const notificationData = {
+          title: formData.get('notificationTitle'),
+          message: formData.get('notificationMessage'),
+          type: formData.get('notificationType'),
+          priority: formData.get('notificationPriority'),
+          relatedModule: formData.get('relatedModule') || null,
+          relatedId: formData.get('relatedId') || null,
+          scheduledDate: formData.get('scheduledDate') || null,
+          scheduledTime: formData.get('scheduledTime') || null
+        };
+        
+        // حساب وقت الجدولة إذا كان موجوداً
+        let scheduledDateTime = null;
+        if (notificationData.scheduledDate && notificationData.scheduledTime) {
+          scheduledDateTime = new Date(`${notificationData.scheduledDate}T${notificationData.scheduledTime}`);
+          if (isNaN(scheduledDateTime)) {
+            this.showToast('خطأ', 'تاريخ أو وقت الجدولة غير صالح', 'error');
+            return;
+          }
+        }
+        
+        // إضافة الإشعار
+        const newNotification = await NotificationDB.add('notifications', {
+          ...notificationData,
+          scheduledFor: scheduledDateTime ? scheduledDateTime.toISOString() : new Date().toISOString(),
+          isScheduled: !!scheduledDateTime,
+          source: 'notifications'
+        });
+        
+        this.showToast('تم الحفظ', 'تم إنشاء الإشعار بنجاح', 'success');
+        this.resetForm();
+        this.renderNotifications();
+        this.updateStats();
+      },
+      
+      // عرض الإشعارات
+      renderNotifications() {
+        const container = document.getElementById('notificationsList');
+        const emptyState = document.getElementById('emptyState');
+        const allNotifications = NotificationDB.getAllNotifications();
+        
+        // تصفية الإشعارات حسب النوع
+        let filteredNotifications = allNotifications;
+        if (this.currentFilter !== 'all') {
+          filteredNotifications = allNotifications.filter(notif => notif.type === this.currentFilter);
+        }
+        
+        // ترتيب الإشعارات حسب الأهمية والتاريخ
+        filteredNotifications.sort((a, b) => {
+          // الأولوية: عاجل أولاً
+          const priorityOrder = { 'urgent': 4, 'warning': 3, 'info': 2, 'success': 1 };
+          const aPriority = priorityOrder[a.type] || 0;
+          const bPriority = priorityOrder[b.type] || 0;
+          
+          if (aPriority !== bPriority) {
+            return bPriority - aPriority;
+          }
+          
+          // ثم التاريخ (الأحدث أولاً)
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        
+        if (filteredNotifications.length === 0) {
+          container.innerHTML = '';
+          emptyState.style.display = 'block';
+          return;
+        }
+        
+        emptyState.style.display = 'none';
+        
+        container.innerHTML = filteredNotifications.map(notif => {
+          const timeAgo = this.getTimeAgo(notif.createdAt);
+          const badgeClass = `badge-${notif.type}`;
+          const badgeText = this.getBadgeText(notif.type);
+          const sourceIcon = this.getSourceIcon(notif.source);
+          const sourceText = this.getSourceText(notif.source);
+          
+          return `
+            <div class="notification-item ${notif.type}">
+              <div class="notification-header">
+                <div class="notification-title">
+                  <span class="notification-badge ${badgeClass}">${badgeText}</span>
+                  ${notif.title}
+                </div>
+                <div class="notification-time">${timeAgo}</div>
+              </div>
+              
+              <div class="notification-content">
+                ${notif.message}
+              </div>
+              
+              <div class="notification-meta">
+                <div class="notification-source">
+                  <i class="${sourceIcon}"></i>
+                  ${sourceText}
+                  ${notif.relatedModule ? ` • ${this.getModuleText(notif.relatedModule)}` : ''}
+                </div>
+                <div>
+                  ${notif.read ? '<i class="fas fa-check" style="color: var(--success);"></i> مقروء' : '<i class="fas fa-circle" style="color: var(--warning); font-size: 8px;"></i> جديد'}
+                </div>
+              </div>
+              
+              <div class="notification-actions">
+                ${notif.relatedModule && notif.relatedId ? `
+                  <button class="action-btn view" onclick="AdvancedNotificationManager.viewRelated('${notif.relatedModule}', '${notif.relatedId}')">
+                    <i class="fas fa-eye"></i> عرض العنصر
+                  </button>
+                ` : ''}
+                
+                ${!notif.read ? `
+                  <button class="action-btn complete" onclick="AdvancedNotificationManager.markAsRead('${notif.id}', '${notif.source}')">
+                    <i class="fas fa-check"></i> تعيين كمقروء
+                  </button>
+                ` : ''}
+                
+                <button class="action-btn postpone" onclick="AdvancedNotificationManager.postponeNotification('${notif.id}', '${notif.source}')">
+                  <i class="fas fa-clock"></i> تأجيل
+                </button>
+                
+                <button class="action-btn dismiss" onclick="AdvancedNotificationManager.dismissNotification('${notif.id}', '${notif.source}')">
+                  <i class="fas fa-times"></i> تجاهل
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      },
+      
+      // تحديث الإحصائيات
+      updateStats() {
+        const allNotifications = NotificationDB.getAllNotifications();
+        
+        const urgentCount = allNotifications.filter(n => n.type === 'urgent' && !n.read).length;
+        const warningCount = allNotifications.filter(n => n.type === 'warning' && !n.read).length;
+        const infoCount = allNotifications.filter(n => n.type === 'info' && !n.read).length;
+        const successCount = allNotifications.filter(n => n.type === 'success' && !n.read).length;
+        
+        document.getElementById('urgentCount').textContent = urgentCount;
+        document.getElementById('warningCount').textContent = warningCount;
+        document.getElementById('infoCount').textContent = infoCount;
+        document.getElementById('successCount').textContent = successCount;
+      },
+      
+      // عرض العنصر المرتبط
+      viewRelated(module, id) {
+        if (!module || !id) {
+          this.showToast('خطأ', 'لا يوجد عنصر مرتبط', 'error');
+          return;
+        }
+        
+        let url = 'index.html';
+        switch(module) {
+          case 'clients': url = 'clients.html'; break;
+          case 'flights': url = 'flights.html'; break;
+          case 'visas': url = 'visas.html'; break;
+          case 'umrah': url = 'umrah.html'; break;
+        }
+        
+        // الانتقال للصفحة مع تمرير المعرف
+        window.location.href = `${url}?id=${encodeURIComponent(id)}`;
+      },
+      
+      // تعيين الإشعار كمقروء
+      markAsRead(notificationId, source) {
+        // البحث عن الإشعار في المصدر المناسب وتحديثه
+        this.updateNotificationInSource(notificationId, source, { read: true });
+        this.showToast('تم التحديث', 'تم تعيين الإشعار كمقروء', 'success');
+        this.renderNotifications();
+        this.updateStats();
+      },
+      
+      // تأجيل الإشعار
+      postponeNotification(notificationId, source) {
+        const newDate = new Date();
+        newDate.setDate(newDate.getDate() + 1);
+        
+        this.updateNotificationInSource(notificationId, source, { 
+          scheduledFor: newDate.toISOString(),
+          isScheduled: true
+        });
+        
+        this.showToast('تم التأجيل', 'تم تأجيل الإشعار ليوم واحد', 'info');
+        this.renderNotifications();
+      },
+      
+      // تجاهل الإشعار
+      dismissNotification(notificationId, source) {
+        if (!confirm('هل أنت متأكد من أنك تريد تجاهل هذا الإشعار؟')) return;
+        
+        this.deleteNotificationFromSource(notificationId, source);
+        this.showToast('تم الحذف', 'تم تجاهل الإشعار', 'success');
+        this.renderNotifications();
+        this.updateStats();
+      },
+      
+      // تعيين جميع الإشعارات كمقروءة
+      markAllAsRead() {
+        if (!confirm('هل تريد تعيين جميع الإشعارات كمقروءة؟')) return;
+        
+        const allNotifications = NotificationDB.getAllNotifications();
+        allNotifications.forEach(notif => {
+          if (!notif.read) {
+            this.updateNotificationInSource(notif.id, notif.source, { read: true });
+          }
+        });
+        
+        this.showToast('تم التحديث', 'تم تعيين جميع الإشعارات كمقروءة', 'success');
+        this.renderNotifications();
+        this.updateStats();
+      },
+      
+      // حذف الإشعارات المنتهية
+      clearOldNotifications() {
+        if (!confirm('هل تريد حذف جميع الإشعارات المنتهية أو القديمة؟')) return;
+        
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        
+        const allNotifications = NotificationDB.getAllNotifications();
+        allNotifications.forEach(notif => {
+          const notificationDate = new Date(notif.createdAt);
+          if (notificationDate < thirtyDaysAgo || notif.read) {
+            this.deleteNotificationFromSource(notif.id, notif.source);
+          }
+        });
+        
+        this.showToast('تم التنظيف', 'تم حذف الإشعارات القديمة', 'success');
+        this.renderNotifications();
+        this.updateStats();
+      },
+      
+      // تحديث الإشعار في المصدر المناسب
+      updateNotificationInSource(notificationId, source, updates) {
+        try {
+          let db;
+          let collection;
+          
+          switch(source) {
+            case 'clients':
+            case 'flights':
+              db = JSON.parse(localStorage.getItem('aman_database') || '{}');
+              collection = 'notifications';
+              break;
+            case 'visas':
+              db = JSON.parse(localStorage.getItem('aman_database') || '{}');
+              collection = 'statusNotifications';
+              break;
+            case 'umrah':
+              db = JSON.parse(localStorage.getItem('umrah_database') || '{}');
+              collection = 'notifications';
+              break;
+            case 'notifications':
+              db = NotificationDB.getDB();
+              collection = 'notifications';
+              break;
+            default:
+              return;
+          }
+          
+          if (db[collection]) {
+            const index = db[collection].findIndex(item => item.id === notificationId);
+            if (index !== -1) {
+              db[collection][index] = { ...db[collection][index], ...updates };
+              localStorage.setItem(
+                source === 'umrah' ? 'umrah_database' : 
+                source === 'notifications' ? 'notification_database' : 'aman_database', 
+                JSON.stringify(db)
+              );
+            }
+          }
+        } catch(e) {
+          console.error('Error updating notification:', e);
+        }
+      },
+      
+      // حذف الإشعار من المصدر المناسب
+      deleteNotificationFromSource(notificationId, source) {
+        try {
+          let db;
+          let collection;
+          
+          switch(source) {
+            case 'clients':
+            case 'flights':
+              db = JSON.parse(localStorage.getItem('aman_database') || '{}');
+              collection = 'notifications';
+              break;
+            case 'visas':
+              db = JSON.parse(localStorage.getItem('aman_database') || '{}');
+              collection = 'statusNotifications';
+              break;
+            case 'umrah':
+              db = JSON.parse(localStorage.getItem('umrah_database') || '{}');
+              collection = 'notifications';
+              break;
+            case 'notifications':
+              db = NotificationDB.getDB();
+              collection = 'notifications';
+              break;
+            default:
+              return;
+          }
+          
+          if (db[collection]) {
+            db[collection] = db[collection].filter(item => item.id !== notificationId);
+            localStorage.setItem(
+              source === 'umrah' ? 'umrah_database' : 
+              source === 'notifications' ? 'notification_database' : 'aman_database', 
+              JSON.stringify(db)
+            );
+          }
+        } catch(e) {
+          console.error('Error deleting notification:', e);
+        }
+      },
+      
+      // مسح النموذج
+      resetForm() {
+        document.getElementById('notificationForm').reset();
+        
+        // تعيين القيم الافتراضية
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('scheduledDate').value = today;
+        
+        const now = new Date();
+        const timeString = now.toTimeString().split(' ')[0].substring(0, 5);
+        document.getElementById('scheduledTime').value = timeString;
+      },
+      
+      // حساب الوقت المنقضي
+      getTimeAgo(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        if (diffMins < 1) return 'الآن';
+        if (diffMins < 60) return `منذ ${diffMins} دقيقة`;
+        if (diffHours < 24) return `منذ ${diffHours} ساعة`;
+        if (diffDays < 7) return `منذ ${diffDays} يوم`;
+        
+        return date.toLocaleDateString('ar-EG');
+      },
+      
+      // الحصول على نص البادج
+      getBadgeText(type) {
+        const texts = {
+          'urgent': 'عاجل',
+          'warning': 'تحذير',
+          'info': 'معلومات',
+          'success': 'مكتمل'
+        };
+        return texts[type] || 'معلومات';
+      },
+      
+      // الحصول على أيقونة المصدر
+      getSourceIcon(source) {
+        const icons = {
+          'clients': 'fas fa-users',
+          'flights': 'fas fa-ticket-alt',
+          'visas': 'fas fa-passport',
+          'umrah': 'fas fa-kaaba',
+          'notifications': 'fas fa-bell'
+        };
+        return icons[source] || 'fas fa-bell';
+      },
+      
+      // الحصول على نص المصدر
+      getSourceText(source) {
+        const texts = {
+          'clients': 'العملاء',
+          'flights': 'التذاكر',
+          'visas': 'التأشيرات',
+          'umrah': 'العمرة',
+          'notifications': 'مركز الإشعارات'
+        };
+        return texts[source] || 'عام';
+      },
+      
+      // الحصول على نص الوحدة
+      getModuleText(module) {
+        const texts = {
+          'clients': 'عميل',
+          'flights': 'تذكرة',
+          'visas': 'تأشيرة',
+          'umrah': 'عمرة'
+        };
+        return texts[module] || 'عنصر';
+      },
+      
+      // عرض رسائل للمستخدم
+      showToast(title, message, type = 'info') {
+        // إنشاء عنصر toast ديناميكي
+        const toast = document.createElement('div');
+        toast.className = `notification-toast ${type}`;
+        toast.style.cssText = `
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          right: 20px;
+          background: white;
+          padding: 15px 20px;
+          border-radius: var(--border-radius);
+          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          z-index: 1000;
+          transform: translateY(-100px);
+          opacity: 0;
+          transition: all 0.4s ease;
+          border-right: 4px solid ${type === 'success' ? 'var(--success)' : type === 'warning' ? 'var(--warning)' : type === 'error' ? 'var(--danger)' : 'var(--info)'};
+        `;
+        
+        const iconClass = type === 'success' ? 'fas fa-check-circle' : 
+                         type === 'warning' ? 'fas fa-exclamation-triangle' : 
+                         type === 'error' ? 'fas fa-times-circle' : 'fas fa-info-circle';
+        
+        const iconColor = type === 'success' ? 'var(--success)' : 
+                         type === 'warning' ? 'var(--warning)' : 
+                         type === 'error' ? 'var(--danger)' : 'var(--info)';
+        
+        toast.innerHTML = `
+          <div class="notification-icon" style="background: ${iconColor};">
+            <i class="${iconClass}"></i>
+          </div>
+          <div class="notification-content">
+            <h4>${title}</h4>
+            <p>${message}</p>
+          </div>
+          <button class="notification-close">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // إظهار الإشعار
+        setTimeout(() => {
+          toast.style.transform = 'translateY(0)';
+          toast.style.opacity = '1';
+        }, 100);
+        
+        // إعداد إغلاق الإشعار
+        toast.querySelector('.notification-close').addEventListener('click', () => {
+          toast.style.transform = 'translateY(-100px)';
+          toast.style.opacity = '0';
+          setTimeout(() => {
+            if (toast.parentNode) {
+              toast.parentNode.removeChild(toast);
+            }
+          }, 400);
+        });
+        
+        // إخفاء تلقائي بعد 5 ثوان
+        setTimeout(() => {
+          if (toast.parentNode) {
+            toast.style.transform = 'translateY(-100px)';
+            toast.style.opacity = '0';
+            setTimeout(() => {
+              if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+              }
+            }, 400);
+          }
+        }, 5000);
+      }
+    };
+
+    // تهيئة التطبيق عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      AdvancedNotificationManager.init();
+    });
+  </script>
+</body>
+</html>
