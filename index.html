@@ -6,7 +6,6 @@
   <title>أمان - لوحة التحكم الرئيسية</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
   <style>
     :root {
       --primary: #2c5aa0;
@@ -852,9 +851,6 @@
           <button class="btn btn-primary ripple btn-block" id="exportJsonBtn">
             <i class="fas fa-file-code"></i> تصدير JSON
           </button>
-          <button class="btn btn-success ripple btn-block" id="exportExcelBtn">
-            <i class="fas fa-file-excel"></i> تصدير Excel
-          </button>
         </div>
 
         <div class="backup-card">
@@ -866,12 +862,6 @@
             </button>
             <input type="file" id="importJsonInput" accept=".json">
           </div>
-          <div class="file-input-container">
-            <button class="file-input-label">
-              <i class="fas fa-file-excel"></i> اختيار ملف Excel
-            </button>
-            <input type="file" id="importExcelInput" accept=".xlsx,.xls">
-          </div>
         </div>
 
         <div class="backup-card">
@@ -881,7 +871,7 @@
             <button class="file-input-label">
               <i class="fas fa-layer-group"></i> دمج من ملف
             </button>
-            <input type="file" id="mergeDataInput" accept=".json,.xlsx,.xls">
+            <input type="file" id="mergeDataInput" accept=".json">
           </div>
           <div class="progress-bar">
             <div class="progress" id="mergeProgress"></div>
@@ -899,36 +889,40 @@
     class DataCollector {
         static getAllClients() {
             try {
-                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{"clients": []}');
                 return amanDB.clients || [];
             } catch (e) {
+                console.error('خطأ في قراءة بيانات العملاء:', e);
                 return [];
             }
         }
 
         static getAllFlights() {
             try {
-                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{"flights": []}');
                 return amanDB.flights || [];
             } catch (e) {
+                console.error('خطأ في قراءة بيانات التذاكر:', e);
                 return [];
             }
         }
 
         static getAllVisas() {
             try {
-                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{"visas": []}');
                 return amanDB.visas || [];
             } catch (e) {
+                console.error('خطأ في قراءة بيانات التأشيرات:', e);
                 return [];
             }
         }
 
         static getAllUmrahBookings() {
             try {
-                const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{}');
+                const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{"bookings": []}');
                 return umrahDB.bookings || [];
             } catch (e) {
+                console.error('خطأ في قراءة بيانات العمرة:', e);
                 return [];
             }
         }
@@ -936,9 +930,9 @@
         static getAllNotifications() {
             try {
                 // جمع الإشعارات من جميع المصادر
-                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
-                const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{}');
-                const notificationDB = JSON.parse(localStorage.getItem('notification_database') || '{}');
+                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{"notifications": []}');
+                const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{"notifications": []}');
+                const notificationDB = JSON.parse(localStorage.getItem('notification_database') || '{"notifications": []}');
                 
                 const allNotifications = [
                     ...(amanDB.notifications || []),
@@ -948,16 +942,92 @@
                 
                 return allNotifications.filter(notif => !notif.read);
             } catch (e) {
+                console.error('خطأ في قراءة الإشعارات:', e);
                 return [];
             }
         }
 
         static getSystemActivity() {
             try {
-                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{"activity": []}');
                 return amanDB.activity || [];
             } catch (e) {
+                console.error('خطأ في قراءة النشاطات:', e);
                 return [];
+            }
+        }
+
+        // دالة مساعدة لإنشاء بيانات تجريبية إذا لم تكن موجودة
+        static createSampleData() {
+            // بيانات تجريبية للعملاء
+            const sampleClients = [
+                {
+                    id: 1,
+                    name: "أحمد محمد",
+                    phone: "0512345678",
+                    email: "ahmed@example.com",
+                    travelDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    destination: "دبي"
+                },
+                {
+                    id: 2,
+                    name: "فاطمة علي",
+                    phone: "0587654321",
+                    email: "fatima@example.com",
+                    travelDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    destination: "اسطنبول"
+                }
+            ];
+
+            // بيانات تجريبية للتذاكر
+            const sampleFlights = [
+                {
+                    id: 1,
+                    clientName: "أحمد محمد",
+                    flightNumber: "SV123",
+                    departure: "الرياض",
+                    destination: "دبي",
+                    date: new Date().toISOString().split('T')[0]
+                }
+            ];
+
+            // بيانات تجريبية للتأشيرات
+            const sampleVisas = [
+                {
+                    id: 1,
+                    clientName: "فاطمة علي",
+                    type: "سياحية",
+                    expiryDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                }
+            ];
+
+            // بيانات تجريبية للعمرة
+            const sampleUmrah = [
+                {
+                    id: 1,
+                    clientName: "سالم عبدالله",
+                    travelDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    status: "confirmed"
+                }
+            ];
+
+            // حفظ البيانات إذا لم تكن موجودة
+            if (this.getAllClients().length === 0) {
+                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                amanDB.clients = sampleClients;
+                amanDB.flights = sampleFlights;
+                amanDB.visas = sampleVisas;
+                amanDB.activity = [
+                    { text: "تم إنشاء بيانات تجريبية", when: "الآن" },
+                    { text: "نظام النسخ الاحتياطي جاهز للعمل", when: "الآن" }
+                ];
+                localStorage.setItem('aman_database', JSON.stringify(amanDB));
+            }
+
+            if (this.getAllUmrahBookings().length === 0) {
+                const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{}');
+                umrahDB.bookings = sampleUmrah;
+                localStorage.setItem('umrah_database', JSON.stringify(umrahDB));
             }
         }
     }
@@ -1080,12 +1150,279 @@
         }
     }
 
+    // نظام النسخ الاحتياطي والاستعادة - محسّن
+    class BackupSystem {
+        static exportData() {
+            try {
+                const data = {
+                    clients: DataCollector.getAllClients(),
+                    flights: DataCollector.getAllFlights(),
+                    visas: DataCollector.getAllVisas(),
+                    umrahBookings: DataCollector.getAllUmrahBookings(),
+                    exportDate: new Date().toISOString(),
+                    version: '1.0',
+                    totalRecords: DataCollector.getAllClients().length + 
+                                 DataCollector.getAllFlights().length + 
+                                 DataCollector.getAllVisas().length + 
+                                 DataCollector.getAllUmrahBookings().length
+                };
+
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `aman_backup_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                console.log('تم تصدير البيانات بنجاح:', data);
+                return true;
+            } catch (error) {
+                console.error('خطأ في تصدير البيانات:', error);
+                return false;
+            }
+        }
+
+        static importData(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) {
+                    reject(new Error('لم يتم اختيار ملف'));
+                    return;
+                }
+
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        // التحقق من صحة البيانات
+                        if (!this.validateBackupData(data)) {
+                            reject(new Error('الملف غير صالح أو تالف'));
+                            return;
+                        }
+                        
+                        // استيراد البيانات إلى التخزين المحلي
+                        this.saveImportedData(data);
+                        resolve({
+                            success: true,
+                            message: `تم استيراد ${data.totalRecords || 0} سجل بنجاح`,
+                            data: data
+                        });
+                    } catch (error) {
+                        reject(new Error('خطأ في قراءة الملف: ' + error.message));
+                    }
+                };
+                
+                reader.onerror = () => {
+                    reject(new Error('خطأ في قراءة الملف'));
+                };
+                
+                reader.readAsText(file);
+            });
+        }
+
+        static mergeData(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) {
+                    reject(new Error('لم يتم اختيار ملف'));
+                    return;
+                }
+
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        // التحقق من صحة البيانات
+                        if (!this.validateBackupData(data)) {
+                            reject(new Error('الملف غير صالح أو تالف'));
+                            return;
+                        }
+                        
+                        // دمج البيانات مع البيانات الحالية
+                        const result = this.mergeWithExistingData(data);
+                        resolve({
+                            success: true,
+                            message: `تم دمج ${result.addedRecords} سجل جديد`,
+                            data: result
+                        });
+                    } catch (error) {
+                        reject(new Error('خطأ في قراءة الملف: ' + error.message));
+                    }
+                };
+                
+                reader.onerror = () => {
+                    reject(new Error('خطأ في قراءة الملف'));
+                };
+                
+                reader.readAsText(file);
+            });
+        }
+
+        static validateBackupData(data) {
+            // التحقق من أن البيانات تحتوي على الهيكل الأساسي
+            return data && 
+                   typeof data === 'object' && 
+                   (Array.isArray(data.clients) || 
+                    Array.isArray(data.flights) || 
+                    Array.isArray(data.visas) || 
+                    Array.isArray(data.umrahBookings));
+        }
+
+        static saveImportedData(data) {
+            try {
+                // حفظ البيانات في التخزين المحلي
+                if (data.clients && data.clients.length > 0) {
+                    const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                    amanDB.clients = data.clients;
+                    localStorage.setItem('aman_database', JSON.stringify(amanDB));
+                }
+                
+                if (data.flights && data.flights.length > 0) {
+                    const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                    amanDB.flights = data.flights;
+                    localStorage.setItem('aman_database', JSON.stringify(amanDB));
+                }
+                
+                if (data.visas && data.visas.length > 0) {
+                    const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                    amanDB.visas = data.visas;
+                    localStorage.setItem('aman_database', JSON.stringify(amanDB));
+                }
+                
+                if (data.umrahBookings && data.umrahBookings.length > 0) {
+                    const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{}');
+                    umrahDB.bookings = data.umrahBookings;
+                    localStorage.setItem('umrah_database', JSON.stringify(umrahDB));
+                }
+
+                // إضافة نشاط الاستيراد
+                this.addActivity('تم استيراد بيانات النسخ الاحتياطي');
+                
+                return true;
+            } catch (error) {
+                console.error('خطأ في حفظ البيانات المستوردة:', error);
+                return false;
+            }
+        }
+
+        static mergeWithExistingData(data) {
+            let addedRecords = 0;
+            
+            try {
+                // دمج العملاء
+                if (data.clients && data.clients.length > 0) {
+                    const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                    const existingClients = amanDB.clients || [];
+                    const initialCount = existingClients.length;
+                    
+                    // دمج العملاء مع تجنب التكرار (بناءً على المعرف)
+                    data.clients.forEach(newClient => {
+                        const exists = existingClients.some(client => client.id === newClient.id);
+                        if (!exists) {
+                            existingClients.push(newClient);
+                            addedRecords++;
+                        }
+                    });
+                    
+                    amanDB.clients = existingClients;
+                    localStorage.setItem('aman_database', JSON.stringify(amanDB));
+                }
+                
+                // دمج التذاكر
+                if (data.flights && data.flights.length > 0) {
+                    const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                    const existingFlights = amanDB.flights || [];
+                    
+                    data.flights.forEach(newFlight => {
+                        const exists = existingFlights.some(flight => flight.id === newFlight.id);
+                        if (!exists) {
+                            existingFlights.push(newFlight);
+                            addedRecords++;
+                        }
+                    });
+                    
+                    amanDB.flights = existingFlights;
+                    localStorage.setItem('aman_database', JSON.stringify(amanDB));
+                }
+                
+                // دمج التأشيرات
+                if (data.visas && data.visas.length > 0) {
+                    const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                    const existingVisas = amanDB.visas || [];
+                    
+                    data.visas.forEach(newVisa => {
+                        const exists = existingVisas.some(visa => visa.id === newVisa.id);
+                        if (!exists) {
+                            existingVisas.push(newVisa);
+                            addedRecords++;
+                        }
+                    });
+                    
+                    amanDB.visas = existingVisas;
+                    localStorage.setItem('aman_database', JSON.stringify(amanDB));
+                }
+                
+                // دمج حجوزات العمرة
+                if (data.umrahBookings && data.umrahBookings.length > 0) {
+                    const umrahDB = JSON.parse(localStorage.getItem('umrah_database') || '{}');
+                    const existingBookings = umrahDB.bookings || [];
+                    
+                    data.umrahBookings.forEach(newBooking => {
+                        const exists = existingBookings.some(booking => booking.id === newBooking.id);
+                        if (!exists) {
+                            existingBookings.push(newBooking);
+                            addedRecords++;
+                        }
+                    });
+                    
+                    umrahDB.bookings = existingBookings;
+                    localStorage.setItem('umrah_database', JSON.stringify(umrahDB));
+                }
+
+                // إضافة نشاط الدمج
+                this.addActivity(`تم دمج ${addedRecords} سجل جديد`);
+
+                return { addedRecords };
+            } catch (error) {
+                console.error('خطأ في دمج البيانات:', error);
+                return { addedRecords: 0, error: error.message };
+            }
+        }
+
+        static addActivity(message) {
+            try {
+                const amanDB = JSON.parse(localStorage.getItem('aman_database') || '{}');
+                if (!amanDB.activity) {
+                    amanDB.activity = [];
+                }
+                amanDB.activity.push({
+                    text: message,
+                    when: new Date().toLocaleTimeString('ar-SA')
+                });
+                // الاحتفاظ بآخر 50 نشاط فقط
+                if (amanDB.activity.length > 50) {
+                    amanDB.activity = amanDB.activity.slice(-50);
+                }
+                localStorage.setItem('aman_database', JSON.stringify(amanDB));
+            } catch (error) {
+                console.error('خطأ في إضافة النشاط:', error);
+            }
+        }
+    }
+
     // نظام لوحة التحكم الرئيسية
     class DashboardManager {
         static init() {
             this.setupMobileMenu();
-            this.refreshAllData();
             this.setupEventListeners();
+            // إنشاء بيانات تجريبية إذا لزم الأمر
+            DataCollector.createSampleData();
+            this.refreshAllData();
         }
 
         static setupMobileMenu() {
@@ -1262,27 +1599,21 @@
 
             // تصدير JSON
             document.getElementById('exportJsonBtn').addEventListener('click', () => {
-                this.exportData('json');
-            });
-
-            // تصدير Excel
-            document.getElementById('exportExcelBtn').addEventListener('click', () => {
-                this.exportData('excel');
+                this.exportData();
             });
 
             // استيراد JSON
             document.getElementById('importJsonInput').addEventListener('change', (e) => {
-                this.importData(e.target.files[0], 'json');
-            });
-
-            // استيراد Excel
-            document.getElementById('importExcelInput').addEventListener('change', (e) => {
-                this.importData(e.target.files[0], 'excel');
+                this.importData(e.target.files[0]);
+                // إعادة تعيين حقل الإدخال للسماح باختيار نفس الملف مرة أخرى
+                e.target.value = '';
             });
 
             // دمج البيانات
             document.getElementById('mergeDataInput').addEventListener('change', (e) => {
                 this.mergeData(e.target.files[0]);
+                // إعادة تعيين حقل الإدخال للسماح باختيار نفس الملف مرة أخرى
+                e.target.value = '';
             });
         }
 
@@ -1298,72 +1629,48 @@
         static performBackup() {
             this.showLoading(true);
             setTimeout(() => {
-                this.showMessage('تم إنشاء نسخة احتياطية بنجاح', 'success');
+                const success = BackupSystem.exportData();
+                if (success) {
+                    this.showMessage('تم إنشاء نسخة احتياطية بنجاح', 'success');
+                } else {
+                    this.showMessage('حدث خطأ أثناء إنشاء النسخة الاحتياطية', 'error');
+                }
                 this.showLoading(false);
-            }, 1000);
+            }, 500);
         }
 
-        static exportData(type) {
-            const data = {
-                clients: DataCollector.getAllClients(),
-                flights: DataCollector.getAllFlights(),
-                visas: DataCollector.getAllVisas(),
-                umrahBookings: DataCollector.getAllUmrahBookings(),
-                exportDate: new Date().toISOString()
-            };
-
-            if (type === 'json') {
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                this.downloadFile(blob, `aman_backup_${new Date().toISOString().split('T')[0]}.json`);
-            } else {
-                // تصدير Excel
-                const worksheet = XLSX.utils.json_to_sheet([
-                    { نوع_البيانات: 'العملاء', العدد: data.clients.length },
-                    { نوع_البيانات: 'التذاكر', العدد: data.flights.length },
-                    { نوع_البيانات: 'التأشيرات', العدد: data.visas.length },
-                    { نوع_البيانات: 'حجوزات العمرة', العدد: data.umrahBookings.length }
-                ]);
-                const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, 'الإحصائيات');
-                XLSX.writeFile(workbook, `aman_backup_${new Date().toISOString().split('T')[0]}.xlsx`);
+        static exportData() {
+            try {
+                const success = BackupSystem.exportData();
+                if (success) {
+                    this.showMessage('تم تصدير البيانات بنجاح', 'success');
+                    return true;
+                } else {
+                    this.showMessage('حدث خطأ أثناء التصدير', 'error');
+                    return false;
+                }
+            } catch (error) {
+                this.showMessage('حدث خطأ غير متوقع أثناء التصدير: ' + error.message, 'error');
+                return false;
             }
-
-            this.showMessage(`تم تصدير البيانات بنجاح`, 'success');
         }
 
-        static downloadFile(blob, filename) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        static importData(file, type) {
+        static importData(file) {
             if (!file) return;
             
             this.showLoading(true);
-            const reader = new FileReader();
             
-            reader.onload = (e) => {
-                try {
-                    this.showMessage('تم استيراد البيانات بنجاح', 'success');
+            BackupSystem.importData(file)
+                .then(result => {
+                    this.showMessage(result.message, 'success');
                     this.refreshAllData();
-                } catch (error) {
-                    this.showMessage('حدث خطأ في استيراد البيانات', 'error');
-                } finally {
+                })
+                .catch(error => {
+                    this.showMessage('حدث خطأ في استيراد البيانات: ' + error.message, 'error');
+                })
+                .finally(() => {
                     this.showLoading(false);
-                }
-            };
-            
-            if (type === 'json') {
-                reader.readAsText(file);
-            } else {
-                reader.readAsArrayBuffer(file);
-            }
+                });
         }
 
         static mergeData(file) {
@@ -1373,15 +1680,24 @@
             const progressBar = document.getElementById('mergeProgress');
             progressBar.style.width = '0%';
             
+            // محاكاة تقدم العملية
             setTimeout(() => progressBar.style.width = '30%', 100);
             setTimeout(() => progressBar.style.width = '60%', 300);
-            setTimeout(() => progressBar.style.width = '100%', 500);
+            setTimeout(() => progressBar.style.width = '90%', 500);
             
-            setTimeout(() => {
-                this.showMessage('تم دمج البيانات بنجاح', 'success');
-                this.showLoading(false);
-                setTimeout(() => progressBar.style.width = '0%', 1000);
-            }, 800);
+            BackupSystem.mergeData(file)
+                .then(result => {
+                    progressBar.style.width = '100%';
+                    this.showMessage(result.message, 'success');
+                    this.refreshAllData();
+                })
+                .catch(error => {
+                    this.showMessage('حدث خطأ في دمج البيانات: ' + error.message, 'error');
+                })
+                .finally(() => {
+                    this.showLoading(false);
+                    setTimeout(() => progressBar.style.width = '0%', 1000);
+                });
         }
 
         static showLoading(show) {
@@ -1389,6 +1705,10 @@
         }
 
         static showMessage(message, type) {
+            // إزالة أي رسائل سابقة
+            const existingMessages = document.querySelectorAll('.message');
+            existingMessages.forEach(msg => msg.remove());
+            
             const messageEl = document.createElement('div');
             messageEl.textContent = message;
             messageEl.className = `message ${type}`;
@@ -1402,23 +1722,14 @@
                         messageEl.parentNode.removeChild(messageEl);
                     }
                 }, 300);
-            }, 3000);
+            }, 4000);
         }
     }
 
     // تهيئة النظام عند تحميل الصفحة
     document.addEventListener('DOMContentLoaded', function() {
         DashboardManager.init();
-        
-        // إضافة بيانات تجريبية إذا لم تكن موجودة
-        setTimeout(() => {
-            const clients = DataCollector.getAllClients();
-            const umrahBookings = DataCollector.getAllUmrahBookings();
-            
-            if (clients.length === 0 && umrahBookings.length === 0) {
-                DashboardManager.showMessage('تم تحميل لوحة التحكم بنجاح!', 'success');
-            }
-        }, 1000);
+        DashboardManager.showMessage('تم تحميل لوحة التحكم بنجاح!', 'success');
     });
   </script>
 </body>
